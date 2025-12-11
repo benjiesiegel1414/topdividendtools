@@ -1,199 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TopDividendTools.com – Best Dividend Investing Tools (Top 50+ Comparison)</title>
-  <meta name="description" content="Compare the top dividend stock screeners, trackers, calculators, newsletters, brokers & more. Ranked by ratings, pricing, and features in 2025."/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <title>Top 100+ Dividend Investing Tools 2025</title>
+    <meta name="description" content="Best dividend screeners, trackers, calculators & newsletters ranked daily.">
 
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EG30PW49ZN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-EG30PW49ZN');
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        html,body{margin:0;padding:0;overflow-x:hidden;width:100%}
+        :root{
+            --green:#152514;
+            --green-dark:#0d1a0f;
+            --green-light:#1e3a1e;
+            --red:#e74c3c;
         }
-      }
-    }
-  </script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        body{font-family:'Lato',sans-serif;background:#f4f4f4;color:#333;display:flex;flex-direction:column;align-items:center;min-height:100vh}
+        header{background:var(--green);padding:12px 20px;text-align:center;width:100%;box-shadow:0 2px 10px rgba(0,0,0,.4);background-image:url('https://www.transparenttextures.com/patterns/noise.png');background-blend-mode:overlay;position:sticky;top:0;z-index:10}
+        .banner-img{max-width:460px;width:88%;height:auto;display:block;margin:0 auto;border-radius:12px}
+        @media(min-width:768px){.banner-img{max-width:480px}}
+        .main-h1{text-align:center;margin:28px auto 10px;padding:0 15px;max-width:1100px}
+        .main-h1 h1{font-size:1.8em;margin:0;color:var(--green);line-height:1.3;font-weight:900}
+        .main-h1 span{display:block;font-size:0.82em;color:var(--red);font-weight:900;margin-top:8px}
+        .content{width:94%;max-width:1100px;margin:0 auto;display:flex;flex-direction:column;align-items:center}
+        .top-disclaimer{max-width:900px;margin:20px auto;padding:0 15px;text-align:center;font-size:0.92em;line-height:1.8;color:#222}
+        .top-disclaimer strong{color:#c62828;font-weight:900}
+        .highlight{background:#e8f5e8;padding:3px 8px;border-radius:5px;font-weight:900;color:#155724}
+        #toolsTable{width:100%;border-collapse:collapse;background:#fff;border:4px solid var(--green);border-radius:10px;overflow:hidden;box-shadow:0 6px 20px rgba(21,37,20,.3);margin:20px 0}
+        th{background:var(--green);color:#fff;padding:14px 8px;font-size:1em;cursor:pointer;white-space:nowrap}
+        td{padding:12px 8px;font-size:1em;text-align:center}
+        tr:nth-child(even){background:#f8fff8}
+        tr:hover{background:#e8f5e8}
+        .tool-name{font-weight:900;font-size:1.25em;color:var(--green)}
+        .free{color:#27ae60 !important;font-weight:900}
+        @media(min-width:769px){th,td{padding:16px 10px;font-size:1.1em}}
+        @media(max-width:768px){
+            th{display:none}
+            tr{display:flex;flex-direction:column;background:#fff;border-radius:8px;margin:12px 0;padding:14px;box-shadow:0 4px 12px rgba(21,37,20,.2)}
+            td{display:flex;justify-content:space-between;padding:6px 0;font-size:1em}
+            td:before{content:attr(data-label);font-weight:bold;color:var(--green);min-width:130px}
+        }
+        .sort-asc::after,.sort-desc::after{content:" ";position:absolute;right:10px;top:50%;transform:translateY(-50%);border-left:6px solid transparent;border-right:6px solid transparent}
+        .sort-asc::after{border-bottom:8px solid #fff}
+        .sort-desc::after{border-top:8px solid #fff}
+        #filters{max-width:1100px;margin:20px auto;display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center}
+        #resetFilters{padding:10px 20px;background:var(--green);color:#fff;border-radius:8px;cursor:pointer;font-weight:900;border:none}
+        #resetFilters:hover{background:var(--green-dark)}
+        select,input{padding:10px 14px;border-radius:8px;border:1px solid #ccc;font-size:1em}
+        .loading{text-align:center;padding:50px;font-size:1.4em;color:#555}
+        .disclaimer{font-size:.92em;color:#666;margin:30px auto;max-width:900px;line-height:1.6;text-align:center}
+        .footer{margin-top:50px;padding:30px;background:#fff;width:100%;text-align:center;font-size:0.95em;color:#555;border-top:4px solid var(--green)}
+        .footer a{color:var(--green);text-decoration:none;margin:0 14px;font-weight:700}
+        .footer a:hover{text-decoration:underline}
+        .footer .tagline{font-size:1.4em;font-weight:900;color:var(--green);margin:25px 0}
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body>
+<div class="content">
 
-  <!-- Header (inspired by 10Best: Simple, prominent title) -->
-  <header class="bg-white shadow-sm border-b">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-      <div class="text-center">
-        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Best Dividend Investing Tools (Top 50+ Comparison)</h1>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">Hand-vetted directory of the best dividend screeners, trackers, calculators, newsletters, brokers & courses. Ranked by user ratings, features, and value. Updated December 2025.</p>
-        <a href="#submit" class="mt-6 inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition">Submit Your Tool</a>
-      </div>
+    <!-- LOGO BANNER – NOW WITH ABSOLUTE URL -->
+    <header>
+        <img src="https://topdividendtools.com/banner.png" alt="TopDividendTools.com Logo" class="banner-img">
+    </header>
+
+    <div class="main-h1">
+        <h1>Top 100+ Dividend Investing Tools 2025
+            <span>Best Screeners, Trackers & Calculators – Ranked Daily</span>
+        </h1>
     </div>
-  </header>
 
-  <!-- Quick Filters (subtle, like their implied sorting) -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 bg-white">
-    <div class="flex flex-col sm:flex-row gap-4 items-center justify-center">
-      <input type="text" id="search" placeholder="Search tools..." class="px-4 py-2 border rounded-lg w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
-      <select class="px-4 py-2 border rounded-lg">
-        <option>Sort: Highest Rated</option>
-        <option>Newest</option>
-        <option>Most Popular</option>
-      </select>
-      <select class="px-4 py-2 border rounded-lg">
-        <option>All Categories</option>
-        <option>Screener</option>
-        <option>Tracker</option>
-        <option>Calculator</option>
-        <option>Newsletter</option>
-        <option>Broker</option>
-      </select>
+    <div class="top-disclaimer">
+        The most accurate & complete directory of dividend investing tools on the internet<br>
+        <strong>100% FREE • Updated Daily • Independently Ranked</strong><br><br>
+        <strong>Rankings:</strong> Based on features, pricing, user feedback, and real investor usage<br>
+        <strong>Affiliate Disclosure:</strong> Some links may earn us a commission at no cost to you<br>
+        <span class="highlight">This is NOT financial advice — always do your own research!</span>
     </div>
-  </div>
 
-  <!-- Main Comparison Table (core of 10Best style: Ranked, tabular for quick comparison) -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Quick Comparison: Top Dividend Tools</h2>
-    <div class="overflow-x-auto">
-      <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
-        <thead class="bg-gray-50">
-          <tr>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rank</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tool</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Best For</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pricing</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rating</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Key Features</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
-          </tr>
+    <div id="filters">
+        <button id="resetFilters">Reset Filters</button>
+        <input type="text" id="searchFilter" placeholder="Search Tool Name or Category">
+        <select id="pricingFilter">
+            <option value="">Pricing: All</option>
+            <option value="Free">Free Only</option>
+            <option value="Paid">Paid Only</option>
+        </select>
+    </div>
+
+    <div class="loading" id="loading">Loading latest dividend tools data…</div>
+
+    <table id="toolsTable" style="display:none">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">Rank</th>
+                <th onclick="sortTable(1)">Tool Name</th>
+                <th onclick="sortTable(2)">Category</th>
+                <th onclick="sortTable(3)">Best For</th>
+                <th onclick="sortTable(4)">Pricing</th>
+                <th onclick="sortTable(5)">Key Feature</th>
+                <th>Visit</th>
+            </tr>
         </thead>
-        <tbody class="divide-y divide-gray-200">
-          <!-- Sample Rows (add more from your sheet) -->
-          <tr class="hover:bg-gray-50 transition">
-            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <a href="#" class="text-indigo-600 hover:underline">Dividend.com</a>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Screening & Calendars</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Freemium ($199/yr)</td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <span class="text-yellow-600">4.7/5</span> (312)
-            </td>
-            <td class="px-6 py-4 text-sm text-gray-500">Yield Tracker, DRIP, Exports</td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <a href="https://dividend.com" target="_blank" class="bg-indigo-600 text-white px-4 py-2 rounded text-xs hover:bg-indigo-700">Visit →</a>
-            </td>
-          </tr>
-          <tr class="hover:bg-gray-50 transition">
-            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2</td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <a href="#" class="text-indigo-600 hover:underline">TrackYourDividends</a>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Beginner Tracking</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Free</td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <span class="text-yellow-600">4.9/5</span> (89)
-            </td>
-            <td class="px-6 py-4 text-sm text-gray-500">Income Projection, CSV Export</td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <a href="https://trackyourdividends.com" target="_blank" class="bg-green-600 text-white px-4 py-2 rounded text-xs hover:bg-green-700">Visit →</a>
-            </td>
-          </tr>
-          <tr class="hover:bg-gray-50 transition">
-            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">3</td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <a href="#" class="text-indigo-600 hover:underline">Seeking Alpha Premium</a>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Research & Alerts</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Paid ($239/yr)</td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <span class="text-yellow-600">4.6/5</span> (1.2k)
-            </td>
-            <td class="px-6 py-4 text-sm text-gray-500">Quant Ratings, Dividend News</td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <a href="https://seekingalpha.com/premium" target="_blank" class="bg-indigo-600 text-white px-4 py-2 rounded text-xs hover:bg-indigo-700">Visit →</a>
-            </td>
-          </tr>
-          <!-- Add 20-50 more rows here, pulled from Google Sheets -->
-        </tbody>
-      </table>
-    </div>
-  </div>
+        <tbody id="toolsBody"></tbody>
+    </table>
 
-  <!-- Detailed Profiles (like their firm descriptions below the table) -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">Detailed Tool Profiles</h2>
-    <div class="space-y-8">
-      <!-- Profile 1 -->
-      <div class="bg-white rounded-lg shadow-md p-6">
-        <div class="flex items-start justify-between mb-4">
-          <h3 class="text-2xl font-bold text-gray-900">Dividend.com</h3>
-          <span class="text-yellow-600 font-bold">#1 Ranked</span>
+    <p class="disclaimer">
+        Disclaimer: TopDividendTools.com is for educational & entertainment purposes only. Rankings are subjective and may include affiliate links. We are not financial advisors. Always verify data and do your own research.
+    </p>
+
+    <footer class="footer">
+        <p>
+            <a href="https://topdividendetfs.com" target="_blank">Top Dividend ETFs</a> | 
+            Contact: <a href="mailto:hello@topdividendtools.com">hello@topdividendtools.com</a>
+        </p>
+        <div class="tagline">
+            The #1 Resource for Dividend Investors
         </div>
-        <p class="text-gray-600 mb-4">The gold standard for dividend investors. Screen thousands of stocks by yield, safety score, and growth. Includes ex-div dates, DRIP tools, and portfolio integration.</p>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          <div><strong>Pros:</strong> Comprehensive data, mobile app</div>
-          <div><strong>Cons:</strong> Premium features locked</div>
-        </div>
-        <a href="https://dividend.com" target="_blank" class="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700">Start Free Trial</a>
-      </div>
+    </footer>
+</div>
 
-      <!-- Profile 2 -->
-      <div class="bg-white rounded-lg shadow-md p-6">
-        <div class="flex items-start justify-between mb-4">
-          <h3 class="text-2xl font-bold text-gray-900">TrackYourDividends</h3>
-          <span class="text-yellow-600 font-bold">#2 Ranked</span>
-        </div>
-        <p class="text-gray-600 mb-4">Free, customizable tracker for projecting your dividend snowball. Track holdings, forecast income, and simulate reinvestments effortlessly.</p>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          <div><strong>Pros:</strong> Zero cost, easy setup</div>
-          <div><strong>Cons:</strong> No real-time alerts</div>
-        </div>
-        <a href="https://trackyourdividends.com" target="_blank" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700">Get Started Free</a>
-      </div>
+<script>
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQyl3IN9OtH6Ux2mS1Ojx3hqlXF8Bqztx4hQKsKilSaRLpovens0Wv-aWRfUON54vgS8RghFV7ZSV-K/pub?output=csv";
 
-      <!-- Add more profiles here -->
-    </div>
-  </div>
+let allRows = [];
 
-  <!-- Submit CTA (like their "contact" vibes) -->
-  <div id="submit" class="bg-indigo-600 py-16">
-    <div class="max-w-4xl mx-auto text-center px-6">
-      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Your Dividend Tool Not Listed?</h2>
-      <p class="text-xl text-indigo-100 mb-8">Join our directory and get featured to thousands of investors. Free basic listing, premium for top spots.</p>
-      <a href="mailto:hello@topdividendtools.com" class="bg-white text-indigo-600 px-8 py-4 rounded-lg text-lg font-bold hover:bg-gray-100 transition">Submit Now</a>
-    </div>
-  </div>
+async function loadData() {
+    try {
+        const res = await fetch(CSV_URL + '&t=' + Date.now());
+        const csv = await res.text();
+        renderTable(csv);
+    } catch(e) {
+        document.getElementById('loading').textContent = 'Error loading data — please refresh';
+    }
+}
 
-  <!-- Footer -->
-  <footer class="bg-gray-900 text-gray-400 py-12">
-    <div class="max-w-7xl mx-auto px-6 text-center">
-      <p class="text-2xl font-bold text-white mb-4">TopDividendTools.com</p>
-      <p>© 2025 • Curated for dividend investors • Affiliate links may be used</p>
-    </div>
-  </footer>
+function renderTable(csv) {
+    const lines = csv.split('\n');
+    const tbody = document.getElementById('toolsBody');
+    tbody.innerHTML = '';
+    allRows = [];
 
-  <!-- Simple JS for Search & Expand (keeps it interactive like 10Best links) -->
-  <script>
-    // Search
-    const searchInput = document.getElementById('search');
-    const rows = document.querySelectorAll('tbody tr');
-    searchInput.addEventListener('input', (e) => {
-      const term = e.target.value.toLowerCase();
-      rows.forEach(row => {
-        row.style.display = row.textContent.toLowerCase().includes(term) ? '' : 'none';
-      });
+    for (let i = 1; i < lines.length; i++) {
+        const cols = lines[i].split(',').map(c => c.replace(/^"|"$/g, '').trim());
+        if (!cols[1]) continue;
+
+        const [website, name, category, bestFor, keyFeature, pricing] = cols;
+        const rank = i;
+
+        const tr = document.createElement('tr');
+        const labels = ['Rank','Tool Name','Category','Best For','Pricing','Key Feature','Visit'];
+
+        [rank, name, category, bestFor, pricing, keyFeature, 
+         `<a href="${website.startsWith('http')?website:'https://'+website}" target="_blank" style="color:var(--red);font-weight:900;text-decoration:none">Visit Tool</a>`]
+        .forEach((val, j) => {
+            const td = document.createElement('td');
+            td.setAttribute('data-label', labels[j]);
+            td.innerHTML = val;
+            if (j === 1) td.className = 'tool-name';
+            if (j === 4 && pricing.toLowerCase().includes('free')) td.className = 'free';
+            tr.appendChild(td);
+        });
+
+        tbody.appendChild(tr);
+        allRows.push(tr);
+    }
+
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('toolsTable').style.display = 'table';
+    sortTable(0);
+}
+
+let currentSort = {col: 0, dir: 'asc'};
+function sortTable(col) {
+    const dir = (currentSort.col === col && currentSort.dir === 'asc') ? 'desc' : 'asc';
+    currentSort = {col, dir};
+    document.querySelectorAll('th').forEach((th,i) => th.className = i===col ? `sort-${dir}` : '');
+
+    allRows.sort((a,b) => {
+        let A = a.cells[col].textContent.trim();
+        let B = b.cells[col].textContent.trim();
+        return dir === 'asc' ? A.localeCompare(B) : B.localeCompare(A);
     });
 
-    // Make table rows clickable to jump to profiles (add IDs to profiles for full effect)
-    document.querySelectorAll('tbody a[href="#"]').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        // Scroll to corresponding profile (implement with IDs like #profile-1)
-        document.querySelector('.space-y-8').scrollIntoView({ behavior: 'smooth' });
-      });
+    const tbody = document.getElementById('toolsBody');
+    allRows.forEach(r => tbody.appendChild(r));
+    applyFilters();
+}
+
+function applyFilters() {
+    const search = document.getElementById('searchFilter').value.toLowerCase();
+    const pricing = document.getElementById('pricingFilter').value.toLowerCase();
+
+    allRows.forEach(tr => {
+        const name = tr.cells[1].textContent.toLowerCase();
+        const cat = tr.cells[2].textContent.toLowerCase();
+        const price = tr.cells[4].textContent.toLowerCase();
+
+        let show = true;
+        if (search && !name.includes(search) && !cat.includes(search)) show = false;
+        if (pricing && !price.includes(pricing)) show = false;
+
+        tr.style.display = show ? '' : 'none';
     });
-  </script>
+}
+
+document.getElementById('searchFilter').oninput = applyFilters;
+document.getElementById('pricingFilter').onchange = applyFilters;
+document.getElementById('resetFilters').onclick = () => location.reload();
+
+loadData();
+</script>
 </body>
 </html>
