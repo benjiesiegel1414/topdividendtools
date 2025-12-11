@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
-    <title>Top 100+ Dividend Investing Tools 2025</title>
-    <meta name="description" content="Best dividend screeners, trackers, calculators & newsletters ranked daily.">
+    <title>Top Dividend Investing Tools 2026</title>
+    <meta name="description" content="Best dividend trackers, calculators, research sites & more – ranked daily by the community.">
 
     <!-- FAVICONS -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -28,122 +28,88 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
-        html,body{margin:0;padding:0;overflow-x:hidden;width:100%}
-        :root{
-            --green:#152514;
-            --green-dark:#0d1a0f;
-            --red:#e74c3c;
-        }
-        body{
-            font-family:'Inter', system-ui, -apple-system, sans-serif;
-            background:#f8f9fa;
-            color:#1a1a1a;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            min-height:100vh;
-            line-height:1.6;
-        }
+        html,body{margin:0;padding:0;overflow-x:hidden;width:100%;font-family:'Inter',system-ui,sans-serif}
+        :root{--green:#152514;--green-dark:#0d1a0f;--red:#e74c3c;--gold:#FFD700}
+        body{background:#f8f9fa;color:#000;display:flex;flex-direction:column;align-items:center;min-height:100vh;line-height:1.5}
 
-        header{
-            background:#1a3224;
-            padding:20px 20px 28px;
-            text-align:center;
-            width:100%;
+        header{background:#1a3224;padding:18px 20px 22px;text-align:center;width:100%;
             box-shadow:0 4px 20px rgba(0,0,0,.3);
             background-image:url('https://www.transparenttextures.com/patterns/noise.png');
-            background-blend-mode:overlay;
-        }
+            background-blend-mode:overlay}
         .text-logo{display:inline-block;text-align:center}
-        .main-title{
-            font-size:2.25rem;font-weight:900;color:#ffffff;letter-spacing:-0.8px;margin:0;line-height:1;
-            -webkit-text-stroke:2px #000;text-stroke:2px #000;paint-order:stroke fill;
-            text-shadow:3px 3px 10px rgba(0,0,0,0.9);
-        }
-        .subtitle{font-size:1.05rem;font-weight:600;color:#ffffff;margin-top:8px;opacity:0.95}
+        .main-title{font-size:2.25rem;font-weight:900;color:#fff;letter-spacing:-0.8px;margin:0;line-height:1;
+            -webkit-text-stroke:2px #000;text-stroke:2px #000;paint-order:stroke fill;text-shadow:3px 3px 10px rgba(0,0,0,0.9)}
+        .subtitle{font-size:1.05rem;font-weight:600;color:#fff;margin-top:6px;opacity:0.95}
 
         @media(max-width:768px){.main-title{font-size:1.8rem;-webkit-text-stroke:1.7px #000}.subtitle{font-size:0.95rem}}
-        @media(max-width:480px){.main-title{font-size:1.55rem;-webkit-text-stroke:1.5px #000}.subtitle{font-size:0.88rem}}
+        @media(max-width:480px){.main-title{font-size:1.55rem;-webkit-text-stroke:1.5px #000}}
 
-        .main-h1{text-align:center;margin:40px auto 14px;padding:0 15px;max-width:1280px}
-        .main-h1 h1{font-size:2.3rem;margin:0;color:var(--green);line-height:1.2;font-weight:900}
-        .main-h1 span{display:block;font-size:1.05rem;color:var(--red);font-weight:700;margin-top:10px}
+        .main-h1{text-align:center;margin:24px auto 10px;padding:0 15px;max-width:1280px}
+        .main-h1 h1{font-size:2.4rem;margin:0;color:#000;line-height:1.1;font-weight:900}
+        .main-h1 span{display:block;font-size:1.25rem;color:#000;font-weight:700;margin-top:6px}
 
         .content{width:94%;max-width:1280px;margin:0 auto;display:flex;flex-direction:column;align-items:center}
 
-        .top-disclaimer{max-width:1000px;margin:28px auto;padding:0 20px;text-align:center;font-size:1.05rem;line-height:1.8;color:#222;font-weight:500}
-        .top-disclaimer strong{color:#c62828;font-weight:900}
-        .highlight{background:#e8f5e8;padding:6px 14px;border-radius:6px;font-weight:900;color:#155724}
+        .top-disclaimer{
+            max-width:1000px;margin:16px auto 20px;padding:0 20px;text-align:center;
+            font-size:1.08rem;font-weight:700;color:#000;line-height:1.6;
+        }
+        .disclaimer-line{font-weight:900 !important;font-size:1.15rem !important;color:#c62828 !important;margin-top:12px !important}
+
+        #filters{margin:20px auto 30px;display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center}
+        #resetFilters{padding:12px 28px;background:var(--green);color:#fff;border-radius:10px;cursor:pointer;font-weight:800;border:none}
+        #resetFilters:hover{background:var(--green-dark)}
+        select,input{padding:12px 18px;border-radius:10px;border:1px solid #ccc;font-size:1rem}
 
         #toolsTable{width:100%;border-collapse:collapse;background:#fff;border:4px solid var(--green);border-radius:14px;overflow:hidden;
-            box-shadow:0 10px 35px rgba(21,37,20,.28);margin:35px 0}
-        th{background:var(--green);color:#fff;padding:20px 14px;font-size:1.08rem;font-weight:700;cursor:pointer;white-space:nowrap}
-        td{padding:18px 14px;font-size:1.02rem;text-align:center}
+            box-shadow:0 10px 35px rgba(21,37,20,.28);margin:10px 0}
+        th{background:var(--green);color:#fff;padding:18px 12px;font-size:1.05rem;font-weight:700;cursor:pointer}
+        td{padding:16px 12px;font-size:1rem;text-align:center}
         tr:nth-child(even){background:#f9fff9}
         tr:hover{background:#e8f5e8;transition:background .25s}
-        .tool-name{font-weight:800;font-size:1.38rem;color:var(--green)}
+        .tool-name{font-weight:800;font-size:1.35rem;color:var(--green)}
         .free{color:#27ae60 !important;font-weight:900}
 
-        @media(min-width:769px){th,td{padding:22px 16px;font-size:1.12rem}}
+        /* SPONSORED STYLING */
+        tr.sponsored {
+            background: linear-gradient(135deg, #fffdf0, #f9f7e8) !important;
+            border-left: 5px solid var(--gold);
+        }
+        .sponsored-label {
+            background: var(--gold);
+            color: #000;
+            font-size: 0.78rem;
+            font-weight: 900;
+            padding: 4px 10px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
         @media(max-width:768px){
             th{display:none}
-            tr{display:flex;flex-direction:column;background:#fff;border-radius:14px;margin:18px 0;padding:22px;
+            tr{display:flex;flex-direction:column;background:#fff;border-radius:14px;margin:16px 0;padding:20px;
                box-shadow:0 8px 25px rgba(0,0,0,0.14);border:1px solid #eee}
-            td{display:flex;justify-content:space-between;padding:12px 0;font-size:1.08rem;border-bottom:1px solid #f0f0f0}
+            tr.sponsored {border-left:none;border-top:5px solid var(--gold)}
+            td{display:flex;justify-content:space-between;padding:11px 0;font-size:1.06rem;border-bottom:1px solid #f0f0f0}
             td:last-child{border:none}
             td:before{content:attr(data-label);font-weight:700;color:var(--green);min-width:160px}
         }
 
-        .sort-asc::after,.sort-desc::after{content:" ";position:absolute;right:16px;top:50%;transform:translateY(-50%);
-            border-left:9px solid transparent;border-right:9px solid transparent}
-        .sort-asc::after{border-bottom:12px solid #fff}
-        .sort-desc::after{border-top:12px solid #fff}
-
-        #filters{max-width:1280px;width:94%;margin:35px auto;display:flex;flex-wrap:wrap;gap:20px;justify-content:center;align-items:center}
-        #resetFilters{padding:15px 32px;background:var(--green);color:#fff;border-radius:10px;cursor:pointer;font-weight:800;border:none}
-        #resetFilters:hover{background:var(--green-dark)}
-        select,input{padding:15px 20px;border-radius:10px;border:1px solid #ccc;font-size:1.02rem}
-
-        .loading{text-align:center;padding:80px;font-size:1.7rem;color:#555;font-weight:600}
-        .disclaimer{font-size:0.98rem;color:#555;margin:60px auto;max-width:1000px;line-height:1.8;text-align:center}
-
-        .footer{margin-top:auto;padding:60px;background:#fff;width:100%;text-align:center;font-size:1rem;color:#444;border-top:6px solid var(--green)}
-        .footer a{color:var(--green);text-decoration:none;margin:0 20px;font-weight:700}
-        .footer a:hover{text-decoration:underline}
-        .footer .tagline{font-size:1.8rem;font-weight:900;color:var(--green);margin:40px 0}
-
-        /* GREEN GLOW BUTTON – matches your site perfectly */
-        .visit-btn {
-            display: inline-block;
-            background: var(--green);
-            color: white !important;
-            font-weight: 800;
-            font-size: 0.94rem;
-            padding: 9px 20px;
-            border-radius: 10px;
-            text-decoration: none;
-            box-shadow: 0 0 12px rgba(21,37,20,0.5);
-            transition: all 0.25s ease;
+        .visit-btn{
+            display:inline-block;background:var(--green);color:white !important;font-weight:800;
+            font-size:0.94rem;padding:9px 20px;border-radius:10px;text-decoration:none;
+            box-shadow:0 0 12px rgba(21,37,20,0.5);transition:all .25s ease;
         }
+        .visit-btn:hover{background:#1e3a1e;box-shadow:0 0 20px rgba(21,37,20,0.8);transform:translateY(-2px)}
+        .visit-btn:active{transform:translateY(0)}
 
-        .visit-btn:hover {
-            background: #1e3a1e;
-            box-shadow: 0 0 20px rgba(21,37,20,0.8);
-            transform: translateY(-2px);
-        }
+        @media(max-width:768px){.visit-btn{width:100%;padding:12px;font-size:1rem}}
 
-        .visit-btn:active {
-            transform: translateY(0);
-            box-shadow: 0 0 12px rgba(21,37,20,0.6);
-        }
-
-        @media (max-width: 768px) {
-            .visit-btn {
-                width: 100%;
-                padding: 12px;
-                font-size: 1rem;
-            }
-        }
+        .loading{text-align:center;padding:60px;font-size:1.6rem;color:#555;font-weight:600}
+        .disclaimer{font-size:0.95rem;color:#555;margin:50px auto 0;max-width:1000px;line-height:1.7;text-align:center}
+        .footer{margin-top:auto;padding:50px 20px;background:#fff;width:100%;text-align:center;border-top:6px solid var(--green)}
+        .footer a{color:var(--green);text-decoration:none;font-weight:700}
+        .footer .tagline{font-size:1.8rem;font-weight:900;color:var(--green);margin:30px 0}
     </style>
 </head>
 <body>
@@ -157,17 +123,15 @@
     </header>
 
     <div class="main-h1">
-        <h1>Top 100+ Dividend Investing Tools 2025
-            <span>Best Screeners, Trackers & Calculators – Ranked Daily</span>
+        <h1>Top Dividend Investing Tools 2026
+            <span>Best Dividend Trackers, Calculators, Research sites & More!</span>
         </h1>
     </div>
 
     <div class="top-disclaimer">
         The most accurate & complete directory of dividend investing tools on the internet<br>
-        <strong>100% FREE • Updated Daily • Independently Ranked</strong><br><br>
-        <strong>Rankings:</strong> Based on features, pricing, user feedback, and real investor usage<br>
-        <strong>Affiliate Disclosure:</strong> Some links may earn us a commission at no cost to you<br>
-        <span class="highlight">This is NOT financial advice — always do your own research!</span>
+        <strong>100% FREE • Updated Daily • Community Ranked!</strong><br><br>
+        <strong class="disclaimer-line">Nothing on TopDividendTools.com is financial advice! Always do your own research!</strong>
     </div>
 
     <div id="filters">
@@ -185,14 +149,15 @@
     <table id="toolsTable" style="display:none">
         <thead>
             <tr>
-                <th onclick="sortTable(0)">Rank</th>
-                <th onclick="sortTable(1)">Tool Name</th>
-                <th onclick="sortTable(2)">Category</th>
-                <th onclick="sortTable(3)">Best For</th>
-                <th onclick="sortTable(4)">Pricing</th>
-                <th onclick="sortTable(5)">Key Feature</th>
+                <th>Rank</th>
+                <th>Tool Name</th>
+                <th>Category</th>
+                <th>Best For</th>
+                <th>Pricing</th>
+                <th>Key Feature</th>
                 <th>Visit</th>
             </tr>
+        </tr>
         </thead>
         <tbody id="toolsBody"></tbody>
     </table>
@@ -214,6 +179,7 @@
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQyl3IN9OtH6Ux2mS1Ojx3hqlXF8Bqztx4hQKsKilSaRLpovens0Wv-aWRfUON54vgS8RghFV7ZSV-K/pub?output=csv";
 
 let allRows = [];
+const PREMIUM_SLOTS = 5; // Top 5 rows = Sponsored
 
 async function loadData() {
     try {
@@ -231,28 +197,40 @@ function renderTable(csv) {
     tbody.innerHTML = '';
     allRows = [];
 
+    let rankCounter = 1;
+
+    ;
+
     for (let i = 1; i < lines.length; i++) {
         const cols = lines[i].split(',').map(c => c.replace(/^"|"$/g, '').trim());
         if (!cols[1]) continue;
 
         const [website, name, category, bestFor, keyFeature, pricing] = cols;
-        const rank = i;
 
         const tr = document.createElement('tr');
+        const isPremium = i <= PREMIUM_SLOTS;
+
+        if (isPremium) {
+            tr.classList.add('sponsored');
+        }
+
         const labels = ['Rank','Tool Name','Category','Best For','Pricing','Key Feature','Visit'];
+
+        const rankCell = isPremium 
+            ? '<span class="sponsored-label">Sponsored</span>' 
+            : rankCounter++;
 
         const buttonHTML = `
             <a href="${website.startsWith('http') ? website : 'https://' + website}" 
-               target="_blank" 
-               class="visit-btn">
+               target="_blank" class="visit-btn">
                 Visit Tool
             </a>`;
 
-        [rank, name, category, bestFor, pricing, keyFeature, buttonHTML].forEach((val, j) => {
+        [rankCell, name, category, bestFor, pricing, keyFeature, buttonHTML].forEach((val, j) => {
             const td = document.createElement('td');
             td.setAttribute('data-label', labels[j]);
             td.innerHTML = val;
-            if (j === 1) td.className = 'tool-name';
+            if (j === 1 && !isPremium) td.className = 'tool-name';
             if (j === 4 && pricing.toLowerCase().includes('free')) td.className += ' free';
             tr.appendChild(td);
         });
@@ -263,25 +241,6 @@ function renderTable(csv) {
 
     document.getElementById('loading').style.display = 'none';
     document.getElementById('toolsTable').style.display = 'table';
-    sortTable(0);
-}
-
-let currentSort = {col: 0, dir: 'asc'};
-function sortTable(col) {
-    const dir = (currentSort.col === col && currentSort.dir === 'asc') ? 'desc' : 'asc';
-    currentSort = {col, dir};
-    document.querySelectorAll('th').forEach((th,i) => th.className = i===col ? `sort-${dir}` : '');
-
-    allRows.sort((a,b) => {
-        let A = a.cells[col].textContent.trim();
-        let B = b.cells[col].textContent.trim();
-        if(col===0) return dir==='asc' ? (+A)-(+B) : (+B)-(+A);
-        return dir === 'asc' ? A.localeCompare(B) : B.localeCompare(A);
-    });
-
-    const tbody = document.getElementById('toolsBody');
-    allRows.forEach(r => tbody.appendChild(r));
-    applyFilters();
 }
 
 function applyFilters() {
@@ -289,6 +248,7 @@ function applyFilters() {
     const pricing = document.getElementById('pricingFilter').value.toLowerCase();
 
     allRows.forEach(tr => {
+        const isPremium = tr.classList.contains('sponsored');
         const name = tr.cells[1].textContent.toLowerCase();
         const cat = tr.cells[2].textContent.toLowerCase();
         const price = tr.cells[4].textContent.toLowerCase();
