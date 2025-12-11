@@ -32,19 +32,29 @@
         :root{--green:#152514;--green-dark:#0d1a0f;--red:#e74c3c;--gold:#FFD700}
         body{background:#f8f9fa;color:#000;display:flex;flex-direction:column;align-items:center;min-height:100vh;line-height:1.5}
 
-        header{background:#1a3224;padding:18px 20px 22px;text-align:center;width:100%;
+        header{
+            background:#1a3224;
+            padding:20px 20px 16px;
+            text-align:center;
+            width:100%;
             box-shadow:0 4px 20px rgba(0,0,0,.3);
             background-image:url('https://www.transparenttextures.com/patterns/noise.png');
-            background-blend-mode:overlay}
-        .text-logo{display:inline-block;text-align:center}
-        .main-title{font-size:2.25rem;font-weight:900;color:#fff;letter-spacing:-0.8px;margin:0;line-height:1;
-            -webkit-text-stroke:2px #000;text-stroke:2px #000;paint-order:stroke fill;text-shadow:3px 3px 10px rgba(0,0,0,0.9)}
-        .subtitle{font-size:1.05rem;font-weight:600;color:#fff;margin-top:6px;opacity:0.95}
+            background-blend-mode:overlay;
+        }
 
-        @media(max-width:768px){.main-title{font-size:1.8rem;-webkit-text-stroke:1.7px #000}.subtitle{font-size:0.95rem}}
-        @media(max-width:480px){.main-title{font-size:1.55rem;-webkit-text-stroke:1.5px #000}}
+        .site-logo {
+            max-width: 420px;
+            width: 92%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
 
-        .main-h1{text-align:center;margin:24px auto 10px;padding:0 15px;max-width:1280px}
+        @media(max-width:480px){
+            .site-logo {max-width: 320px;}
+        }
+
+        .main-h1{text-align:center;margin:26px auto 10px;padding:0 15px;max-width:1280px}
         .main-h1 h1{font-size:2.4rem;margin:0;color:#000;line-height:1.1;font-weight:900}
         .main-h1 span{display:block;font-size:1.25rem;color:#000;font-weight:700;margin-top:6px}
 
@@ -70,7 +80,6 @@
         .tool-name{font-weight:800;font-size:1.35rem;color:var(--green)}
         .free{color:#27ae60 !important;font-weight:900}
 
-        /* SPONSORED STYLING */
         tr.sponsored {
             background: linear-gradient(135deg, #fffdf0, #f9f7e8) !important;
             border-left: 5px solid var(--gold);
@@ -103,8 +112,6 @@
         .visit-btn:hover{background:#1e3a1e;box-shadow:0 0 20px rgba(21,37,20,0.8);transform:translateY(-2px)}
         .visit-btn:active{transform:translateY(0)}
 
-        @media(max-width:768px){.visit-btn{width:100%;padding:12px;font-size:1rem}}
-
         .loading{text-align:center;padding:60px;font-size:1.6rem;color:#555;font-weight:600}
         .disclaimer{font-size:0.95rem;color:#555;margin:50px auto 0;max-width:1000px;line-height:1.7;text-align:center}
         .footer{margin-top:auto;padding:50px 20px;background:#fff;width:100%;text-align:center;border-top:6px solid var(--green)}
@@ -115,11 +122,13 @@
 <body>
 <div class="content">
 
+    <!-- UPDATED LOGO — NOW 100% WORKING -->
     <header>
-        <div class="text-logo">
-            <div class="main-title">TopDividendTools.com</div>
-            <div class="subtitle">The #1 Dividend Investing Directory</div>
-        </div>
+        <a href="/">
+            <img src="https://topdividendtools.com/TopDividen.png" 
+                 alt="TopDividendTools.com" 
+                 class="site-logo">
+        </a>
     </header>
 
     <div class="main-h1">
@@ -157,7 +166,6 @@
                 <th>Key Feature</th>
                 <th>Visit</th>
             </tr>
-        </tr>
         </thead>
         <tbody id="toolsBody"></tbody>
     </table>
@@ -179,7 +187,7 @@
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQyl3IN9OtH6Ux2mS1Ojx3hqlXF8Bqztx4hQKsKilSaRLpovens0Wv-aWRfUON54vgS8RghFV7ZSV-K/pub?output=csv";
 
 let allRows = [];
-const PREMIUM_SLOTS = 5; // Top 5 rows = Sponsored
+const PREMIUM_SLOTS = 5;
 
 async function loadData() {
     try {
@@ -198,8 +206,6 @@ function renderTable(csv) {
     allRows = [];
 
     let rankCounter = 1;
-
-    ;
 
     for (let i = 1; i < lines.length; i++) {
         const cols = lines[i].split(',').map(c => c.replace(/^"|"$/g, '').trim());
@@ -248,7 +254,6 @@ function applyFilters() {
     const pricing = document.getElementById('pricingFilter').value.toLowerCase();
 
     allRows.forEach(tr => {
-        const isPremium = tr.classList.contains('sponsored');
         const name = tr.cells[1].textContent.toLowerCase();
         const cat = tr.cells[2].textContent.toLowerCase();
         const price = tr.cells[4].textContent.toLowerCase();
