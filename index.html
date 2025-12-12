@@ -59,7 +59,6 @@
             width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;opacity:0.6;
         }
         th.sort-asc::after{border-bottom:8px solid #fff;opacity:1}
-        }
         th.sort-desc::after{border-top:8px solid #fff;opacity:1}
 
         td{padding:16px 12px;font-size:1rem;text-align:center}
@@ -188,10 +187,10 @@
 </div>
 
 <script>
-// YOUR WORKING WEB APP URL
+// YOUR WORKING WEB APP URL — VOTES SAVE HERE
 const VOTE_WEBHOOK = "https://script.google.com/macros/s/AKfycbw280jUC9evprCYpjCXR4KhczYdF-czLmZjGldmIi5WxRKnvsMoKleZAjolI2-7AcgJ/exec";
 
-// CORRECT PUBLIC CSV LINK TO YOUR VOTES SHEET
+// PUBLIC CSV LINK TO YOUR VOTES SHEET (THIS MAKES IT WORK)
 const VOTES_SHEET_CSV = "https://docs.google.com/spreadsheets/d/1osCLotxaMiaLaisfQFI-0urJcskZjJVPyi5Av61bek4/pub?gid=0&single=true&output=csv";
 
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQyl3IN9OtH6Ux2mS1Ojx3hqlXF8Bqztx4hQKsKilSaRLpovens0Wv-aWRfUON54vgS8RghFV7ZSV-K/pub?output=csv";
@@ -205,47 +204,6 @@ const STORAGE_KEY = 'tdt_votes_2026';
 const HISTORY_KEY = 'tdt_vote_history';
 
 function getVotes() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; } }
-// LOAD GLOBAL SCORES FROM YOUR SHEET (RUNS ON EVERY VISIT)
-async function loadGlobalScores() {
-    try {
-        const res = await fetch("https://docs.google.com/spreadsheets/d/1osCLotxaMiaLaisfQFI-0urJcskZjJVPyi5Av61bek4/pub?gid=0&single=true&output=csv&t=" + Date.now());
-        const csv = await res.text();
-        const lines = csv.split('\n').slice(1); // Skip header
-
-        const globalScores = {};
-        lines.forEach(line => {
-            const cols = line.split(',').map(c => c.replace(/^"|"$/g, '').trim());
-            if (cols.length < 4) return;
-            const toolId = cols[2];
-            const dir = cols[3];
-            if (toolId) globalScores[toolId] = (globalScores[toolId] || 0) + (dir === "up" ? 1 : -1);
-        });
-
-        // Merge with local votes
-        const local = getVotes();
-        Object.keys(globalScores).forEach(id => {
-            if (!local[id]) local[id] = {score: 0, voted: 0};
-            local[id].score = globalScores[id];
-        });
-        saveVotes(local);
-
-        // Update all counts on screen
-        document.querySelectorAll('.vote-count').forEach(el => {
-            const box = el.closest('.vote-box');
-            const id = box.dataset.id;
-            if (id && local[id]) el.textContent = local[id].score;
-        });
-
-        // Update sorting data
-        allRows.forEach(item => {
-            if (local[item.toolId]) item.score = local[item.score];
-        });
-
-        sortTable(currentSort.col); // Re-sort with real scores
-    } catch (e) {
-        console.log("Global vote sync failed (using local)", e);
-    }
-}
 function saveVotes(v) { localStorage.setItem(STORAGE_KEY, JSON.stringify(v)); }
 function getHistory() { try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); } catch { return []; } }
 function saveHistory(arr) { localStorage.setItem(HISTORY_KEY, JSON.stringify(arr)); }
@@ -269,8 +227,8 @@ function getCooldownSeconds() {
     return Math.max(0, Math.ceil((VOTE_WINDOW - (Date.now() - oldest)) / 1000));
 }
 
-// LOAD REAL VOTES FROM SHEET
-async function loadRealVotes() {
+// GLOBAL VOTE LOADER — THIS MAKES SCORES PERSISTENT FOR EVERYONE
+async function loadGlobalScores() {
     try {
         const res = await fetch(VOTES_SHEET_CSV + '&t=' + Date.now());
         const csv = await res.text();
@@ -282,8 +240,7 @@ async function loadRealVotes() {
             if (cols.length < 4) return;
             const toolId = cols[2];
             const dir = cols[3];
-            if (!toolId) return;
-            realScores[toolId] = (realScores[toolId] || 0) + (dir === "up" ? 1 : -1);
+            if (toolId) realScores[toolId] = (realScores[toolId] || 0) + (dir === "up" ? 1 : -1);
         });
 
         const local = getVotes();
@@ -295,15 +252,17 @@ async function loadRealVotes() {
 
         document.querySelectorAll('.vote-count').forEach(el => {
             const box = el.closest('.vote-box');
-            const id = box?.dataset?.id;
+            const id = box.dataset.id;
             if (id && local[id]) el.textContent = local[id].score;
         });
 
         allRows.forEach(item => {
             if (local[item.toolId]) item.score = local[item.toolId].score;
         });
+
+        sortTable(currentSort.col);
     } catch (e) {
-        console.log("Vote sync failed (using local only)", e);
+        console.log("Global sync failed (using local)", e);
     }
 }
 
@@ -382,7 +341,7 @@ function renderTable(csv) {
 
     sortTable(0);
     attachVoteHandlers();
-    loadRealVotes(); // THIS IS THE KEY LINE THAT WAS MISSING
+    loadGlobalScores(); // THIS LINE MAKES VOTES GLOBAL
 }
 
 function sortTable(col) {
@@ -503,7 +462,7 @@ document.getElementById('categoryFilter').onchange = applyFilters;
 document.getElementById('resetFilters').onclick = () => location.reload();
 
 loadData();
-loadGlobalScores();
+loadGlobalScores(); // THIS MAKES VOTES PERSISTENT FOR EVERYONE
 </script>
 </body>
 </html>
