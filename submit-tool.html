@@ -42,18 +42,18 @@
 
 <div class="container">
     <h1>Submit a Dividend Tool</h1>
-    <p class="subtitle">Your suggestion will be emailed directly to business@TopDividendETFs.com for review!</p>
+    <p class="subtitle">Your tool will be reviewed and added if approved.</p>
 
     <form id="submitForm">
-        <label for="toolName">Tool Name <span style="color:#c62828">*</span></label>
-        <input type="text" id="toolName" required placeholder="e.g. Seeking Alpha">
+        <label for="toolName">Tool Name *</label>
+        <input type="text" id="toolName" required>
 
-        <label for="website">Website URL <span style="color:#c62828">*</span></label>
-        <input type="url" id="website" required placeholder="https://example.com">
+        <label for="website">Website URL *</label>
+        <input type="url" id="website" required>
 
-        <label for="category">Category <span style="color:#c62828">*</span></label>
+        <label for="category">Category *</label>
         <select id="category" required>
-            <option value="">Choose one...</option>
+            <option value="">Choose...</option>
             <option>Research</option>
             <option>YouTube</option>
             <option>News & Research</option>
@@ -64,47 +64,45 @@
             <option>Other</option>
         </select>
 
-        <label for="pricing">Pricing <span style="color:#c62828">*</span></label>
+        <label for="pricing">Pricing *</label>
         <select id="pricing" required>
-            <option value="">Choose one...</option>
+            <option value="">Choose...</option>
             <option>Free</option>
             <option>Paid</option>
             <option>Freemium</option>
         </select>
 
-        <label for="bestFor">Best For <span style="color:#c62828">*</span></label>
-        <input type="text" id="bestFor" required maxlength="100" placeholder="e.g. Dividend growth investors">
+        <label for="bestFor">Best For *</label>
+        <input type="text" id="bestFor" required maxlength="120">
 
         <label for="keyFeature">Key Feature (optional)</label>
-        <textarea id="keyFeature" rows="3" placeholder="What makes this tool special?"></textarea>
+        <textarea id="keyFeature" rows="3"></textarea>
 
         <label for="yourName">Your Name (optional)</label>
-        <input type="text" id="yourName" placeholder="John Doe">
+        <input type="text" id="yourName">
 
         <label for="yourEmail">Your Email (optional)</label>
-        <input type="email" id="yourEmail" placeholder="you@example.com">
+        <input type="email" id="yourEmail">
 
-        <button type="submit">Send to business@TopDividendETFs.com</button>
+        <button type="submit">Submit for Review</button>
     </form>
 
-    <div id="successMsg" class="success">Thank you! Your submission was sent successfully.</div>
-    <div id="errorMsg" class="error">Something went wrong. Please email business@TopDividendETFs.com directly.</div>
+    <div id="successMsg" class="success">Thank you! Your submission was saved.</div>
+    <div id="errorMsg" class="error">Error — please try again or email hello@topdividendtools.com</div>
 </div>
 
 <footer>
-    <p><a href="https://topdividendetfs.com" target="_blank">Top Dividend ETFs</a> | 
-       Contact: <a href="mailto:hello@topdividendtools.com">hello@topdividendtools.com</a></p>
+    <p><a href="https://topdividendetfs.com" target="_blank">Top Dividend ETFs</a> | Contact: <a href="mailto:hello@topdividendtools.com">hello@topdividendtools.com</a></p>
     <div class="tagline">The #1 Resource for Dividend Investors</div>
 </footer>
 
 <script>
-// SUBMISSIONS GO DIRECTLY TO YOUR BUSINESS EMAIL
-const EMAIL_TO = "business@TopDividendETFs.com";
+const SUBMISSION_WEBHOOK = "https://script.google.com/macros/s/AKfycbyJte2WYNd8dNCE2GPSCoX88SCBq2sqgPUYb8xMiWGhngeSw_WOrZWCRIHxj21sQebAkg/exec";
 
-document.getElementById('submitForm').addEventListener('submit', function(e) {
+document.getElementById('submitForm').addEventListener('submit', async function(e) {
     e.preventDefault();
 
-    const data = {
+    const payload = {
         toolName: document.getElementById('toolName').value.trim(),
         website: document.getElementById('website').value.trim(),
         category: document.getElementById('category').value,
@@ -115,36 +113,22 @@ document.getElementById('submitForm').addEventListener('submit', function(e) {
         yourEmail: document.getElementById('yourEmail').value.trim()
     };
 
-    const subject = encodeURIComponent(`New Tool Submission: ${data.toolName}`);
-    const body = encodeURIComponent(`
-New tool submitted to TopDividendTools.com
+    try {
+        const response = await fetch(SUBMISSION_WEBHOOK, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(payload)
+        });
 
-Tool Name: ${data.toolName}
-Website: ${data.website}
-Category: ${data.category}
-Pricing: ${data.pricing}
-Best For: ${data.bestFor}
-Key Feature: ${data.keyFeature || "—"}
-
-Submitted by:
-Name: ${data.yourName || "Anonymous"}
-Email: ${data.yourEmail || "Not provided"}
-
-— Submitted via https://topdividendtools.com/submit-tool.html
-    `.trim());
-
-    // Open user's email client with pre-filled message
-    window.location.href = `mailto:${EMAIL_TO}?subject=${subject}&body=${body}`;
-
-    // Show success message
-    document.getElementById('successMsg').style.display = 'block';
-    document.getElementById('errorMsg').style.display = 'none';
-    this.reset();
-    
-    setTimeout(() => {
-        document.getElementById('successMsg').style.display = 'none';
-    }, 6000);
+        document.getElementById('successMsg').style.display = 'block';
+        document.getElementById('errorMsg').style.display = 'none';
+        e.target.reset();
+        setTimeout(() => document.getElementById('successMsg').style.display = 'none', 6000);
+    } catch (err) {
+        document.getElementById('errorMsg').style.display = 'block';
+    }
 });
 </script>
+
 </body>
 </html>
