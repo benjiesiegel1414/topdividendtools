@@ -97,6 +97,7 @@
 </footer>
 
 <script>
+// ⭐ IMPORTANT: Replace this with YOUR WEB APP DEPLOYMENT URL
 const SUBMISSION_WEBHOOK = "https://script.google.com/macros/s/AKfycbyJte2WYNd8dNCE2GPSCoX88SCBq2sqgPUYb8xMiWGhngeSw_WOrZWCRIHxj21sQebAkg/exec";
 
 document.getElementById('submitForm').addEventListener('submit', async function(e) {
@@ -120,12 +121,23 @@ document.getElementById('submitForm').addEventListener('submit', async function(
             body: JSON.stringify(payload)
         });
 
+        const result = await response.json();
+
+        if (!response.ok || result.result !== "success") {
+            throw new Error("Google Script Error");
+        }
+
         document.getElementById('successMsg').style.display = 'block';
         document.getElementById('errorMsg').style.display = 'none';
         e.target.reset();
-        setTimeout(() => document.getElementById('successMsg').style.display = 'none', 6000);
+
+        setTimeout(() => {
+            document.getElementById('successMsg').style.display = 'none';
+        }, 6000);
+
     } catch (err) {
         document.getElementById('errorMsg').style.display = 'block';
+        document.getElementById('successMsg').style.display = 'none';
     }
 });
 </script>
