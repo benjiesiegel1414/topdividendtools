@@ -97,8 +97,7 @@
 </footer>
 
 <script>
-// ⭐ UPDATED WEBHOOK URL ⭐
-const SUBMISSION_WEBHOOK = "https://script.google.com/macros/s/AKfycbx9g5gLAN0UVhwvm2bXCFB5q_1wKREWKqCXBWh8Af8nl0hc2Y1GOA51ckvFogtDtA8rVA/exec";
+const SUBMISSION_WEBHOOK = "https://script.google.com/macros/s/AKfycbzy9FN3bduDUw9e-rnCOo1xzYSA8VpU3hgKnsDXPkpUkNqMDIQUvYMbqk2ElGApevKc/exec";
 
 document.getElementById('submitForm').addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -124,7 +123,7 @@ document.getElementById('submitForm').addEventListener('submit', async function(
         const result = await response.json();
 
         if (!response.ok || result.result !== "success") {
-            throw new Error("Google Script Error");
+            throw new Error(result.error || "Google Script Error");
         }
 
         document.getElementById('successMsg').style.display = 'block';
@@ -136,6 +135,7 @@ document.getElementById('submitForm').addEventListener('submit', async function(
         }, 6000);
 
     } catch (err) {
+        console.error(err);
         document.getElementById('errorMsg').style.display = 'block';
         document.getElementById('successMsg').style.display = 'none';
     }
