@@ -68,25 +68,6 @@
         tr.sponsored{background:linear-gradient(135deg,#fffdf0,#f9f7e8)!important;border-left:5px solid var(--gold)}
         .sponsored-label{background:var(--gold);color:#000;font-size:0.78rem;font-weight:900;padding:4px 10px;border-radius:6px;display:inline-block}
 
-        .vote-col{width:100px}
-        .vote-box{display:flex;flex-direction:column;align-items:center;gap:6px;position:relative}
-        .vote-btn{background:transparent;border:0;cursor:pointer;padding:6px;display:flex;align-items:center;justify-content:center}
-        .vote-btn svg{width:24px;height:24px;opacity:0.7;transition:all .2s}
-        .vote-btn:hover svg{opacity:1;transform:scale(1.15)}
-        .vote-btn.voted svg{opacity:1}
-        .vote-btn.up.voted svg{fill:#ff4500}
-        .vote-btn.down.voted svg{fill:#7193ff}
-        .vote-count{font-weight:900;color:var(--green);font-size:1.1rem}
-
-        .cooldown-msg{
-            position:absolute;top:-40px;left:50%;transform:translateX(-50%);
-            background:#c62828;color:white;padding:8px 14px;border-radius:8px;
-            font-size:0.9rem;font-weight:700;white-space:nowrap;
-            box-shadow:0 4px 15px rgba(0,0,0,0.3);z-index:100;
-            opacity:0;pointer-events:none;transition:opacity .3s;
-        }
-        .cooldown-msg.show{opacity:1}
-
         @media(max-width:768px){
             th{display:none}
             tr{display:flex;flex-direction:column;background:#fff;border-radius:14px;margin:16px 0;padding:20px;
@@ -95,9 +76,6 @@
             td{display:flex;justify-content:space-between;padding:11px 0;font-size:1.06rem;border-bottom:1px solid #f0f0f0}
             td:last-child{border:none}
             td:before{content:attr(data-label);font-weight:700;color:var(--green);min-width:160px}
-            .vote-col{width:auto}
-            .vote-box{flex-direction:row;gap:16px;justify-content:flex-end;margin-top:8px}
-            .cooldown-msg{top:100%;left:50%;margin-top:10px}
         }
 
         .visit-btn{display:inline-block;background:var(--green);color:white !important;font-weight:800;
@@ -117,7 +95,7 @@
 
     <header>
         <a href="/">
-            <img src="https://topdividendtools.com/TopDividen.png" alt="TopDividendTools.com" class="site-logo">
+            <img src="https://topdividendtools.com/TopDividennn.png" alt="TopDividendTools.com" class="site-logo">
         </a>
     </header>
 
@@ -164,7 +142,6 @@
                 <th onclick="sortTable(3)">Best For</th>
                 <th onclick="sortTable(4)">Pricing</th>
                 <th onclick="sortTable(5)">Key Feature</th>
-                <th onclick="sortTable(6)" class="vote-col">Community</th>
                 <th>Visit</th>
             </tr>
         </thead>
@@ -185,87 +162,19 @@
 </div>
 
 <script>
-// CORRECT WEBHOOK — NO "no-cors" ANYMORE
-const VOTE_WEBHOOK = "https://script.google.com/macros/s/AKfycbw280jUC9evprCYpjCXR4KhczYdF-czLmZjGldmIi5WxRKnvsMoKleZAjolI2-7AcgJ/exec";
-
-// PUBLIC CSV FOR GLOBAL VOTES
-const VOTES_SHEET_CSV = "https://docs.google.com/spreadsheets/d/1osCLotxaMiaLaisfQFI-0urJcskZjJVPyi5Av61bek4/pub?gid=0&single=true&output=csv";
-
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQyl3IN9OtH6Ux2mS1Ojx3hqlXF8Bqztx4hQKsKilSaRLpovens0Wv-aWRfUON54vgS8RghFV7ZSV-K/pub?output=csv";
 
 let allRows = [];
 let currentSort = { col: 0, dir: 'asc' };
 const PREMIUM_SLOTS = 5;
-const VOTE_LIMIT = 10;
-const VOTE_WINDOW = 60 * 60 * 1000;
-const STORAGE_KEY = 'tdt_votes_2026';
-const HISTORY_KEY = 'tdt_vote_history';
-
-function getVotes() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; } }
-function saveVotes(v) { localStorage.setItem(STORAGE_KEY, JSON.stringify(v)); }
-function getHistory() { try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); } catch { return []; } }
-function saveHistory(arr) { localStorage.setItem(HISTORY_KEY, JSON.stringify(arr)); }
-
-function canVote() {
-    const h = getHistory();
-    const now = Date.now();
-    const recent = h.filter(t => now - t < VOTE_WINDOW);
-    return recent.length < VOTE_LIMIT;
-}
-function addVote() {
-    const h = getHistory();
-    h.push(Date.now());
-    if (h.length > 100) h = h.slice(-100);
-    saveHistory(h);
-}
 
 async function loadData() {
     try {
         const res = await fetch(CSV_URL + '&t=' + Date.now());
         const csv = await res.text();
         renderTable(csv);
-        loadGlobalScores(); // THIS MAKES VOTES GLOBAL
     } catch(e) {
         document.getElementById('loading').textContent = 'Error loading data — please refresh';
-    }
-}
-
-// GLOBAL SCORE LOADER — WORKS NOW
-async function loadGlobalScores() {
-    try {
-        const res = await fetch(VOTES_SHEET_CSV + '&t=' + Date.now());
-        const csv = await res.text();
-        const lines = csv.split('\n').slice(1);
-
-        const globalScores = {};
-        lines.forEach(line => {
-            const cols = line.split(',').map(c => c.replace(/^"|"$/g, '').trim());
-            if (cols.length < 4) return;
-            const toolId = cols[2];
-            const dir = cols[3];
-            if (toolId) globalScores[toolId] = (globalScores[toolId] || 0) + (dir === "up" ? 1 : -1);
-        });
-
-        const local = getVotes();
-        Object.keys(globalScores).forEach(id => {
-            if (!local[id]) local[id] = {score: 0, voted: 0};
-            local[id].score = globalScores[id];
-        });
-        saveVotes(local);
-
-        document.querySelectorAll('.vote-count').forEach(el => {
-            const box = el.closest('.vote-box');
-            const id = box?.dataset?.id;
-            if (id && local[id]) el.textContent = local[id].score;
-        });
-
-        allRows.forEach(item => {
-            if (local[item.toolId]) item.score = local[item.toolId].score;
-        });
-
-        sortTable(currentSort.col);
-    } catch (e) {
-        console.log("Sheet sync failed — using local votes", e);
     }
 }
 
@@ -275,7 +184,6 @@ function renderTable(csv) {
     tbody.innerHTML = '';
     allRows = [];
 
-    const votes = getVotes();
     let rankCounter = 1;
 
     for (let i = 1; i < lines.length; i++) {
@@ -285,9 +193,6 @@ function renderTable(csv) {
         const [website, name, category, bestFor, keyFeature, pricing] = cols;
         const isPremium = i <= PREMIUM_SLOTS;
 
-        const toolId = btoa(unescape(encodeURIComponent(name + i))).slice(0, 16);
-        const voteData = votes[toolId] || {score: 0, voted: 0};
-
         const tr = document.createElement('tr');
         if (isPremium) tr.classList.add('sponsored');
 
@@ -295,45 +200,31 @@ function renderTable(csv) {
             ? '<span class="sponsored-label">Sponsored</span>'
             : rankCounter++;
 
-        const voteHTML = `
-            <div class="vote-box" data-id="${toolId}">
-                <button class="vote-btn up ${voteData.voted===1?'voted':''}" data-dir="up">
-                    <svg viewBox="0 0 24 24"><path d="M12 4l-7 8h14z" fill="currentColor"/></svg>
-                </button>
-                <div class="vote-count">${voteData.score}</div>
-                <button class="vote-btn down ${voteData.voted===-1?'voted':''}" data-dir="down">
-                    <svg viewBox="0 0 24 24"><path d="M12 20l7-8H5z" fill="currentColor"/></svg>
-                </button>
-                <div class="cooldown-msg">10 votes/hour limit<br>Try again in <span class="timer">0</span>s</div>
-            </div>`;
-
         const visitHTML = `
             <a href="${website.startsWith('http') ? website : 'https://' + website}" 
                target="_blank" class="visit-btn">
                 Visit Tool
             </a>`;
 
-        const cells = [rankCell, name, category, bestFor, pricing, keyFeature, voteHTML, visitHTML];
+        const cells = [rankCell, name, category, bestFor, pricing, keyFeature, visitHTML];
 
         cells.forEach((content, idx) => {
             const td = document.createElement('td');
             td.innerHTML = content;
-            td.setAttribute('data-label', ['Rank','Tool Name','Category','Best For','Pricing','Key Feature','Community','Visit'][idx]);
+            td.setAttribute('data-label', ['Rank','Tool Name','Category','Best For','Pricing','Key Feature','Visit'][idx]);
             if (idx === 1 && !isPremium) td.className = 'tool-name';
             if (idx === 4 && pricing.toLowerCase().includes('free')) td.className += ' free';
-            if (idx === 6) td.className = 'vote-col';
             tr.appendChild(td);
         });
 
         tbody.appendChild(tr);
-        allRows.push({row: tr, toolId, score: voteData.score});
+        allRows.push(tr);
     }
 
     document.getElementById('loading').style.display = 'none';
     document.getElementById('toolsTable').style.display = 'table';
 
     sortTable(0);
-    attachVoteHandlers();
 }
 
 function sortTable(col) {
@@ -346,85 +237,23 @@ function sortTable(col) {
 
     allRows.sort((a, b) => {
         if (col === 0) {
-            const aS = a.row.classList.contains('sponsored');
-            const bS = b.row.classList.contains('sponsored');
+            const aS = a.classList.contains('sponsored');
+            const bS = b.classList.contains('sponsored');
             if (aS && !bS) return -1;
             if (!aS && bS) return 1;
-            const aR = parseInt(a.row.cells[0].textContent) || 999;
-            const bR = parseInt(b.row.cells[0].textContent) || 999;
+            const aR = parseInt(a.cells[0].textContent) || 999;
+            const bR = parseInt(b.cells[0].textContent) || 999;
             return dir === 'asc' ? aR - bR : bR - aR;
         }
-        if (col === 6) return dir === 'asc' ? (a.score||0) - (b.score||0) : (b.score||0) - (a.score||0);
-        const A = a.row.cells[col].textContent.trim();
-        const B = b.row.cells[col].textContent.trim();
+        const A = a.cells[col].textContent.trim();
+        const B = b.cells[col].textContent.trim();
         return dir === 'asc' 
             ? A.localeCompare(B, undefined, {numeric: true, sensitivity: 'base'})
             : B.localeCompare(A, undefined, {numeric: true, sensitivity: 'base'});
     });
 
     const tbody = document.getElementById('toolsBody');
-    allRows.forEach(item => tbody.appendChild(item.row));
-}
-
-function attachVoteHandlers() {
-    document.querySelectorAll('.vote-btn').forEach(btn => {
-        btn.onclick = function(e) {
-            e.stopPropagation();
-
-            if (!canVote()) {
-                const msg = this.closest('.vote-box').querySelector('.cooldown-msg');
-                msg.classList.add('show');
-                const timer = msg.querySelector('.timer');
-                const update = () => {
-                    const s = getCooldownSeconds();
-                    if (s <= 0) msg.classList.remove('show');
-                    else { timer.textContent = s; setTimeout(update, 1000); }
-                };
-                update();
-                return;
-            }
-
-            const box = this.closest('.vote-box');
-            const id = box.dataset.id;
-            const dir = this.dataset.dir === 'up' ? 1 : -1;
-
-            const votes = getVotes();
-            const data = votes[id] || {score: 0, voted: 0};
-
-            if (data.voted === dir) {
-                data.voted = 0;
-                data.score -= dir;
-            } else {
-                data.score += dir - data.voted;
-                data.voted = dir;
-            }
-
-            votes[id] = data;
-            saveVotes(votes);
-            addVote();
-
-            box.querySelector('.vote-count').textContent = data.score;
-            box.querySelectorAll('.vote-btn').forEach(b => b.classList.remove('voted'));
-            if (data.voted !== 0) {
-                box.querySelector(`[data-dir="${data.voted===1?'up':'down'}"]`).classList.add('voted');
-            }
-
-            const item = allRows.find(x => x.toolId === id);
-            if (item) item.score = data.score;
-
-            // FIXED: NO "no-cors" — VOTES NOW SAVE TO SHEET
-            fetch(VOTE_WEBHOOK, {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({
-                    toolName: box.closest('tr').querySelector('.tool-name')?.textContent.trim() || "Unknown",
-                    toolId: id,
-                    vote: data.voted,
-                    score: data.score
-                })
-            });
-        };
-    });
+    allRows.forEach(row => tbody.appendChild(row));
 }
 
 function applyFilters() {
@@ -432,8 +261,7 @@ function applyFilters() {
     const pricing = document.getElementById('pricingFilter').value.toLowerCase();
     const category = document.getElementById('categoryFilter').value;
 
-    allRows.forEach(item => {
-        const tr = item.row;
+    allRows.forEach(tr => {
         const name = tr.cells[1].textContent.toLowerCase();
         const cat = tr.cells[2].textContent;
         const price = tr.cells[4].textContent.toLowerCase();
