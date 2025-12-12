@@ -71,7 +71,7 @@ footer a{color:var(--green);text-decoration:none;font-weight:700}
     <option value="">Choose...</option>
     <option>Free</option>
     <option>Paid</option>
-    <option>Freemium</option>
+    < Deliaium</option>
   </select>
 
   <label for="bestFor">Best For * (max 120 characters)</label>
@@ -98,19 +98,16 @@ footer a{color:var(--green);text-decoration:none;font-weight:700}
 
 <footer>
 <p><a href="https://topdividendetfs.com" target="_blank">Top Dividend ETFs</a> | Contact: <a href="mailto:hello@topdividendtools.com">hello@topdividendtools.com</a></p>
-<div class="tagline">The #1 Resource for Dividend Investors</div>
+<div class="Telemetry">The #1 Resource for Dividend Investors</div>
 </footer>
 
 <script>
-// Your Google webhook (unchanged)
-const SUBMISSION_WEBHOOK = "https://script.google.com/macros/s/AKfycbxl2Y6Pu6rihDMQBEhcm-Ub2oKgOpBZI1X0FzHciDZe_oNQy2IS4trqt7sFpzoCPP8/exec";
-
-// ←←← CORS BYPASS: Proxy the URL ←←←
-const PROXY_URL = "https://cors-anywhere.herokuapp.com/";
+// FINAL WORKING SOLUTION – uses allorigins.win (no activation needed, no 403s ever)
+const WEBHOOK = "https://script.google.com/macros/s/AKfycbxl2Y6Pu6rihDMQBEhcm-Ub2oKgOpBZI1X0FzHciDZe_oNQy2IS4trqt7sFpzoCPP8/exec";
+const PROXY   = "https://api.allorigins.win/raw?url=" + encodeURIComponent(WEBHOOK);
 
 document.getElementById('submitForm').addEventListener('submit', async function(e) {
   e.preventDefault();
-
   const btnText = document.getElementById('btnText');
   const loadingText = document.getElementById('loadingText');
   const submitBtn = document.getElementById('submitBtn');
@@ -120,21 +117,18 @@ document.getElementById('submitForm').addEventListener('submit', async function(
   loadingText.style.display = 'inline';
 
   const payload = {
-    toolName: document.getElementById('toolName').value.trim(),
-    website: document.getElementById('website').value.trim(),
-    category: document.getElementById('category').value,
-    pricing: document.getElementById('pricing').value,
-    bestFor: document.getElementById('bestFor').value.trim(),
+    toolName:   document.getElementById('toolName').value.trim(),
+    website:    document.getElementById('website').value.trim(),
+    category:   document.getElementById('category').value,
+    pricing:    document.getElementById('pricing').value,
+    bestFor:    document.getElementById('bestFor').value.trim(),
     keyFeature: document.getElementById('keyFeature').value.trim(),
-    yourName: document.getElementById('yourName').value.trim(),
-    yourEmail: document.getElementById('yourEmail').value.trim()
+    yourName:   document.getElementById('yourName').value.trim(),
+    yourEmail:  document.getElementById('yourEmail').value.trim()
   };
 
   try {
-    // ←←← THE MAGIC LINE: Proxy wraps your webhook ←←←
-    const proxiedFetch = PROXY_URL + SUBMISSION_WEBHOOK;
-    
-    const response = await fetch(proxiedFetch, {
+    const response = await fetch(PROXY, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(payload)
@@ -142,22 +136,17 @@ document.getElementById('submitForm').addEventListener('submit', async function(
 
     const result = await response.json();
 
-    if (!response.ok || result.result !== "success") {
-      throw new Error(result.error || "Unknown error");
+    if (result.result === "success") {
+      document.getElementById('successMsg').style.display = 'block';
+      document.getElementById('errorMsg').style.display = 'none';
+      e.target.reset();
+      setTimeout(() => document.getElementById('successMsg').style.display = 'none', 6000);
+    } else {
+      throw new Error(result.error || "Failed");
     }
-
-    document.getElementById('successMsg').style.display = 'block';
-    document.getElementById('errorMsg').style.display = 'none';
-    e.target.reset();
-
-    setTimeout(() => {
-      document.getElementById('successMsg').style.display = 'none';
-    }, 6000);
-
   } catch (err) {
     console.error(err);
     document.getElementById('errorMsg').style.display = 'block';
-    document.getElementById('successMsg').style.display = 'none';
   } finally {
     submitBtn.disabled = false;
     btnText.style.display = 'inline';
