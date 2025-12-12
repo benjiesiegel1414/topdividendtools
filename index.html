@@ -95,7 +95,7 @@
 
     <header>
         <a href="/">
-            <img src="https://topdividendtools.com/TopDividennn.png" alt="TopDividendTools.com" class="site-logo">
+            <img src="https://topdividendtools.com/TopDividen.png" alt="TopDividendTools.com" class="site-logo">
         </a>
     </header>
 
@@ -218,7 +218,7 @@ function renderTable(csv) {
         });
 
         tbody.appendChild(tr);
-        allRows.push(tr);
+        allRows.push({row: tr, isSponsored: isPremium});
     }
 
     document.getElementById('loading').style.display = 'none';
@@ -235,25 +235,25 @@ function sortTable(col) {
         th.className = i === col ? `sort-${dir}` : '';
     });
 
-    allRows.sort((a, b) => {
-        if (col === 0) {
-            const aS = a.classList.contains('sponsored');
-            const bS = b.classList.contains('sponsored');
-            if (aS && !bS) return -1;
-            if (!aS && bS) return 1;
-            const aR = parseInt(a.cells[0].textContent) || 999;
-            const bR = parseInt(b.cells[0].textContent) || 999;
-            return dir === 'asc' ? aR - bR : bR - aR;
-        }
-        const A = a.cells[col].textContent.trim();
-        const B = b.cells[col].textContent.trim();
+    // Separate sponsored and normal tools
+    const sponsored = allRows.filter(item => item.isSponsored);
+    const normal = allRows.filter(item => !item.isSponsored);
+
+    // Sort only normal tools
+    normal.sort((a, b) => {
+        const A = a.row.cells[col].textContent.trim();
+        const B = b.row.cells[col].textContent.trim();
         return dir === 'asc' 
             ? A.localeCompare(B, undefined, {numeric: true, sensitivity: 'base'})
             : B.localeCompare(A, undefined, {numeric: true, sensitivity: 'base'});
     });
 
+    // Combine: sponsored first, then sorted normal tools
+    const sortedRows = [...sponsored, ...normal];
+
     const tbody = document.getElementById('toolsBody');
-    allRows.forEach(row => tbody.appendChild(row));
+    tbody.innerHTML = '';
+    sortedRows.forEach(item => tbody.appendChild(item.row));
 }
 
 function applyFilters() {
@@ -261,7 +261,8 @@ function applyFilters() {
     const pricing = document.getElementById('pricingFilter').value.toLowerCase();
     const category = document.getElementById('categoryFilter').value;
 
-    allRows.forEach(tr => {
+    allRows.forEach(item => {
+        const tr = item.row;
         const name = tr.cells[1].textContent.toLowerCase();
         const cat = tr.cells[2].textContent;
         const price = tr.cells[4].textContent.toLowerCase();
@@ -273,6 +274,9 @@ function applyFilters() {
 
         tr.style.display = show ? '' : 'none';
     });
+
+    // Re-apply current sort after filtering
+    sortTable(currentSort.col);
 }
 
 document.getElementById('searchFilter').oninput = applyFilters;
