@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Submit a Tool – Top Dividend Investing Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#000;min-height:100vh}
+:root{--green:#152514;--gold:#FFD700}
+header{background:#1a3224;padding:20px;text-align:center;position:relative;box-shadow:0 4px 20px rgba(0,0,0,.3);
+background-image:url('https://www.transparenttextures.com/patterns/noise.png');background-blend-mode:overlay}
+.logo{max-width:380px;width:90%;height:auto}
+.back-btn{position:absolute;top:20px;left:20px;background:var(--gold);color:#000;padding:10px 18px;border-radius:12px;
+font-weight:900;text-decoration:none;box-shadow:0 4px 12px rgba(255,215,0,.5);font-size:0.95rem}
+.back-btn:hover{background:#ffed4e}
+.container{max-width:800px;margin:40px auto;padding:0 20px}
+h1{font-size:2.4rem;text-align:center;margin:20px 0;font-weight:900}
+.subtitle{text-align:center;color:#555;margin-bottom:40px;font-size:1.2rem}
+form{background:white;padding:40px;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,.1);border:1px solid #eee}
+label{display:block;margin:20px 0 8px;font-weight:700;font-size:1.05rem}
+input,select,textarea{width:100%;padding:14px 16px;border-radius:10px;border:1px solid #ccc;font-size:1rem}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(21,37,20,.1)}
+button[type=submit]{margin-top:30px;width:100%;padding:16px;background:var(--green);color:white;border:none;
+border-radius:12px;font-size:1.2rem;font-weight:900;cursor:pointer;box-shadow:0 6px 20px rgba(21,37,20,.4);
+position:relative;transition:all .2s}
+button[type=submit]:hover{background:#0d1a0f;transform:translateY(-3px)}
+button[type=submit]:disabled{background:#0a120d;cursor:not-allowed;transform:none}
+.success,.error{padding:20px;border-radius:10px;margin-top:20px;text-align:center;font-weight:700;display:none}
+.success{background:#d4edda;color:#155724}
+.error{background:#f8d7da;color:#721c24}
+footer{padding:60px 20px;background:white;text-align:center;border-top:6px solid var(--green);margin-top:80px}
+footer a{color:var(--green);text-decoration:none;font-weight:700}
+.tagline{font-size:1.6rem;font-weight:900;color:var(--green);margin:20px 0}
+</style>
+</head>
+<body>
+
+<header>
+<a href="/" class="back-btn">Back to List</a>
+<img src="https://topdividendtools.com/TopDividen.png" alt="Logo" class="logo">
+</header>
+
+<div class="container">
+<h1>Submit a Dividend Tool</h1>
+<p class="subtitle">Your tool will be reviewed and added if approved.</p>
+
+<form id="submitForm">
+  <label for="toolName">Tool Name *</label>
+  <input type="text" id="toolName" placeholder="e.g. Dividend Tracker Pro" required>
+
+  <label for="website">Website URL *</label>
+  <input type="url" id="website" placeholder="https://example.com" required>
+
+  <label for="category">Category *</label>
+  <select id="category" required>
+    <option value="">Choose...</option>
+    <option>Research</option>
+    <option>YouTube</option>
+    <option>News & Research</option>
+    <option>General Stock Market Site</option>
+    <option>Dividend Calculator</option>
+    <option>Dividend Tracker</option>
+    <option>Portfolio Tracker</option>
+    <option>Other</option>
+  </select>
+
+  <label for="pricing">Pricing *</label>
+  <select id="pricing" required>
+    <option value="">Choose...</option>
+    <option>Free</option>
+    <option>Paid</option>
+    <option>Freemium</option>
+  </select>
+
+  <label for="bestFor">Best For * (max 120 characters)</label>
+  <input type="text" id="bestFor" placeholder="e.g. Beginners tracking monthly dividends" maxlength="120" required>
+
+  <label for="keyFeature">Key Feature (optional)</label>
+  <textarea id="keyFeature" rows="3" placeholder="What makes this tool stand out?"></textarea>
+
+  <label for="yourName">Your Name (optional)</label>
+  <input type="text" id="yourName" placeholder="John Doe">
+
+  <label for="yourEmail">Your Email (optional)</label>
+  <input type="email" id="yourEmail" placeholder="you@example.com">
+
+  <button type="submit" id="submitBtn">
+    <span id="btnText">Submit for Review</span>
+    <span id="loadingText" style="display:none;">Sending...</span>
+  </button>
+</form>
+
+<div id="successMsg" class="success">Thank you! Your submission was received and will be reviewed shortly.</div>
+<div id="errorMsg" class="error">Something went wrong — please try again or email hello@topdividendtools.com</div>
+</div>
+
+<footer>
+<p><a href="https://topdividendetfs.com" target="_blank">Top Dividend ETFs</a> | Contact: <a href="mailto:hello@topdividendtools.com">hello@topdividendtools.com</a></p>
+<div class="tagline">The #1 Resource for Dividend Investors</div>
+</footer>
+
+<script>
+// ←←← YOUR NEW WORKING WEBHOOK (Dec 2025) ←←←
+const SUBMISSION_WEBHOOK = "https://script.google.com/macros/s/AKfycbxBTTfDWuQ2HkoqxHKHDZETOYo7JiyAcj3bIZPqrE5H2lpsnXycKzYgGT8U_ZG-VdxZ/exec";
+
+document.getElementById('submitForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const btnText = document.getElementById('btnText');
+  const loadingText = document.getElementById('loadingText');
+  const submitBtn = document.getElementById('submitBtn');
+
+  // Show loading state
+  submitBtn.disabled = true;
+  btnText.style.display = 'none';
+  loadingText.style.display = 'inline';
+
+  const payload = {
+    toolName: document.getElementById('toolName').value.trim(),
+    website: document.getElementById('website').value.trim(),
+    category: document.getElementById('category').value,
+    pricing: document.getElementById('pricing').value,
+    bestFor: document.getElementById('bestFor').value.trim(),
+    keyFeature: document.getElementById('keyFeature').value.trim(),
+    yourName: document.getElementById('yourName').value.trim(),
+    yourEmail: document.getElementById('yourEmail').value.trim()
+  };
+
+  try {
+    const response = await fetch(SUBMISSION_WEBHOOK, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(payload)
+    });
+
+    const result = await response.json();
+
+    if (!response.ok || result.result !== "success") {
+      throw new Error(result.error || "Unknown error");
+    }
+
+    document.getElementById('successMsg').style.display = 'block';
+    document.getElementById('errorMsg').style.display = 'none';
+    e.target.reset();
+
+    setTimeout(() => {
+      document.getElementById('successMsg').style.display = 'none';
+    }, 6000);
+
+  } catch (err) {
+    console.error(err);
+    document.getElementById('errorMsg').style.display = 'block';
+    document.getElementById('successMsg').style.display = 'none';
+  } finally {
+    // Always re-enable button
+    submitBtn.disabled = false;
+    btnText.style.display = 'inline';
+    loadingText.style.display = 'none';
+  }
+});
+</script>
+
+</body>
+</html>
