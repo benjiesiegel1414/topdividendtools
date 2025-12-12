@@ -205,6 +205,47 @@ const STORAGE_KEY = 'tdt_votes_2026';
 const HISTORY_KEY = 'tdt_vote_history';
 
 function getVotes() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; } }
+// LOAD GLOBAL SCORES FROM YOUR SHEET (RUNS ON EVERY VISIT)
+async function loadGlobalScores() {
+    try {
+        const res = await fetch("https://docs.google.com/spreadsheets/d/1osCLotxaMiaLaisfQFI-0urJcskZjJVPyi5Av61bek4/pub?gid=0&single=true&output=csv&t=" + Date.now());
+        const csv = await res.text();
+        const lines = csv.split('\n').slice(1); // Skip header
+
+        const globalScores = {};
+        lines.forEach(line => {
+            const cols = line.split(',').map(c => c.replace(/^"|"$/g, '').trim());
+            if (cols.length < 4) return;
+            const toolId = cols[2];
+            const dir = cols[3];
+            if (toolId) globalScores[toolId] = (globalScores[toolId] || 0) + (dir === "up" ? 1 : -1);
+        });
+
+        // Merge with local votes
+        const local = getVotes();
+        Object.keys(globalScores).forEach(id => {
+            if (!local[id]) local[id] = {score: 0, voted: 0};
+            local[id].score = globalScores[id];
+        });
+        saveVotes(local);
+
+        // Update all counts on screen
+        document.querySelectorAll('.vote-count').forEach(el => {
+            const box = el.closest('.vote-box');
+            const id = box.dataset.id;
+            if (id && local[id]) el.textContent = local[id].score;
+        });
+
+        // Update sorting data
+        allRows.forEach(item => {
+            if (local[item.toolId]) item.score = local[item.score];
+        });
+
+        sortTable(currentSort.col); // Re-sort with real scores
+    } catch (e) {
+        console.log("Global vote sync failed (using local)", e);
+    }
+}
 function saveVotes(v) { localStorage.setItem(STORAGE_KEY, JSON.stringify(v)); }
 function getHistory() { try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); } catch { return []; } }
 function saveHistory(arr) { localStorage.setItem(HISTORY_KEY, JSON.stringify(arr)); }
@@ -462,6 +503,7 @@ document.getElementById('categoryFilter').onchange = applyFilters;
 document.getElementById('resetFilters').onclick = () => location.reload();
 
 loadData();
+loadGlobalScores();
 </script>
 </body>
 </html>
