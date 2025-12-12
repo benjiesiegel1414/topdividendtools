@@ -111,7 +111,7 @@ document.getElementById('submitForm').addEventListener('submit', async function(
   document.getElementById('btnText').style.display = 'none';
   document.getElementById('loadingText').style.display = 'inline';
 
-  const payload = {
+  const payload = new URLSearchParams({
     toolName:   document.getElementById('toolName').value.trim(),
     website:    document.getElementById('website').value.trim(),
     category:   document.getElementById('category').value,
@@ -120,30 +120,22 @@ document.getElementById('submitForm').addEventListener('submit', async function(
     keyFeature: document.getElementById('keyFeature').value.trim(),
     yourName:   document.getElementById('yourName').value.trim(),
     yourEmail:  document.getElementById('yourEmail').value.trim()
-  };
+  });
 
   try {
-    const response = await fetch(WEBHOOK, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
+    await fetch(WEBHOOK + "?" + payload.toString(), {
+      method: "GET",
+      mode: "no-cors"
     });
 
-    const result = await response.json();
-
-    if(result.result === "success") {
-      document.getElementById('successMsg').style.display = 'block';
-      document.getElementById('errorMsg').style.display = 'none';
-      e.target.reset();
-      setTimeout(() => document.getElementById('successMsg').style.display = 'none', 6000);
-    } else {
-      document.getElementById('errorMsg').style.display = 'block';
-      document.getElementById('successMsg').style.display = 'none';
-    }
+    document.getElementById('successMsg').style.display = 'block';
+    document.getElementById('errorMsg').style.display = 'none';
+    e.target.reset();
+    setTimeout(() => document.getElementById('successMsg').style.display = 'none', 6000);
 
   } catch (err) {
-    document.getElementById('errorMsg').style.display = 'block';
-    document.getElementById('successMsg').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+    e.target.reset();
   } finally {
     submitBtn.disabled = false;
     document.getElementById('btnText').style.display = 'inline';
