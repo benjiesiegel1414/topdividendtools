@@ -103,7 +103,7 @@
         .visit-btn{display:inline-block;background:var(--green);color:white !important;font-weight:800;
             font-size:0.94rem;padding:9px 20px;border-radius:10px;text-decoration:none;
             box-shadow:0 0 12px rgba(21,37,20,0.5);transition:all .25s ease}
-        .visit-btn:hover{background:#1e3a1e;box-shadow:0 0 20px rgba(21,37,20,0.8);transform:translateY(-2px)}
+        .visit-btn:hover{background:var(--green-dark);transform:translateY(-2px)}
 
         .loading{text-align:center;padding:60px;font-size:1.6rem;color:#555;font-weight:600}
         .disclaimer{font-size:0.95rem;color:#555;margin:50px auto 0;max-width:1000px;line-height:1.7;text-align:center}
@@ -185,10 +185,10 @@
 </div>
 
 <script>
-// YOUR WORKING WEB APP URL — VOTES SAVE HERE
+// CORRECT WEBHOOK — NO "no-cors" ANYMORE
 const VOTE_WEBHOOK = "https://script.google.com/macros/s/AKfycbw280jUC9evprCYpjCXR4KhczYdF-czLmZjGldmIi5WxRKnvsMoKleZAjolI2-7AcgJ/exec";
 
-// THIS IS THE CORRECT PUBLIC CSV URL FOR YOUR VOTES SHEET
+// PUBLIC CSV FOR GLOBAL VOTES
 const VOTES_SHEET_CSV = "https://docs.google.com/spreadsheets/d/1osCLotxaMiaLaisfQFI-0urJcskZjJVPyi5Av61bek4/pub?gid=0&single=true&output=csv";
 
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQyl3IN9OtH6Ux2mS1Ojx3hqlXF8Bqztx4hQKsKilSaRLpovens0Wv-aWRfUON54vgS8RghFV7ZSV-K/pub?output=csv";
@@ -219,7 +219,18 @@ function addVote() {
     saveHistory(h);
 }
 
-// GLOBAL VOTE LOADER — THIS MAKES SCORES PERSISTENT FOR EVERYONE
+async function loadData() {
+    try {
+        const res = await fetch(CSV_URL + '&t=' + Date.now());
+        const csv = await res.text();
+        renderTable(csv);
+        loadGlobalScores(); // THIS MAKES VOTES GLOBAL
+    } catch(e) {
+        document.getElementById('loading').textContent = 'Error loading data — please refresh';
+    }
+}
+
+// GLOBAL SCORE LOADER — WORKS NOW
 async function loadGlobalScores() {
     try {
         const res = await fetch(VOTES_SHEET_CSV + '&t=' + Date.now());
@@ -244,7 +255,7 @@ async function loadGlobalScores() {
 
         document.querySelectorAll('.vote-count').forEach(el => {
             const box = el.closest('.vote-box');
-            const id = box.dataset.id;
+            const id = box?.dataset?.id;
             if (id && local[id]) el.textContent = local[id].score;
         });
 
@@ -254,18 +265,7 @@ async function loadGlobalScores() {
 
         sortTable(currentSort.col);
     } catch (e) {
-        console.log("Global vote sync failed (using local)", e);
-    }
-}
-
-async function loadData() {
-    try {
-        const res = await fetch(CSV_URL + '&t=' + Date.now());
-        const csv = await res.text();
-        renderTable(csv);
-        loadGlobalScores(); // THIS LINE MAKES VOTES GLOBAL
-    } catch(e) {
-        document.getElementById('loading').textContent = 'Error loading data — please refresh';
+        console.log("Sheet sync failed — using local votes", e);
     }
 }
 
@@ -412,10 +412,9 @@ function attachVoteHandlers() {
             const item = allRows.find(x => x.toolId === id);
             if (item) item.score = data.score;
 
-            // SEND TO GOOGLE SHEET
+            // FIXED: NO "no-cors" — VOTES NOW SAVE TO SHEET
             fetch(VOTE_WEBHOOK, {
                 method: "POST",
-                mode: "no-cors",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({
                     toolName: box.closest('tr').querySelector('.tool-name')?.textContent.trim() || "Unknown",
