@@ -54,7 +54,7 @@ footer a{color:var(--green);text-decoration:none;font-weight:700}
   <input type="url" id="website" placeholder="https://example.com" required>
 
   <label for="category">Category *</label>
-  <select id="category" required>
+b  <select id="category" required>
     <option value="">Choose...</option>
     <option>Research</option>
     <option>YouTube</option>
@@ -102,8 +102,8 @@ footer a{color:var(--green);text-decoration:none;font-weight:700}
 </footer>
 
 <script>
-// ←←← YOUR NEW WORKING WEBHOOK (Dec 2025) ←←←
-const SUBMISSION_WEBHOOK = "https://script.google.com/macros/s/AKfycbxBTTfDWuQ2HkoqxHKHDZETOYo7JiyAcj3bIZPqrE5H2lpsnXycKzYgGT8U_ZG-VdxZ/exec";
+// FINAL WORKING WEBHOOK — December 12, 2025
+const SUBMISSION_WEBHOOK = "https://script.google.com/macros/s/AKfycbxl2Y6Pu6rihDMQBEhcm-Ub2oKgOpBZI1X0FzHciDZe_oNQy2IS4trqt7sFpzoCPP8/exec";
 
 document.getElementById('submitForm').addEventListener('submit', async function(e) {
   e.preventDefault();
@@ -112,7 +112,6 @@ document.getElementById('submitForm').addEventListener('submit', async function(
   const loadingText = document.getElementById('loadingText');
   const submitBtn = document.getElementById('submitBtn');
 
-  // Show loading state
   submitBtn.disabled = true;
   btnText.style.display = 'none';
   loadingText.style.display = 'inline';
@@ -154,7 +153,6 @@ document.getElementById('submitForm').addEventListener('submit', async function(
     document.getElementById('errorMsg').style.display = 'block';
     document.getElementById('successMsg').style.display = 'none';
   } finally {
-    // Always re-enable button
     submitBtn.disabled = false;
     btnText.style.display = 'inline';
     loadingText.style.display = 'none';
