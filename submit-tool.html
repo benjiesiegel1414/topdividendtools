@@ -54,7 +54,7 @@ footer a{color:var(--green);text-decoration:none;font-weight:700}
   <input type="url" id="website" placeholder="https://example.com" required>
 
   <label for="category">Category *</label>
-b  <select id="category" required>
+  <select id="category" required>
     <option value="">Choose...</option>
     <option>Research</option>
     <option>YouTube</option>
@@ -102,8 +102,11 @@ b  <select id="category" required>
 </footer>
 
 <script>
-// FINAL WORKING WEBHOOK — December 12, 2025
+// Your Google webhook (unchanged)
 const SUBMISSION_WEBHOOK = "https://script.google.com/macros/s/AKfycbxl2Y6Pu6rihDMQBEhcm-Ub2oKgOpBZI1X0FzHciDZe_oNQy2IS4trqt7sFpzoCPP8/exec";
+
+// ←←← CORS BYPASS: Proxy the URL ←←←
+const PROXY_URL = "https://cors-anywhere.herokuapp.com/";
 
 document.getElementById('submitForm').addEventListener('submit', async function(e) {
   e.preventDefault();
@@ -128,7 +131,10 @@ document.getElementById('submitForm').addEventListener('submit', async function(
   };
 
   try {
-    const response = await fetch(SUBMISSION_WEBHOOK, {
+    // ←←← THE MAGIC LINE: Proxy wraps your webhook ←←←
+    const proxiedFetch = PROXY_URL + SUBMISSION_WEBHOOK;
+    
+    const response = await fetch(proxiedFetch, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(payload)
