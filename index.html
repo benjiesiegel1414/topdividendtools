@@ -219,18 +219,7 @@ function addVote() {
     saveHistory(h);
 }
 
-async function loadData() {
-    try {
-        const res = await fetch(CSV_URL + '&t=' + Date.now());
-        const csv = await res.text();
-        renderTable(csv);
-        loadGlobalScores(); // THIS LINE MAKES VOTES GLOBAL
-    } catch(e) {
-        document.getElementById('loading').textContent = 'Error loading data — please refresh';
-    }
-}
-
-// THIS LOADS REAL VOTES FROM YOUR SHEET ON EVERY PAGE LOAD
+// GLOBAL VOTE LOADER — THIS MAKES SCORES PERSISTENT FOR EVERYONE
 async function loadGlobalScores() {
     try {
         const res = await fetch(VOTES_SHEET_CSV + '&t=' + Date.now());
@@ -266,6 +255,17 @@ async function loadGlobalScores() {
         sortTable(currentSort.col);
     } catch (e) {
         console.log("Global vote sync failed (using local)", e);
+    }
+}
+
+async function loadData() {
+    try {
+        const res = await fetch(CSV_URL + '&t=' + Date.now());
+        const csv = await res.text();
+        renderTable(csv);
+        loadGlobalScores(); // THIS LINE MAKES VOTES GLOBAL
+    } catch(e) {
+        document.getElementById('loading').textContent = 'Error loading data — please refresh';
     }
 }
 
