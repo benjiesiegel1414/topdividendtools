@@ -28,27 +28,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
-        html,body{margin:0;padding:0;overflow-x:hidden;width:100%;font-family:'Inter',system-ui,sans-serif}
+        html,body{margin:0;padding:0;overflow-x:hidden;width:100%;font-family:'Inter',sans-serif}
         :root{--green:#152514;--green-dark:#0d1a0f;--red:#e74c3c;--gold:#FFD700}
         body{background:#f8f9fa;color:#000;display:flex;flex-direction:column;align-items:center;min-height:100vh;line-height:1.5}
 
-        header{
-            background:#1a3224;
-            padding:20px 20px 16px;
-            text-align:center;
-            width:100%;
-            box-shadow:0 4px 20px rgba(0,0,0,.3);
-            background-image:url('https://www.transparenttextures.com/patterns/noise.png');
-            background-blend-mode:overlay;
-        }
-
-        .site-logo {
-            max-width:420px;
-            width:92%;
-            height:auto;
-            display:block;
-            margin:0 auto;
-        }
+        header{background:#1a3224;padding:20px 20px 16px;text-align:center;width:100%;box-shadow:0 4px 20px rgba(0,0,0,.3);
+            background-image:url('https://www.transparenttextures.com/patterns/noise.png');background-blend-mode:overlay}
+        .site-logo{max-width:420px;width:92%;height:auto;display:block;margin:0 auto}
         @media(max-width:480px){.site-logo{max-width:320px}}
 
         .main-h1{text-align:center;margin:26px auto 10px;padding:0 15px;max-width:1280px}
@@ -57,64 +43,54 @@
 
         .content{width:94%;max-width:1280px;margin:0 auto;display:flex;flex-direction:column;align-items:center}
 
-        .top-disclaimer{
-            max-width:1000px;margin:16px auto 20px;padding:0 20px;text-align:center;
-            font-size:1.08rem;font-weight:700;color:#000;line-height:1.6;
-        }
+        .top-disclaimer{max-width:1000px;margin:16px auto 20px;padding:0 20px;text-align:center;
+            font-size:1.08rem;font-weight:700;color:#000;line-height:1.6}
         .disclaimer-line{font-weight:900 !important;font-size:1.15rem !important;color:#c62828 !important;margin-top:12px !important}
 
-        /* FILTERS – NOW WITH CATEGORY */
-        #filters{
-            margin:20px auto 32px;
-            display:flex;
-            flex-wrap:wrap;
-            gap:16px;
-            justify-content:center;
-            align-items:center;
-            width:94%;
-            max-width:1000px;
-        }
-        #resetFilters{
-            padding:12px 28px;
-            background:var(--green);
-            color:#fff;
-            border-radius:10px;
-            cursor:pointer;
-            font-weight:800;
-            border:none;
-            font-size:1rem;
-        }
+        #filters{margin:20px auto 30px;display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center}
+        #resetFilters{padding:12px 28px;background:var(--green);color:#fff;border-radius:10px;cursor:pointer;font-weight:800;border:none}
         #resetFilters:hover{background:var(--green-dark)}
-        select,input{
-            padding:12px 18px;
-            border-radius:10px;
-            border:1px solid #ccc;
-            font-size:1rem;
-            min-width:200px;
-        }
+        select,input{padding:12px 18px;border-radius:10px;border:1px solid #ccc;font-size:1rem}
 
         #toolsTable{width:100%;border-collapse:collapse;background:#fff;border:4px solid var(--green);border-radius:14px;overflow:hidden;
             box-shadow:0 10px 35px rgba(21,37,20,.28);margin:10px 0}
-        th{background:var(--green);color:#fff;padding:18px 12px;font-size:1.05rem;font-weight:700;cursor:pointer}
+        th{background:var(--green);color:#fff;padding:18px 12px;font-size:1.05rem;font-weight:700;cursor:pointer;position:relative;padding-right:28px}
+        th:hover{background:var(--green-dark)}
+
+        th::after{
+            content:"";position:absolute;right:12px;top:50%;transform:translateY(-50%);
+            width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;opacity:0.6;
+        }
+        th.sort-asc::after{border-bottom:8px solid #fff;opacity:1}
+        th.sort-desc::after{border-top:8px solid #fff;opacity:1}
+
         td{padding:16px 12px;font-size:1rem;text-align:center}
         tr:nth-child(even){background:#f9fff9}
         tr:hover{background:#e8f5e8;transition:background .25s}
         .tool-name{font-weight:800;font-size:1.35rem;color:var(--green)}
         .free{color:#27ae60 !important;font-weight:900}
 
-        tr.sponsored {
-            background: linear-gradient(135deg, #fffdf0, #f9f7e8) !important;
-            border-left: 5px solid var(--gold);
+        tr.sponsored{background:linear-gradient(135deg,#fffdf0,#f9f7e8)!important;border-left:5px solid var(--gold)}
+        .sponsored-label{background:var(--gold);color:#000;font-size:0.78rem;font-weight:900;padding:4px 10px;border-radius:6px;display:inline-block}
+
+        .vote-col{width:100px}
+        .vote-box{display:flex;flex-direction:column;align-items:center;gap:6px;position:relative}
+        .vote-btn{background:transparent;border:0;cursor:pointer;padding:6px;display:flex;align-items:center;justify-content:center}
+        .vote-btn svg{width:24px;height:24px;opacity:0.7;transition:all .2s}
+        .vote-btn:hover svg{opacity:1;transform:scale(1.15)}
+        .vote-btn.voted svg{opacity:1}
+        .vote-btn.up.voted svg{fill:#ff4500}
+        .vote-btn.down.voted svg{fill:#7193ff}
+        .vote-count{font-weight:900;color:var(--green);font-size:1.1rem}
+
+        .cooldown-msg{
+            position:absolute;top:-40px;left:50%;transform:translateX(-50%);
+            background:#c62828;color:white;padding:8px 14px;border-radius:8px;
+            font-size:0.9rem;font-weight:700;white-space:nowrap;
+            box-shadow:0 4px 15px rgba(0,0,0,0.3);z-index:100;
+            opacity:0;pointer-events:none;transition:opacity .3s;
         }
-        .sponsored-label {
-            background: var(--gold);
-            color: #000;
-            font-size: 0.78rem;
-            font-weight: 900;
-            padding: 4px 10px;
-            border-radius: 6px;
-            display: inline-block;
-        }
+        .cooldown-msg.show{opacity:1}
 
         @media(max-width:768px){
             th{display:none}
@@ -124,17 +100,15 @@
             td{display:flex;justify-content:space-between;padding:11px 0;font-size:1.06rem;border-bottom:1px solid #f0f0f0}
             td:last-child{border:none}
             td:before{content:attr(data-label);font-weight:700;color:var(--green);min-width:160px}
+            .vote-col{width:auto}
+            .vote-box{flex-direction:row;gap:16px;justify-content:flex-end;margin-top:8px}
+            .cooldown-msg{top:100%;left:50%;margin-top:10px}
         }
 
-        .visit-btn{
-            display:inline-block;background:var(--green);color:white !important;font-weight:800;
+        .visit-btn{display:inline-block;background:var(--green);color:white !important;font-weight:800;
             font-size:0.94rem;padding:9px 20px;border-radius:10px;text-decoration:none;
-            box-shadow:0 0 12px rgba(21,37,20,0.5);transition:all .25s ease;
-        }
+            box-shadow:0 0 12px rgba(21,37,20,0.5);transition:all .25s ease}
         .visit-btn:hover{background:#1e3a1e;box-shadow:0 0 20px rgba(21,37,20,0.8);transform:translateY(-2px)}
-        .visit-btn:active{transform:translateY(0)}
-
-        @media(max-width:768px){.visit-btn{width:100%;padding:12px;font-size:1rem}}
 
         .loading{text-align:center;padding:60px;font-size:1.6rem;color:#555;font-weight:600}
         .disclaimer{font-size:0.95rem;color:#555;margin:50px auto 0;max-width:1000px;line-height:1.7;text-align:center}
@@ -148,9 +122,7 @@
 
     <header>
         <a href="/">
-            <img src="https://topdividendtools.com/TopDividen.png" 
-                 alt="TopDividendTools.com" 
-                 class="site-logo">
+            <img src="https://topdividendtools.com/TopDividen.png" alt="TopDividendTools.com" class="site-logo">
         </a>
     </header>
 
@@ -166,18 +138,14 @@
         <strong class="disclaimer-line">Nothing on TopDividendTools.com is financial advice! Always do your own research!</strong>
     </div>
 
-    <!-- ENHANCED FILTERS -->
     <div id="filters">
         <button id="resetFilters">Reset Filters</button>
-        
-        <input type="text" id="searchFilter" placeholder="Search Tool Name">
-
+        <input type="text" id="searchFilter" placeholder="Search Tool Name or Category">
         <select id="pricingFilter">
             <option value="">Pricing: All</option>
             <option value="Free">Free Only</option>
             <option value="Paid">Paid Only</option>
         </select>
-
         <select id="categoryFilter">
             <option value="">Category: All</option>
             <option value="Research">Research</option>
@@ -195,12 +163,13 @@
     <table id="toolsTable" style="display:none">
         <thead>
             <tr>
-                <th>Rank</th>
-                <th>Tool Name</th>
-                <th>Category</th>
-                <th>Best For</th>
-                <th>Pricing</th>
-                <th>Key Feature</th>
+                <th onclick="sortTable(0)">Rank</th>
+                <th onclick="sortTable(1)">Tool Name</th>
+                <th onclick="sortTable(2)">Category</th>
+                <th onclick="sortTable(3)">Best For</th>
+                <th onclick="sortTable(4)">Pricing</th>
+                <th onclick="sortTable(5)">Key Feature</th>
+                <th onclick="sortTable(6)" class="vote-col">Community</th>
                 <th>Visit</th>
             </tr>
         </thead>
@@ -221,10 +190,42 @@
 </div>
 
 <script>
+// YOUR REAL WORKING WEB APP URL — VOTES SAVE HERE
+const VOTE_WEBHOOK = "https://script.google.com/macros/s/AKfycbw280jUC9evprCYpjCXR4KhczYdF-czLmZjGldmIi5WxRKnvsMoKleZAjolI2-7AcgJ/exec";
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQyl3IN9OtH6Ux2mS1Ojx3hqlXF8Bqztx4hQKsKilSaRLpovens0Wv-aWRfUON54vgS8RghFV7ZSV-K/pub?output=csv";
 
 let allRows = [];
+let currentSort = { col: 0, dir: 'asc' };
 const PREMIUM_SLOTS = 5;
+const VOTE_LIMIT = 10;
+const VOTE_WINDOW = 60 * 60 * 1000; // 1 hour
+const STORAGE_KEY = 'tdt_votes_2026';
+const HISTORY_KEY = 'tdt_vote_history';
+
+function getVotes() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; } }
+function saveVotes(v) { localStorage.setItem(STORAGE_KEY, JSON.stringify(v)); }
+
+function getHistory() { try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); } catch { return []; } }
+function saveHistory(arr) { localStorage.setItem(HISTORY_KEY, JSON.stringify(arr)); }
+
+function canVote() {
+    const h = getHistory();
+    const now = Date.now();
+    const recent = h.filter(t => now - t < VOTE_WINDOW);
+    return recent.length < VOTE_LIMIT;
+}
+function addVote() {
+    const h = getHistory();
+    h.push(Date.now());
+    if (h.length > 100) h = h.slice(-100);
+    saveHistory(h);
+}
+function getCooldownSeconds() {
+    const h = getHistory();
+    if (h.length < VOTE_LIMIT) return 0;
+    const oldest = h[h.length - VOTE_LIMIT];
+    return Math.max(0, Math.ceil((VOTE_WINDOW - (Date.now() - oldest)) / 1000));
+}
 
 async function loadData() {
     try {
@@ -242,6 +243,7 @@ function renderTable(csv) {
     tbody.innerHTML = '';
     allRows = [];
 
+    const votes = getVotes();
     let rankCounter = 1;
 
     for (let i = 1; i < lines.length; i++) {
@@ -249,39 +251,149 @@ function renderTable(csv) {
         if (!cols[1]) continue;
 
         const [website, name, category, bestFor, keyFeature, pricing] = cols;
-
-        const tr = document.createElement('tr');
         const isPremium = i <= PREMIUM_SLOTS;
 
+        const toolId = btoa(unescape(encodeURIComponent(name + i))).slice(0, 16);
+        const voteData = votes[toolId] || {score: 0, voted: 0};
+
+        const tr = document.createElement('tr');
         if (isPremium) tr.classList.add('sponsored');
 
-        const labels = ['Rank','Tool Name','Category','Best For','Pricing','Key Feature','Visit'];
-
-        const rankCell = isPremium 
-            ? '<span class="sponsored-label">Sponsored</span>' 
+        const rankCell = isPremium
+            ? '<span class="sponsored-label">Sponsored</span>'
             : rankCounter++;
 
-        const buttonHTML = `
+        const voteHTML = `
+            <div class="vote-box" data-id="${toolId}">
+                <button class="vote-btn up ${voteData.voted===1?'voted':''}" data-dir="up">
+                    <svg viewBox="0 0 24 24"><path d="M12 4l-7 8h14z" fill="currentColor"/></svg>
+                </button>
+                <div class="vote-count">${voteData.score}</div>
+                <button class="vote-btn down ${voteData.voted===-1?'voted':''}" data-dir="down">
+                    <svg viewBox="0 0 24 24"><path d="M12 20l7-8H5z" fill="currentColor"/></svg>
+                </button>
+                <div class="cooldown-msg">10 votes/hour limit<br>Try again in <span class="timer">0</span>s</div>
+            </div>`;
+
+        const visitHTML = `
             <a href="${website.startsWith('http') ? website : 'https://' + website}" 
                target="_blank" class="visit-btn">
                 Visit Tool
             </a>`;
 
-        [rankCell, name, category, bestFor, pricing, keyFeature, buttonHTML].forEach((val, j) => {
+        const cells = [rankCell, name, category, bestFor, pricing, keyFeature, voteHTML, visitHTML];
+
+        cells.forEach((content, idx) => {
             const td = document.createElement('td');
-            td.setAttribute('data-label', labels[j]);
-            td.innerHTML = val;
-            if (j === 1 && !isPremium) td.className = 'tool-name';
-            if (j === 4 && pricing.toLowerCase().includes('free')) td.className += ' free';
+            td.innerHTML = content;
+            td.setAttribute('data-label', ['Rank','Tool Name','Category','Best For','Pricing','Key Feature','Community','Visit'][idx]);
+            if (idx === 1 && !isPremium) td.className = 'tool-name';
+            if (idx === 4 && pricing.toLowerCase().includes('free')) td.className += ' free';
+            if (idx === 6) td.className = 'vote-col';
             tr.appendChild(td);
         });
 
         tbody.appendChild(tr);
-        allRows.push(tr);
+        allRows.push({row: tr, toolId, score: voteData.score});
     }
 
     document.getElementById('loading').style.display = 'none';
     document.getElementById('toolsTable').style.display = 'table';
+
+    sortTable(0);
+    attachVoteHandlers();
+}
+
+function sortTable(col) {
+    const dir = (currentSort.col === col && currentSort.dir === 'asc') ? 'desc' : 'asc';
+    currentSort = { col, dir };
+
+    document.querySelectorAll('th').forEach((th, i) => {
+        th.className = i === col ? `sort-${dir}` : '';
+    });
+
+    allRows.sort((a, b) => {
+        if (col === 0) {
+            const aS = a.row.classList.contains('sponsored');
+            const bS = b.row.classList.contains('sponsored');
+            if (aS && !bS) return -1;
+            if (!aS && bS) return 1;
+            const aR = parseInt(a.row.cells[0].textContent) || 999;
+            const bR = parseInt(b.row.cells[0].textContent) || 999;
+            return dir === 'asc' ? aR - bR : bR - aR;
+        }
+        if (col === 6) return dir === 'asc' ? (a.score||0) - (b.score||0) : (b.score||0) - (a.score||0);
+        const A = a.row.cells[col].textContent.trim();
+        const B = b.row.cells[col].textContent.trim();
+        return dir === 'asc' 
+            ? A.localeCompare(B, undefined, {numeric: true, sensitivity: 'base'})
+            : B.localeCompare(A, undefined, {numeric: true, sensitivity: 'base'});
+    });
+
+    const tbody = document.getElementById('toolsBody');
+    allRows.forEach(item => tbody.appendChild(item.row));
+}
+
+function attachVoteHandlers() {
+    document.querySelectorAll('.vote-btn').forEach(btn => {
+        btn.onclick = function(e) {
+            e.stopPropagation();
+
+            if (!canVote()) {
+                const msg = this.closest('.vote-box').querySelector('.cooldown-msg');
+                msg.classList.add('show');
+                const timer = msg.querySelector('.timer');
+                const update = () => {
+                    const s = getCooldownSeconds();
+                    if (s <= 0) msg.classList.remove('show');
+                    else { timer.textContent = s; setTimeout(update, 1000); }
+                };
+                update();
+                return;
+            }
+
+            const box = this.closest('.vote-box');
+            const id = box.dataset.id;
+            const dir = this.dataset.dir === 'up' ? 1 : -1;
+
+            const votes = getVotes();
+            const data = votes[id] || {score: 0, voted: 0};
+
+            if (data.voted === dir) {
+                data.voted = 0;
+                data.score -= dir;
+            } else {
+                data.score += dir - data.voted;
+                data.voted = dir;
+            }
+
+            votes[id] = data;
+            saveVotes(votes);
+            addVote();
+
+            box.querySelector('.vote-count').textContent = data.score;
+            box.querySelectorAll('.vote-btn').forEach(b => b.classList.remove('voted'));
+            if (data.voted !== 0) {
+                box.querySelector(`[data-dir="${data.voted===1?'up':'down'}"]`).classList.add('voted');
+            }
+
+            const item = allRows.find(x => x.toolId === id);
+            if (item) item.score = data.score;
+
+            // SEND VOTE TO YOUR GOOGLE SHEET (WORKS NOW)
+            fetch(VOTE_WEBHOOK, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    toolName: box.closest('tr').querySelector('.tool-name')?.textContent.trim() || "Unknown",
+                    toolId: id,
+                    vote: data.voted,
+                    score: data.score
+                })
+            });
+        };
+    });
 }
 
 function applyFilters() {
@@ -289,14 +401,14 @@ function applyFilters() {
     const pricing = document.getElementById('pricingFilter').value.toLowerCase();
     const category = document.getElementById('categoryFilter').value;
 
-    allRows.forEach(tr => {
+    allRows.forEach(item => {
+        const tr = item.row;
         const name = tr.cells[1].textContent.toLowerCase();
         const cat = tr.cells[2].textContent;
         const price = tr.cells[4].textContent.toLowerCase();
 
         let show = true;
-
-        if (search && !name.includes(search)) show = false;
+        if (search && !name.includes(search) && !cat.includes(search)) show = false;
         if (pricing && !price.includes(pricing)) show = false;
         if (category && cat !== category) show = false;
 
@@ -304,7 +416,6 @@ function applyFilters() {
     });
 }
 
-// Event listeners
 document.getElementById('searchFilter').oninput = applyFilters;
 document.getElementById('pricingFilter').onchange = applyFilters;
 document.getElementById('categoryFilter').onchange = applyFilters;
