@@ -29,10 +29,43 @@
         :root{--green:#152514;--green-dark:#0d1a0f;--gold:#FFD700}
         body{background:#f8f9fa;color:#000;display:flex;flex-direction:column;align-items:center;min-height:100vh;line-height:1.5}
 
-        header{background:#1a3224;padding:20px 20px 16px;text-align:center;width:100%;box-shadow:0 4px 20px rgba(0,0,0,.3);
-            background-image:url('https://www.transparenttextures.com/patterns/noise.png');background-blend-mode:overlay}
+        header{
+            background:#1a3224;
+            padding:20px 20px 16px;
+            text-align:center;
+            width:100%;
+            box-shadow:0 4px 20px rgba(0,0,0,.3);
+            background-image:url('https://www.transparenttextures.com/patterns/noise.png');
+            background-blend-mode:overlay;
+            position:relative;
+        }
         .site-logo{max-width:420px;width:92%;height:auto;display:block;margin:0 auto}
         @media(max-width:480px){.site-logo{max-width:320px}}
+
+        /* GOLD SUBMIT TOOL BUTTON */
+        .submit-btn{
+            position:absolute;
+            top:20px;
+            right:20px;
+            background:var(--gold);
+            color:#000 !important;
+            padding:10px 18px;
+            border-radius:12px;
+            font-weight:900;
+            font-size:0.95rem;
+            text-decoration:none;
+            box-shadow:0 4px 12px rgba(255,215,0,.5);
+            transition:all .25s ease;
+            z-index:100;
+        }
+        .submit-btn:hover{
+            background:#ffed4e;
+            transform:translateY(-2px);
+            box-shadow:0 8px 20px rgba(255,215,0,.6);
+        }
+        @media(max-width:768px){
+            .submit-btn{top:16px;right:16px;padding:10px 16px;font-size:0.9rem}
+        }
 
         .main-h1{text-align:center;margin:26px auto 10px;padding:0 15px;max-width:1280px}
         .main-h1 h1{font-size:2.4rem;margin:0;color:#000;line-height:1.1;font-weight:900}
@@ -65,17 +98,26 @@
         .tool-name{font-weight:800;font-size:1.35rem;color:var(--green)}
         .free{color:#27ae60 !important;font-weight:900}
 
-        tr.sponsored{background:linear-gradient(135deg,#fffdf0,#f9f7e8)!important;border-left:5px solid var(--gold)}
-        .sponsored-label{background:var(--gold);color:#000;font-size:0.78rem;font-weight:900;padding:4px 10px;border-radius:6px;display:inline-block}
+        /* SPONSORED BADGE UNDER TOOL NAME */
+        .sponsored-badge{
+            display:inline-block;
+            background:var(--gold);
+            color:#000;
+            font-size:0.75rem;
+            font-weight:900;
+            padding:3px 10px;
+            border-radius:6px;
+            margin-top:6px;
+        }
 
         @media(max-width:768px){
             th{display:none}
             tr{display:flex;flex-direction:column;background:#fff;border-radius:14px;margin:16px 0;padding:20px;
                box-shadow:0 8px 25px rgba(0,0,0,0.14);border:1px solid #eee}
-            tr.sponsored{border-left:none;border-top:5px solid var(--gold)}
             td{display:flex;justify-content:space-between;padding:11px 0;font-size:1.06rem;border-bottom:1px solid #f0f0f0}
             td:last-child{border:none}
             td:before{content:attr(data-label);font-weight:700;color:var(--green);min-width:160px}
+            .tool-name{margin-bottom:8px}
         }
 
         .visit-btn{display:inline-block;background:var(--green);color:white !important;font-weight:800;
@@ -97,6 +139,7 @@
         <a href="/">
             <img src="https://topdividendtools.com/TopDividen.png" alt="TopDividendTools.com" class="site-logo">
         </a>
+        <a href="submit-tool.html" class="submit-btn">Submit Tool</a>
     </header>
 
     <div class="main-h1">
@@ -136,12 +179,11 @@
     <table id="toolsTable" style="display:none">
         <thead>
             <tr>
-                <th onclick="sortTable(0)">Rank</th>
-                <th onclick="sortTable(1)">Tool Name</th>
-                <th onclick="sortTable(2)">Category</th>
-                <th onclick="sortTable(3)">Best For</th>
-                <th onclick="sortTable(4)">Pricing</th>
-                <th onclick="sortTable(5)">Key Feature</th>
+                <th onclick="sortTable(0)">Tool Name</th>
+                <th onclick="sortTable(1)">Category</th>
+                <th onclick="sortTable(2)">Best For</th>
+                <th onclick="sortTable(3)">Pricing</th>
+                <th onclick="sortTable(4)">Key Feature</th>
                 <th>Visit</th>
             </tr>
         </thead>
@@ -184,8 +226,6 @@ function renderTable(csv) {
     tbody.innerHTML = '';
     allRows = [];
 
-    let rankCounter = 1;
-
     for (let i = 1; i < lines.length; i++) {
         const cols = lines[i].split(',').map(c => c.replace(/^"|"$/g, '').trim());
         if (!cols[1]) continue;
@@ -194,11 +234,12 @@ function renderTable(csv) {
         const isPremium = i <= PREMIUM_SLOTS;
 
         const tr = document.createElement('tr');
-        if (isPremium) tr.classList.add('sponsored');
 
-        const rankCell = isPremium
-            ? '<span class="sponsored-label">Sponsored</span>'
-            : rankCounter++;
+        // TOOL NAME CELL — NOW WITH SPONSORED BADGE UNDER IT
+        const nameCell = `<div>
+            <div class="tool-name">${name}</div>
+            ${isPremium ? '<div class="sponsored-badge">SPONSORED</div>' : ''}
+        </div>`;
 
         const visitHTML = `
             <a href="${website.startsWith('http') ? website : 'https://' + website}" 
@@ -206,14 +247,13 @@ function renderTable(csv) {
                 Visit Tool
             </a>`;
 
-        const cells = [rankCell, name, category, bestFor, pricing, keyFeature, visitHTML];
+        const cells = [nameCell, category, bestFor, pricing, keyFeature, visitHTML];
 
         cells.forEach((content, idx) => {
             const td = document.createElement('td');
             td.innerHTML = content;
-            td.setAttribute('data-label', ['Rank','Tool Name','Category','Best For','Pricing','Key Feature','Visit'][idx]);
-            if (idx === 1 && !isPremium) td.className = 'tool-name';
-            if (idx === 4 && pricing.toLowerCase().includes('free')) td.className += ' free';
+            td.setAttribute('data-label', ['Tool Name','Category','Best For','Pricing','Key Feature','Visit'][idx]);
+            if (idx === 3 && pricing.toLowerCase().includes('free')) td.className += ' free';
             tr.appendChild(td);
         });
 
@@ -235,11 +275,9 @@ function sortTable(col) {
         th.className = i === col ? `sort-${dir}` : '';
     });
 
-    // Separate sponsored and normal tools
     const sponsored = allRows.filter(item => item.isSponsored);
     const normal = allRows.filter(item => !item.isSponsored);
 
-    // Sort only normal tools
     normal.sort((a, b) => {
         const A = a.row.cells[col].textContent.trim();
         const B = b.row.cells[col].textContent.trim();
@@ -248,12 +286,11 @@ function sortTable(col) {
             : B.localeCompare(A, undefined, {numeric: true, sensitivity: 'base'});
     });
 
-    // Combine: sponsored first, then sorted normal tools
-    const sortedRows = [...sponsored, ...normal];
+    const sorted = [...sponsored, ...normal];
 
     const tbody = document.getElementById('toolsBody');
     tbody.innerHTML = '';
-    sortedRows.forEach(item => tbody.appendChild(item.row));
+    sorted.forEach(item => tbody.appendChild(item.row));
 }
 
 function applyFilters() {
@@ -263,9 +300,9 @@ function applyFilters() {
 
     allRows.forEach(item => {
         const tr = item.row;
-        const name = tr.cells[1].textContent.toLowerCase();
-        const cat = tr.cells[2].textContent;
-        const price = tr.cells[4].textContent.toLowerCase();
+        const name = tr.cells[0].textContent.toLowerCase();
+        const cat = tr.cells[1].textContent;
+        const price = tr.cells[3].textContent.toLowerCase();
 
         let show = true;
         if (search && !name.includes(search) && !cat.includes(search)) show = false;
@@ -275,7 +312,6 @@ function applyFilters() {
         tr.style.display = show ? '' : 'none';
     });
 
-    // Re-apply current sort after filtering
     sortTable(currentSort.col);
 }
 
