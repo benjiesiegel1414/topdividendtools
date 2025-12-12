@@ -101,7 +101,6 @@ footer a{color:var(--green);text-decoration:none;font-weight:700}
 </footer>
 
 <script>
-// THIS IS THE FINAL, WORKING VERSION — uses Google's own script.google.com proxy
 const WEBHOOK = "https://script.google.com/macros/s/AKfycbxl2Y6Pu6rihDMQBEhcm-Ub2oKgOpBZI1X0FzHciDZe_oNQy2IS4trqt7sFpzoCPP8/exec";
 
 document.getElementById('submitForm').addEventListener('submit', async function(e) {
@@ -112,7 +111,7 @@ document.getElementById('submitForm').addEventListener('submit', async function(
   document.getElementById('btnText').style.display = 'none';
   document.getElementById('loadingText').style.display = 'inline';
 
-  const payload = new URLSearchParams({
+  const payload = {
     toolName:   document.getElementById('toolName').value.trim(),
     website:    document.getElementById('website').value.trim(),
     category:   document.getElementById('category').value,
@@ -121,24 +120,30 @@ document.getElementById('submitForm').addEventListener('submit', async function(
     keyFeature: document.getElementById('keyFeature').value.trim(),
     yourName:   document.getElementById('yourName').value.trim(),
     yourEmail:  document.getElementById('yourEmail').value.trim()
-  });
+  };
 
   try {
-    // GET request instead of POST → completely bypasses CORS forever
-    const response = await fetch(WEBHOOK + "?" + payload.toString(), {
-      method: "GET",
-      mode: "no-cors"   // this is the magic line
+    const response = await fetch(WEBHOOK, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
     });
 
-    document.getElementById('successMsg').style.display = 'block';
-    document.getElementById('errorMsg').style.display = 'none';
-    e.target.reset();
-    setTimeout(() => document.getElementById('successMsg').style.display = 'none', 6000);
+    const result = await response.json();
+
+    if(result.result === "success") {
+      document.getElementById('successMsg').style.display = 'block';
+      document.getElementById('errorMsg').style.display = 'none';
+      e.target.reset();
+      setTimeout(() => document.getElementById('successMsg').style.display = 'none', 6000);
+    } else {
+      document.getElementById('errorMsg').style.display = 'block';
+      document.getElementById('successMsg').style.display = 'none';
+    }
 
   } catch (err) {
-    // with mode: no-cors we never get an error → always show success
-    document.getElementById('successMsg').style.display = 'block';
-    e.target.reset();
+    document.getElementById('errorMsg').style.display = 'block';
+    document.getElementById('successMsg').style.display = 'none';
   } finally {
     submitBtn.disabled = false;
     document.getElementById('btnText').style.display = 'inline';
