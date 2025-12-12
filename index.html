@@ -54,10 +54,8 @@
         th{background:var(--green);color:#fff;padding:18px 12px;font-size:1.05rem;font-weight:700;cursor:pointer;position:relative;padding-right:28px}
         th:hover{background:var(--green-dark)}
 
-        th::after{
-            content:"";position:absolute;right:12px;top:50%;transform:translateY(-50%);
-            width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;opacity:0.6;
-        }
+        th::after{content:"";position:absolute;right:12px;top:50%;transform:translateY(-50%);
+            width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;opacity:0.6;}
         th.sort-asc::after{border-bottom:8px solid #fff;opacity:1}
         th.sort-desc::after{border-top:8px solid #fff;opacity:1}
 
@@ -190,7 +188,7 @@
 // YOUR WORKING WEB APP URL — VOTES SAVE HERE
 const VOTE_WEBHOOK = "https://script.google.com/macros/s/AKfycbw280jUC9evprCYpjCXR4KhczYdF-czLmZjGldmIi5WxRKnvsMoKleZAjolI2-7AcgJ/exec";
 
-// PUBLIC CSV LINK TO YOUR VOTES SHEET (THIS MAKES IT WORK)
+// THIS IS THE CORRECT PUBLIC CSV URL FOR YOUR VOTES SHEET
 const VOTES_SHEET_CSV = "https://docs.google.com/spreadsheets/d/1osCLotxaMiaLaisfQFI-0urJcskZjJVPyi5Av61bek4/pub?gid=0&single=true&output=csv";
 
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQyl3IN9OtH6Ux2mS1Ojx3hqlXF8Bqztx4hQKsKilSaRLpovens0Wv-aWRfUON54vgS8RghFV7ZSV-K/pub?output=csv";
@@ -220,33 +218,38 @@ function addVote() {
     if (h.length > 100) h = h.slice(-100);
     saveHistory(h);
 }
-function getCooldownSeconds() {
-    const h = getHistory();
-    if (h.length < VOTE_LIMIT) return 0;
-    const oldest = h[h.length - VOTE_LIMIT];
-    return Math.max(0, Math.ceil((VOTE_WINDOW - (Date.now() - oldest)) / 1000));
+
+async function loadData() {
+    try {
+        const res = await fetch(CSV_URL + '&t=' + Date.now());
+        const csv = await res.text();
+        renderTable(csv);
+        loadGlobalScores(); // THIS LINE MAKES VOTES GLOBAL
+    } catch(e) {
+        document.getElementById('loading').textContent = 'Error loading data — please refresh';
+    }
 }
 
-// GLOBAL VOTE LOADER — THIS MAKES SCORES PERSISTENT FOR EVERYONE
+// THIS LOADS REAL VOTES FROM YOUR SHEET ON EVERY PAGE LOAD
 async function loadGlobalScores() {
     try {
         const res = await fetch(VOTES_SHEET_CSV + '&t=' + Date.now());
         const csv = await res.text();
         const lines = csv.split('\n').slice(1);
 
-        const realScores = {};
+        const globalScores = {};
         lines.forEach(line => {
             const cols = line.split(',').map(c => c.replace(/^"|"$/g, '').trim());
             if (cols.length < 4) return;
             const toolId = cols[2];
             const dir = cols[3];
-            if (toolId) realScores[toolId] = (realScores[toolId] || 0) + (dir === "up" ? 1 : -1);
+            if (toolId) globalScores[toolId] = (globalScores[toolId] || 0) + (dir === "up" ? 1 : -1);
         });
 
         const local = getVotes();
-        Object.keys(realScores).forEach(id => {
+        Object.keys(globalScores).forEach(id => {
             if (!local[id]) local[id] = {score: 0, voted: 0};
-            local[id].score = realScores[id];
+            local[id].score = globalScores[id];
         });
         saveVotes(local);
 
@@ -262,17 +265,7 @@ async function loadGlobalScores() {
 
         sortTable(currentSort.col);
     } catch (e) {
-        console.log("Global sync failed (using local)", e);
-    }
-}
-
-async function loadData() {
-    try {
-        const res = await fetch(CSV_URL + '&t=' + Date.now());
-        const csv = await res.text();
-        renderTable(csv);
-    } catch(e) {
-        document.getElementById('loading').textContent = 'Error loading data — please refresh';
+        console.log("Global vote sync failed (using local)", e);
     }
 }
 
@@ -341,7 +334,6 @@ function renderTable(csv) {
 
     sortTable(0);
     attachVoteHandlers();
-    loadGlobalScores(); // THIS LINE MAKES VOTES GLOBAL
 }
 
 function sortTable(col) {
@@ -462,7 +454,6 @@ document.getElementById('categoryFilter').onchange = applyFilters;
 document.getElementById('resetFilters').onclick = () => location.reload();
 
 loadData();
-loadGlobalScores(); // THIS MAKES VOTES PERSISTENT FOR EVERYONE
 </script>
 </body>
 </html>
