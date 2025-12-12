@@ -43,16 +43,13 @@
         }
 
         .site-logo {
-            max-width: 420px;
-            width: 92%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
+            max-width:420px;
+            width:92%;
+            height:auto;
+            display:block;
+            margin:0 auto;
         }
-
-        @media(max-width:480px){
-            .site-logo {max-width: 320px;}
-        }
+        @media(max-width:480px){.site-logo{max-width:320px}}
 
         .main-h1{text-align:center;margin:26px auto 10px;padding:0 15px;max-width:1280px}
         .main-h1 h1{font-size:2.4rem;margin:0;color:#000;line-height:1.1;font-weight:900}
@@ -66,10 +63,35 @@
         }
         .disclaimer-line{font-weight:900 !important;font-size:1.15rem !important;color:#c62828 !important;margin-top:12px !important}
 
-        #filters{margin:20px auto 30px;display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center}
-        #resetFilters{padding:12px 28px;background:var(--green);color:#fff;border-radius:10px;cursor:pointer;font-weight:800;border:none}
+        /* FILTERS – NOW WITH CATEGORY */
+        #filters{
+            margin:20px auto 32px;
+            display:flex;
+            flex-wrap:wrap;
+            gap:16px;
+            justify-content:center;
+            align-items:center;
+            width:94%;
+            max-width:1000px;
+        }
+        #resetFilters{
+            padding:12px 28px;
+            background:var(--green);
+            color:#fff;
+            border-radius:10px;
+            cursor:pointer;
+            font-weight:800;
+            border:none;
+            font-size:1rem;
+        }
         #resetFilters:hover{background:var(--green-dark)}
-        select,input{padding:12px 18px;border-radius:10px;border:1px solid #ccc;font-size:1rem}
+        select,input{
+            padding:12px 18px;
+            border-radius:10px;
+            border:1px solid #ccc;
+            font-size:1rem;
+            min-width:200px;
+        }
 
         #toolsTable{width:100%;border-collapse:collapse;background:#fff;border:4px solid var(--green);border-radius:14px;overflow:hidden;
             box-shadow:0 10px 35px rgba(21,37,20,.28);margin:10px 0}
@@ -98,7 +120,7 @@
             th{display:none}
             tr{display:flex;flex-direction:column;background:#fff;border-radius:14px;margin:16px 0;padding:20px;
                box-shadow:0 8px 25px rgba(0,0,0,0.14);border:1px solid #eee}
-            tr.sponsored {border-left:none;border-top:5px solid var(--gold)}
+            tr.sponsored{border-left:none;border-top:5px solid var(--gold)}
             td{display:flex;justify-content:space-between;padding:11px 0;font-size:1.06rem;border-bottom:1px solid #f0f0f0}
             td:last-child{border:none}
             td:before{content:attr(data-label);font-weight:700;color:var(--green);min-width:160px}
@@ -112,6 +134,8 @@
         .visit-btn:hover{background:#1e3a1e;box-shadow:0 0 20px rgba(21,37,20,0.8);transform:translateY(-2px)}
         .visit-btn:active{transform:translateY(0)}
 
+        @media(max-width:768px){.visit-btn{width:100%;padding:12px;font-size:1rem}}
+
         .loading{text-align:center;padding:60px;font-size:1.6rem;color:#555;font-weight:600}
         .disclaimer{font-size:0.95rem;color:#555;margin:50px auto 0;max-width:1000px;line-height:1.7;text-align:center}
         .footer{margin-top:auto;padding:50px 20px;background:#fff;width:100%;text-align:center;border-top:6px solid var(--green)}
@@ -122,10 +146,9 @@
 <body>
 <div class="content">
 
-    <!-- UPDATED LOGO — NOW 100% WORKING -->
     <header>
         <a href="/">
-            <img src="https://topdividendtools.com/TopDividennn.png" 
+            <img src="https://topdividendtools.com/TopDividen.png" 
                  alt="TopDividendTools.com" 
                  class="site-logo">
         </a>
@@ -143,13 +166,27 @@
         <strong class="disclaimer-line">Nothing on TopDividendTools.com is financial advice! Always do your own research!</strong>
     </div>
 
+    <!-- ENHANCED FILTERS -->
     <div id="filters">
         <button id="resetFilters">Reset Filters</button>
-        <input type="text" id="searchFilter" placeholder="Search Tool Name or Category">
+        
+        <input type="text" id="searchFilter" placeholder="Search Tool Name">
+
         <select id="pricingFilter">
             <option value="">Pricing: All</option>
             <option value="Free">Free Only</option>
             <option value="Paid">Paid Only</option>
+        </select>
+
+        <select id="categoryFilter">
+            <option value="">Category: All</option>
+            <option value="Research">Research</option>
+            <option value="YouTube">YouTube</option>
+            <option value="News & Research">News & Research</option>
+            <option value="General Stock Market Site">General Stock Market Site</option>
+            <option value="Dividend Calculator">Dividend Calculator</option>
+            <option value="Dividend Tracker">Dividend Tracker</option>
+            <option value="Portfolio Tracker">Portfolio Tracker</option>
         </select>
     </div>
 
@@ -216,9 +253,7 @@ function renderTable(csv) {
         const tr = document.createElement('tr');
         const isPremium = i <= PREMIUM_SLOTS;
 
-        if (isPremium) {
-            tr.classList.add('sponsored');
-        }
+        if (isPremium) tr.classList.add('sponsored');
 
         const labels = ['Rank','Tool Name','Category','Best For','Pricing','Key Feature','Visit'];
 
@@ -252,22 +287,27 @@ function renderTable(csv) {
 function applyFilters() {
     const search = document.getElementById('searchFilter').value.toLowerCase();
     const pricing = document.getElementById('pricingFilter').value.toLowerCase();
+    const category = document.getElementById('categoryFilter').value;
 
     allRows.forEach(tr => {
         const name = tr.cells[1].textContent.toLowerCase();
-        const cat = tr.cells[2].textContent.toLowerCase();
+        const cat = tr.cells[2].textContent;
         const price = tr.cells[4].textContent.toLowerCase();
 
         let show = true;
-        if (search && !name.includes(search) && !cat.includes(search)) show = false;
+
+        if (search && !name.includes(search)) show = false;
         if (pricing && !price.includes(pricing)) show = false;
+        if (category && cat !== category) show = false;
 
         tr.style.display = show ? '' : 'none';
     });
 }
 
+// Event listeners
 document.getElementById('searchFilter').oninput = applyFilters;
 document.getElementById('pricingFilter').onchange = applyFilters;
+document.getElementById('categoryFilter').onchange = applyFilters;
 document.getElementById('resetFilters').onclick = () => location.reload();
 
 loadData();
