@@ -42,10 +42,10 @@
         .site-logo{max-width:420px;width:92%;height:auto;display:block;margin:0 auto}
         @media(max-width:480px){.site-logo{max-width:320px}}
 
-        /* GOLD SUBMIT TOOL BUTTON */
+        /* GOLD SUBMIT TOOL BUTTON - moved down a bit */
         .submit-btn{
             position:absolute;
-            top:20px;
+            top:38px;              /* ← changed from 20px to 38px */
             right:20px;
             background:var(--gold);
             color:#000 !important;
@@ -64,7 +64,12 @@
             box-shadow:0 8px 20px rgba(255,215,0,.6);
         }
         @media(max-width:768px){
-            .submit-btn{top:16px;right:16px;padding:10px 16px;font-size:0.9rem}
+            .submit-btn{
+                top:32px;          /* adjusted for mobile too (was 16px) */
+                right:16px;
+                padding:10px 16px;
+                font-size:0.9rem
+            }
         }
 
         .main-h1{text-align:center;margin:26px auto 10px;padding:0 15px;max-width:1280px}
