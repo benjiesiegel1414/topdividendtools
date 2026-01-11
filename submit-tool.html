@@ -40,17 +40,21 @@ footer a{color:var(--green);text-decoration:none;font-weight:700}
 
 <div class="container">
 <h1>Submit a Dividend Tool</h1>
-<p class="subtitle">Your tool will be reviewed and added if approved.</p>
+<p class="subtitle">Your tool will be reviewed and added if approved.<br>Submission sent securely via Formspree.</p>
 
-<form action="https://script.google.com/macros/s/AKfycbzHLRWWGAh5YPN6YAxu9otRNPwHVEpIRoCosPAmBbGDkPVBOuDIcc3JJBhhLiAIzdenXw/exec" method="POST" target="hidden_iframe">
+<form action="https://formspree.io/f/mvzzplqy" method="POST" id="submitForm">
+
+  <!-- Spam protection honeypot - leave empty! Bots often fill hidden fields -->
+  <input type="text" name="_gotcha" style="display:none" />
+
   <label for="toolName">Tool Name *</label>
-  <input type="text" name="toolName" id="toolName" placeholder="e.g. Dividend Tracker Pro" required>
+  <input type="text" name="Tool Name" id="toolName" placeholder="e.g. Dividend Tracker Pro" required>
 
   <label for="website">Website URL *</label>
-  <input type="url" name="website" id="website" placeholder="https://example.com" required>
+  <input type="url" name="Website URL" id="website" placeholder="https://example.com" required>
 
   <label for="category">Category *</label>
-  <select name="category" id="category" required>
+  <select name="Category" id="category" required>
     <option value="">Choose...</option>
     <option>Research</option>
     <option>YouTube</option>
@@ -63,7 +67,7 @@ footer a{color:var(--green);text-decoration:none;font-weight:700}
   </select>
 
   <label for="pricing">Pricing *</label>
-  <select name="pricing" id="pricing" required>
+  <select name="Pricing" id="pricing" required>
     <option value="">Choose...</option>
     <option>Free</option>
     <option>Paid</option>
@@ -71,14 +75,17 @@ footer a{color:var(--green);text-decoration:none;font-weight:700}
   </select>
 
   <label for="bestFor">Best For * (max 120 characters)</label>
-  <input type="text" name="bestFor" id="bestFor" placeholder="e.g. Beginners tracking monthly dividends" maxlength="120" required>
+  <input type="text" name="Best For" id="bestFor" placeholder="e.g. Beginners tracking monthly dividends" maxlength="120" required>
+
+  <!-- Optional: submitter can include their email so you can reply directly -->
+  <label for="submitterEmail">Your Email (optional – for follow-up questions)</label>
+  <input type="email" name="_replyto" id="submitterEmail" placeholder="you@example.com">
 
   <button type="submit">Submit for Review</button>
 </form>
 
-<div id="successMsg" class="success">Thank you! Your submission was received and will be reviewed shortly.</div>
+<div id="successMsg" class="success">Thank you! Your tool submission was sent successfully.<br>We'll review it and get back to you if needed.</div>
 
-<iframe name="hidden_iframe" style="display:none;"></iframe>
 </div>
 
 <footer>
@@ -87,14 +94,16 @@ footer a{color:var(--green);text-decoration:none;font-weight:700}
 </footer>
 
 <script>
-// Show success message after submission (no reload)
-document.querySelector('iframe[name="hidden_iframe"]').onload = function() {
-  document.getElementById('successMsg').style.display = 'block';
+// Optimistic success message (shows right after click, since Formspree redirects)
+document.getElementById('submitForm').addEventListener('submit', function() {
   setTimeout(() => {
-    document.getElementById('successMsg').style.display = 'none';
-  }, 6000);
-  document.querySelector('form').reset();
-};
+    document.getElementById('successMsg').style.display = 'block';
+    document.getElementById('submitForm').reset();
+    setTimeout(() => {
+      document.getElementById('successMsg').style.display = 'none';
+    }, 8000);
+  }, 600);
+});
 </script>
 
 </body>
