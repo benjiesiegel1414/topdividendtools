@@ -44,14 +44,23 @@ footer a{color:var(--green);text-decoration:none;font-weight:700}
 
 <form action="https://formspree.io/f/mvzzplqy" method="POST" id="submitForm">
 
-  <!-- Spam protection honeypot - leave empty! Bots often fill hidden fields -->
+  <!-- Spam protection honeypot -->
   <input type="text" name="_gotcha" style="display:none" />
 
   <label for="toolName">Tool Name *</label>
   <input type="text" name="Tool Name" id="toolName" placeholder="e.g. Dividend Tracker Pro" required>
 
   <label for="website">Website URL *</label>
-  <input type="url" name="Website URL" id="website" placeholder="https://example.com" required>
+  <input 
+    type="text" 
+    name="Website URL" 
+    id="website" 
+    placeholder="toolname.com or www.example.com" 
+    required
+    pattern="^(https?://)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(/.*)?$"
+    title="Please enter a valid website (e.g. toolname.com or https://example.com)"
+    onblur="addHttpsIfNeeded(this)"
+  />
 
   <label for="category">Category *</label>
   <select name="Category" id="category" required>
@@ -77,7 +86,6 @@ footer a{color:var(--green);text-decoration:none;font-weight:700}
   <label for="bestFor">Best For * (max 120 characters)</label>
   <input type="text" name="Best For" id="bestFor" placeholder="e.g. Beginners tracking monthly dividends" maxlength="120" required>
 
-  <!-- Optional: submitter can include their email so you can reply directly -->
   <label for="submitterEmail">Your Email (optional – for follow-up questions)</label>
   <input type="email" name="_replyto" id="submitterEmail" placeholder="you@example.com">
 
@@ -94,7 +102,20 @@ footer a{color:var(--green);text-decoration:none;font-weight:700}
 </footer>
 
 <script>
-// Optimistic success message (shows right after click, since Formspree redirects)
+function addHttpsIfNeeded(input) {
+  let val = input.value.trim();
+  
+  // Skip if empty or already has protocol
+  if (!val || val.match(/^https?:\/\//i)) {
+    return;
+  }
+  
+  // If it looks like a domain (has at least one dot and valid chars)
+  if (val.match(/^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}/i) || val.match(/^www\./i)) {
+    input.value = 'https://' + val;
+  }
+}
+
 document.getElementById('submitForm').addEventListener('submit', function() {
   setTimeout(() => {
     document.getElementById('successMsg').style.display = 'block';
