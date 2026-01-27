@@ -25,9 +25,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
         html, body {
             margin: 0;
             padding: 0;
@@ -59,9 +57,7 @@
             display: block;
             margin: 0 auto;
         }
-        @media (max-width: 480px) {
-            .site-logo { max-width: 320px; }
-        }
+        @media (max-width: 480px) { .site-logo { max-width: 320px; } }
 
         .back-btn {
             display: inline-block;
@@ -111,6 +107,14 @@
             border-bottom: 2px solid var(--green);
             padding-bottom: 0.5rem;
         }
+        .advertise-section ul {
+            margin: 1.2rem 0;
+            padding-left: 1.5rem;
+        }
+        .advertise-section li {
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+        }
         .advertise-section h3 {
             color: var(--green);
             margin: 0 0 0.8rem;
@@ -119,6 +123,27 @@
         .advertise-section p {
             font-size: 1.1rem;
             margin: 1rem 0;
+        }
+
+        .ad-preview {
+            margin: 1.5rem 0 2rem;
+            text-align: center;
+        }
+        .ad-preview img {
+            display: block;
+            margin: 0 auto;
+            width: auto;
+            max-width: 728px;          /* realistic max for banner previews – adjust lower if still too big */
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+        .ad-preview .caption {
+            margin-top: 0.8rem;
+            font-size: 0.95rem;
+            color: #666;
+            font-style: italic;
         }
 
         .plans-container {
@@ -223,8 +248,11 @@
 
         @media (max-width: 768px) {
             .advertise-section { padding: 2rem 1.25rem; }
-            .plans-container { flex-direction: column; align-items: center; gap: 1.8rem; }
-            .plan-card { width: 100%; max-width: 380px; }
+            .plans-container { flex-direction: column; align-items: center; gap: 2rem; }
+            .plan-card { width: 100%; max-width: 420px; }
+            .ad-preview img {
+                max-width: 100%;  /* full container on mobile */
+            }
         }
     </style>
 </head>
@@ -247,8 +275,20 @@
 
             <h2>Available Advertising Options</h2>
             <ul>
-                <li><strong>Display Banner:</strong> High-visibility banner ad placed strategically on the Top of the homepage. Perfect for brand awareness or direct traffic.</li>
-                <li><strong>Sponsored Top Rankings:</strong> Feature your tool at the top of the list (only 5 spots) with a clear "SPONSORED" badge for maximum exposure.</li>
+                <li>
+                    <strong>Display Banner:</strong> High-visibility banner ad placed strategically on the Top of the homepage. Perfect for brand awareness or direct traffic.
+                    <div class="ad-preview">
+                        <img src="https://i.imgur.com/KzXw0cV.png" alt="Display Banner Ad Preview">
+                        <div class="caption">Example of the premium banner placement on homepage</div>
+                    </div>
+                </li>
+                <li>
+                    <strong>Sponsored Top Rankings:</strong> Feature your tool at the top of the list (only 5 spots) with a clear "SPONSORED" badge for maximum exposure.
+                    <div class="ad-preview">
+                        <img src="https://i.imgur.com/MrUKkcZ.png" alt="Sponsored Tool Row Preview">
+                        <div class="caption">Example of a sponsored tool pinned at the top</div>
+                    </div>
+                </li>
             </ul>
 
             <p>Subscribe below to get started instantly. Recurring every 30 days via secure Stripe checkout. We'll email setup instructions (tool URL, logo, link text, etc.) within 24 hours after payment.</p>
@@ -295,7 +335,7 @@
     <footer>
         <p>
             <a href="https://topdividendetfs.com" target="_blank">Top Dividend ETFs</a> | 
-            Contact: <a href="mailto:hello@topdividendtools.com">hello@topdividendtools.com</a> | 
+            Contact: <a href="mailto:Business@TopDividendETFs.com">Business@TopDividendETFs.com</a> | 
             <a href="/terms.html">Terms of Use</a> | 
             <a href="/privacy.html">Privacy Policy</a>
         </p>
