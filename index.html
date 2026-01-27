@@ -16,7 +16,7 @@
     <title>Top Dividend Investing Tools 2026</title>
     <meta name="description" content="Best dividend trackers, calculators, research sites & more – ranked daily by the community.">
 
-    <!-- NEW FAVICONS -->
+    <!-- FAVICONS -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -27,148 +27,320 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
-        html,body{margin:0;padding:0;overflow-x:hidden;width:100%;font-family:'Inter',sans-serif}
-        :root{--green:#152514;--green-dark:#0d1a0f;--gold:#FFD700}
-        body{background:#f8f9fa;color:#000;display:flex;flex-direction:column;align-items:center;min-height:100vh;line-height:1.5}
-
-        header{
-            background:#1a3224;
-            padding:20px 20px 16px;
-            text-align:center;
-            width:100%;
-            box-shadow:0 4px 20px rgba(0,0,0,.3);
-            background-image:url('https://www.transparenttextures.com/patterns/noise.png');
-            background-blend-mode:overlay;
-            position:relative;
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            width: 100%;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+            color: #000;
+            background: #f8f9fa;
         }
-        .site-logo{max-width:420px;width:92%;height:auto;display:block;margin:0 auto}
-        @media(max-width:480px){.site-logo{max-width:320px}}
-
-        /* ADVERTISE BUTTON - left side, blue #2323FF */
-        .advertise-btn{
-            position:absolute;
-            top:32px;
-            left:16px;
-            background:#2323FF;
-            color:#ffffff !important;
-            padding:8px 15px;
-            border-radius:10px;
-            font-weight:900;
-            font-size:0.85rem;
-            text-decoration:none;
-            box-shadow:0 4px 12px rgba(35,35,255,.5);
-            transition:all .25s ease;
-            z-index:100;
-        }
-        .advertise-btn:hover{
-            background:#3a3aff;
-            transform:translateY(-2px);
-            box-shadow:0 8px 20px rgba(35,35,255,.6);
+        :root {
+            --green: #152514;
+            --green-dark: #0d1a0f;
+            --gold: #FFD700;
         }
 
-        /* GOLD SUBMIT TOOL BUTTON - right side */
-        .submit-btn{
-            position:absolute;
-            top:32px;
-            right:16px;
-            background:var(--gold);
-            color:#000 !important;
-            padding:8px 15px;
-            border-radius:10px;
-            font-weight:900;
-            font-size:0.85rem;
-            text-decoration:none;
-            box-shadow:0 4px 12px rgba(255,215,0,.5);
-            transition:all .25s ease;
-            z-index:100;
+        header {
+            background: #1a3224;
+            padding: 20px 20px 16px;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 4px 20px rgba(0,0,0,.3);
+            background-image: url('https://www.transparenttextures.com/patterns/noise.png');
+            background-blend-mode: overlay;
+            position: relative;
         }
-        .submit-btn:hover{
-            background:#ffed4e;
-            transform:translateY(-2px);
-            box-shadow:0 8px 20px rgba(255,215,0,.6);
+        .site-logo {
+            max-width: 420px;
+            width: 92%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        @media (max-width: 480px) {
+            .site-logo { max-width: 320px; }
         }
 
-        @media(max-width:768px){
-            .advertise-btn{
-                top:28px;
-                left:12px;
-                padding:7px 13px;
-                font-size:0.78rem
+        .advertise-btn {
+            position: absolute;
+            top: 32px;
+            left: 16px;
+            background: #2323FF;
+            color: #ffffff !important;
+            padding: 8px 15px;
+            border-radius: 10px;
+            font-weight: 900;
+            font-size: 0.85rem;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(35,35,255,.5);
+            transition: all .25s ease;
+            z-index: 100;
+        }
+        .advertise-btn:hover {
+            background: #3a3aff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(35,35,255,.6);
+        }
+
+        .submit-btn {
+            position: absolute;
+            top: 32px;
+            right: 16px;
+            background: var(--gold);
+            color: #000 !important;
+            padding: 8px 15px;
+            border-radius: 10px;
+            font-weight: 900;
+            font-size: 0.85rem;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(255,215,0,.5);
+            transition: all .25s ease;
+            z-index: 100;
+        }
+        .submit-btn:hover {
+            background: #ffed4e;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255,215,0,.6);
+        }
+
+        @media (max-width: 768px) {
+            .advertise-btn, .submit-btn {
+                top: 28px;
+                padding: 7px 13px;
+                font-size: 0.78rem;
             }
-            .submit-btn{
-                top:28px;
-                right:12px;
-                padding:7px 13px;
-                font-size:0.78rem
+            header { padding-top: 65px; }
+        }
+
+        .main-h1 {
+            text-align: center;
+            margin: 26px auto 10px;
+            padding: 0 15px;
+            max-width: 1280px;
+        }
+        .main-h1 h1 {
+            font-size: 2.4rem;
+            margin: 0;
+            color: #000;
+            line-height: 1.1;
+            font-weight: 900;
+        }
+        .main-h1 span {
+            display: block;
+            font-size: 1.25rem;
+            color: #000;
+            font-weight: 700;
+            margin-top: 6px;
+        }
+
+        .content {
+            width: 94%;
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .top-disclaimer {
+            max-width: 1000px;
+            margin: 16px auto 20px;
+            padding: 0 20px;
+            text-align: center;
+            font-size: 1.08rem;
+            font-weight: 700;
+            color: #000;
+            line-height: 1.6;
+        }
+        .disclaimer-line {
+            font-weight: 900 !important;
+            font-size: 1.15rem !important;
+            color: #c62828 !important;
+            margin-top: 12px !important;
+        }
+
+        #filters {
+            margin: 20px auto 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            justify-content: center;
+            align-items: center;
+        }
+        #resetFilters {
+            padding: 12px 28px;
+            background: var(--green);
+            color: #fff;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 800;
+            border: none;
+        }
+        #resetFilters:hover { background: var(--green-dark); }
+        select, input {
+            padding: 12px 18px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        #toolsTable {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border: 4px solid var(--green);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 10px 35px rgba(21,37,20,.28);
+            margin: 10px 0;
+        }
+        th {
+            background: var(--green);
+            color: #fff;
+            padding: 18px 12px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            position: relative;
+            padding-right: 28px;
+        }
+        th:hover { background: var(--green-dark); }
+
+        th::after {
+            content: "";
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            opacity: 0.6;
+        }
+        th.sort-asc::after {
+            border-bottom: 8px solid #fff;
+            opacity: 1;
+        }
+        th.sort-desc::after {
+            border-top: 8px solid #fff;
+            opacity: 1;
+        }
+
+        td {
+            padding: 16px 12px;
+            font-size: 1rem;
+            text-align: center;
+            white-space: normal;
+            word-wrap: break-word;
+        }
+        tr:nth-child(even) { background: #f9fff9; }
+        tr:hover { background: #e8f5e8; transition: background .25s; }
+
+        .tool-name {
+            font-weight: 800;
+            font-size: 1.35rem;
+            color: var(--green);
+        }
+        .free {
+            color: #27ae60 !important;
+            font-weight: 900;
+        }
+
+        .sponsored-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: #000;
+            font-size: 0.75rem;
+            font-weight: 900;
+            padding: 3px 10px;
+            border-radius: 6px;
+            margin-top: 6px;
+        }
+
+        @media (max-width: 768px) {
+            th { display: none; }
+            tr {
+                display: flex;
+                flex-direction: column;
+                background: #fff;
+                border-radius: 14px;
+                margin: 16px 0;
+                padding: 20px;
+                box-shadow: 0 8px 25px rgba(0,0,0,0.14);
+                border: 1px solid #eee;
             }
-            header {
-                padding-top: 65px;
+            td {
+                display: flex;
+                justify-content: space-between;
+                padding: 11px 0;
+                font-size: 1.06rem;
+                border-bottom: 1px solid #f0f0f0;
             }
+            td:last-child { border: none; }
+            td:before {
+                content: attr(data-label);
+                font-weight: 700;
+                color: var(--green);
+                min-width: 160px;
+            }
+            .tool-name { margin-bottom: 8px; }
         }
 
-        .main-h1{text-align:center;margin:26px auto 10px;padding:0 15px;max-width:1280px}
-        .main-h1 h1{font-size:2.4rem;margin:0;color:#000;line-height:1.1;font-weight:900}
-        .main-h1 span{display:block;font-size:1.25rem;color:#000;font-weight:700;margin-top:6px}
-
-        .content{width:94%;max-width:1280px;margin:0 auto;display:flex;flex-direction:column;align-items:center}
-
-        .top-disclaimer{max-width:1000px;margin:16px auto 20px;padding:0 20px;text-align:center;
-            font-size:1.08rem;font-weight:700;color:#000;line-height:1.6}
-        .disclaimer-line{font-weight:900 !important;font-size:1.15rem !important;color:#c62828 !important;margin-top:12px !important}
-
-        #filters{margin:20px auto 30px;display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center}
-        #resetFilters{padding:12px 28px;background:var(--green);color:#fff;border-radius:10px;cursor:pointer;font-weight:800;border:none}
-        #resetFilters:hover{background:var(--green-dark)}
-        select,input{padding:12px 18px;border-radius:10px;border:1px solid #ccc;font-size:1rem}
-
-        #toolsTable{width:100%;border-collapse:collapse;background:#fff;border:4px solid var(--green);border-radius:14px;overflow:hidden;
-            box-shadow:0 10px 35px rgba(21,37,20,.28);margin:10px 0}
-        th{background:var(--green);color:#fff;padding:18px 12px;font-size:1.05rem;font-weight:700;cursor:pointer;position:relative;padding-right:28px}
-        th:hover{background:var(--green-dark)}
-
-        th::after{content:"";position:absolute;right:12px;top:50%;transform:translateY(-50%);
-            width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;opacity:0.6;}
-        th.sort-asc::after{border-bottom:8px solid #fff;opacity:1}
-        th.sort-desc::after{border-top:8px solid #fff;opacity:1}
-
-        td{padding:16px 12px;font-size:1rem;text-align:center}
-        tr:nth-child(even){background:#f9fff9}
-        tr:hover{background:#e8f5e8;transition:background .25s}
-        .tool-name{font-weight:800;font-size:1.35rem;color:var(--green)}
-        .free{color:#27ae60 !important;font-weight:900}
-
-        /* SPONSORED BADGE UNDER TOOL NAME */
-        .sponsored-badge{
-            display:inline-block;
-            background:var(--gold);
-            color:#000;
-            font-size:0.75rem;
-            font-weight:900;
-            padding:3px 10px;
-            border-radius:6px;
-            margin-top:6px;
+        .visit-btn {
+            display: inline-block;
+            background: var(--green);
+            color: white !important;
+            font-weight: 800;
+            font-size: 0.94rem;
+            padding: 9px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            box-shadow: 0 0 12px rgba(21,37,20,0.5);
+            transition: all .25s ease;
+        }
+        .visit-btn:hover {
+            background: var(--green-dark);
+            transform: translateY(-2px);
         }
 
-        @media(max-width:768px){
-            th{display:none}
-            tr{display:flex;flex-direction:column;background:#fff;border-radius:14px;margin:16px 0;padding:20px;
-               box-shadow:0 8px 25px rgba(0,0,0,0.14);border:1px solid #eee}
-            td{display:flex;justify-content:space-between;padding:11px 0;font-size:1.06rem;border-bottom:1px solid #f0f0f0}
-            td:last-child{border:none}
-            td:before{content:attr(data-label);font-weight:700;color:var(--green);min-width:160px}
-            .tool-name{margin-bottom:8px}
+        .loading {
+            text-align: center;
+            padding: 60px;
+            font-size: 1.6rem;
+            color: #555;
+            font-weight: 600;
         }
-
-        .visit-btn{display:inline-block;background:var(--green);color:white !important;font-weight:800;
-            font-size:0.94rem;padding:9px 20px;border-radius:10px;text-decoration:none;
-            box-shadow:0 0 12px rgba(21,37,20,0.5);transition:all .25s ease}
-        .visit-btn:hover{background:var(--green-dark);transform:translateY(-2px)}
-
-        .loading{text-align:center;padding:60px;font-size:1.6rem;color:#555;font-weight:600}
-        .disclaimer{font-size:0.95rem;color:#555;margin:50px auto 0;max-width:1000px;line-height:1.7;text-align:center}
-        .footer{margin-top:auto;padding:50px 20px;background:#fff;width:100%;text-align:center;border-top:6px solid var(--green)}
-        .footer a{color:var(--green);text-decoration:none;font-weight:700}
-        .footer .tagline{font-size:1.8rem;font-weight:900;color:var(--green);margin:30px 0}
+        .disclaimer {
+            font-size: 0.95rem;
+            color: #555;
+            margin: 50px auto 0;
+            max-width: 1000px;
+            line-height: 1.7;
+            text-align: center;
+        }
+        .footer {
+            margin-top: auto;
+            padding: 50px 20px;
+            background: #fff;
+            width: 100%;
+            text-align: center;
+            border-top: 6px solid var(--green);
+        }
+        .footer a {
+            color: var(--green);
+            text-decoration: none;
+            font-weight: 700;
+        }
+        .footer .tagline {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--green);
+            margin: 30px 0;
+        }
         .footer p { margin: 0 0 20px 0; }
     </style>
 </head>
@@ -177,15 +349,10 @@
 <div class="content">
 
     <header>
-        <!-- Advertise button (left) -->
         <a href="/advertise.html" class="advertise-btn">Advertise</a>
-
-        <!-- Centered logo -->
         <a href="/">
             <img src="https://topdividendtools.com/TopDividennn.png" alt="TopDividendTools.com" class="site-logo">
         </a>
-
-        <!-- Submit Tool button (right) -->
         <a href="submit-tool.html" class="submit-btn">Submit Tool</a>
     </header>
 
@@ -199,7 +366,6 @@
         The most accurate & complete directory of dividend investing tools on the internet<br>
         <strong>100% FREE • Updated Daily!</strong><br>
 
-        <!-- Your Top 100 Dividend ETFs button -->
         <div style="text-align: center; margin: 25px 0;">
             <a href="https://topdividendetfs.com/"
                style="background-color: #152514; 
@@ -226,7 +392,7 @@
         <select id="pricingFilter">
             <option value="">Pricing: All</option>
             <option value="Free">Free Only</option>
-<option value="Paid Premium">Paid Premium</option>
+            <option value="Paid Premium">Paid Premium</option>
             <option value="Paid">Paid Only</option>
         </select>
         <select id="categoryFilter">
@@ -260,19 +426,19 @@
         Disclaimer: TopDividendTools.com is for educational & entertainment purposes only. Rankings are subjective and may include affiliate links. We are not financial advisors. Always verify data and do your own research.
     </p>
 
-<footer class="footer">
-    <p>
-        <a href="https://topdividendetfs.com" target="_blank">Top Dividend ETFs</a> | 
-        Contact: <a href="mailto:Business@topdividendETFs.com">Business@topdividendETFs.com</a> | 
-        <a href="/terms.html">Terms of Use</a> | 
-        <a href="/privacy.html">Privacy Policy</a>
-    </p>
-    <div class="tagline">The #1 Resource for Dividend Investors</div>
-    
-    <p style="font-size: 0.85rem; color: #666; margin: 16px auto 0; max-width: 800px; line-height: 1.4; text-align: center;">
-        TopDividendTools.com may contain affiliate links. These are provided at no extra cost to you and help support the site if you make a purchase through them. Thank you for your support!
-    </p>
-</footer>
+    <footer class="footer">
+        <p>
+            <a href="https://topdividendetfs.com" target="_blank">Top Dividend ETFs</a> | 
+            Contact: <a href="mailto:Business@topdividendETFs.com">Business@topdividendETFs.com</a> | 
+            <a href="/terms.html">Terms of Use</a> | 
+            <a href="/privacy.html">Privacy Policy</a>
+        </p>
+        <div class="tagline">The #1 Resource for Dividend Investors</div>
+        
+        <p style="font-size: 0.85rem; color: #666; margin: 16px auto 0; max-width: 800px; line-height: 1.4; text-align: center;">
+            TopDividendTools.com may contain affiliate links. These are provided at no extra cost to you and help support the site if you make a purchase through them. Thank you for your support!
+        </p>
+    </footer>
 
 </div>
 
@@ -282,6 +448,36 @@ const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQyl3IN9OtH6Ux2
 let allRows = [];
 let currentSort = { col: 0, dir: 'asc' };
 const PREMIUM_SLOTS = 5;
+
+// Helper to assign priority based on pricing text
+function getPricingPriority(pricingText) {
+    const text = pricingText.toLowerCase().trim();
+    if (text.includes('free')) return 1;              // Free first
+    if (text.includes('premium') || text.includes('paid premium')) return 2; // Premium second
+    if (text.includes('paid') || text !== '') return 3; // Paid last
+    return 4; // Anything else at the very bottom
+}
+
+// Robust CSV line parser (handles commas inside quoted fields)
+function parseCSVLine(line) {
+    const result = [];
+    let current = '';
+    let inQuotes = false;
+    for (let char of line) {
+        if (char === '"' && !inQuotes) {
+            inQuotes = true;
+        } else if (char === '"' && inQuotes) {
+            inQuotes = false;
+        } else if (char === ',' && !inQuotes) {
+            result.push(current.trim());
+            current = '';
+        } else {
+            current += char;
+        }
+    }
+    result.push(current.trim());
+    return result;
+}
 
 async function loadData() {
     try {
@@ -300,15 +496,15 @@ function renderTable(csv) {
     allRows = [];
 
     for (let i = 1; i < lines.length; i++) {
-        const cols = lines[i].split(',').map(c => c.replace(/^"|"$/g, '').trim());
-        if (!cols[1]) continue;
+        if (!lines[i].trim()) continue;
+        const cols = parseCSVLine(lines[i]);
+        if (cols.length < 6) continue; // skip malformed rows
 
         const [website, name, category, bestFor, keyFeature, pricing] = cols;
         const isPremium = i <= PREMIUM_SLOTS;
 
         const tr = document.createElement('tr');
 
-        // TOOL NAME CELL — NOW WITH SPONSORED BADGE UNDER IT
         const nameCell = `<div>
             <div class="tool-name">${name}</div>
             ${isPremium ? '<div class="sponsored-badge">SPONSORED</div>' : ''}
@@ -337,9 +533,29 @@ function renderTable(csv) {
     document.getElementById('loading').style.display = 'none';
     document.getElementById('toolsTable').style.display = 'table';
 
-    sortTable(0);
+    // Apply custom pricing sort on load
+    sortByPricingPriority();
 }
 
+// Sort non-sponsored rows by pricing priority
+function sortByPricingPriority() {
+    const sponsored = allRows.filter(item => item.isSponsored);
+    const normal = allRows.filter(item => !item.isSponsored);
+
+    normal.sort((a, b) => {
+        const priA = getPricingPriority(a.row.cells[3].textContent);
+        const priB = getPricingPriority(b.row.cells[3].textContent);
+        return priA - priB; // Free → Paid Premium → Paid
+    });
+
+    const sorted = [...sponsored, ...normal];
+
+    const tbody = document.getElementById('toolsBody');
+    tbody.innerHTML = '';
+    sorted.forEach(item => tbody.appendChild(item.row));
+}
+
+// Clickable column sort (user override)
 function sortTable(col) {
     const dir = (currentSort.col === col && currentSort.dir === 'asc') ? 'desc' : 'asc';
     currentSort = { col, dir };
@@ -385,7 +601,8 @@ function applyFilters() {
         tr.style.display = show ? '' : 'none';
     });
 
-    sortTable(currentSort.col);
+    // Re-apply pricing sort after filtering
+    sortByPricingPriority();
 }
 
 document.getElementById('searchFilter').oninput = applyFilters;
