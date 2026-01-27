@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Optional: point to your sitemap if you create one later (highly recommended for better indexing)
+# Sitemap: https://topdividendtools.com/sitemap.xml
+
+# Comment: This allows all search engines to crawl the entire site (default behavior anyway).
+# No need to block anything unless you add private paths later (e.g. Disallow: /admin/ or Disallow: /secret/)
