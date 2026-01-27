@@ -7,13 +7,13 @@
     <title>Advertise on TopDividendTools.com | Reach Dividend Investors</title>
     <meta name="description" content="Promote your dividend investing tool with banner ads or sponsored top rankings on the #1 directory for dividend tools. Contact us today!">
 
-    <!-- FAVICONS (same as homepage) -->
+    <!-- FAVICONS -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
 
-    <!-- Google Analytics (same as homepage) -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-EG30PW49ZN"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -25,107 +25,206 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
-        html,body{margin:0;padding:0;overflow-x:hidden;width:100%;font-family:'Inter',sans-serif}
-        :root{--green:#152514;--green-dark:#0d1a0f;--gold:#FFD700}
-        body{background:#f8f9fa;color:#000;display:flex;flex-direction:column;align-items:center;min-height:100vh;line-height:1.6}
-
-        header{
-            background:#1a3224;
-            padding:20px 20px 16px;
-            text-align:center;
-            width:100%;
-            box-shadow:0 4px 20px rgba(0,0,0,.3);
-            background-image:url('https://www.transparenttextures.com/patterns/noise.png');
-            background-blend-mode:overlay;
-            position:relative;
+        * {
+            box-sizing: border-box;
         }
-        .site-logo{max-width:420px;width:92%;height:auto;display:block;margin:0 auto}
-        @media(max-width:480px){.site-logo{max-width:320px}}
-
-        .back-btn{
-            display:inline-block;
-            background:var(--green);
-            color:white;
-            padding:14px 32px;
-            border-radius:12px;
-            font-weight:900;
-            font-size:1.3rem;
-            text-decoration:none;
-            box-shadow:0 6px 16px rgba(21,37,20,0.5);
-            transition:all .25s ease;
-            margin:30px auto 40px;
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background: #f8f9fa;
         }
-        .back-btn:hover{
-            background:var(--green-dark);
-            transform:translateY(-3px);
-            box-shadow:0 12px 24px rgba(21,37,20,0.6);
+        :root {
+            --green: #152514;
+            --green-dark: #0d1a0f;
+            --gold: #FFD700;
         }
 
-        .content{width:94%;max-width:1000px;margin:0 auto;padding:0 15px;}
-
-        .advertise-section{
-            background:#fff;
-            border:4px solid var(--green);
-            border-radius:14px;
-            padding:40px 30px;
-            box-shadow:0 10px 35px rgba(21,37,20,.28);
-            margin-bottom:50px;
+        header {
+            background: #1a3224;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            background-image: url('https://www.transparenttextures.com/patterns/noise.png');
+            background-blend-mode: overlay;
         }
-        .advertise-section h1{
-            font-size:2.5rem;
-            color:var(--green);
-            margin:0 0 20px;
-            text-align:center;
-            font-weight:900;
+        .site-logo {
+            max-width: 420px;
+            width: 90%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
         }
-        .advertise-section h2{
-            color:#000;
-            font-size:1.8rem;
-            margin:40px 0 16px;
-            border-bottom:2px solid var(--green);
-            padding-bottom:8px;
-        }
-        .advertise-section p{
-            font-size:1.1rem;
-            margin:16px 0;
-        }
-        .email-cta{
-            display:block;
-            background:var(--gold);
-            color:#000;
-            text-align:center;
-            padding:20px;
-            border-radius:12px;
-            font-size:1.4rem;
-            font-weight:900;
-            margin:40px 0;
-            box-shadow:0 6px 16px rgba(255,215,0,0.4);
-        }
-        .email-cta a{
-            color:#000;
-            text-decoration:none;
-        }
-        .email-cta:hover{
-            background:#ffed4e;
+        @media (max-width: 480px) {
+            .site-logo { max-width: 320px; }
         }
 
-        .disclaimer{
-            font-size:0.95rem;
-            color:#555;
-            text-align:center;
-            margin:40px 0;
-            line-height:1.7;
+        .back-btn {
+            display: inline-block;
+            background: var(--green);
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 12px;
+            font-weight: 900;
+            font-size: 1.25rem;
+            text-decoration: none;
+            box-shadow: 0 6px 16px rgba(21,37,20,0.5);
+            transition: all 0.25s ease;
+            margin: 2rem auto 3rem;
+        }
+        .back-btn:hover {
+            background: var(--green-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(21,37,20,0.6);
         }
 
-        /* Footer — identical to homepage */
-        .footer{margin-top:auto;padding:50px 20px;background:#fff;width:100%;text-align:center;border-top:6px solid var(--green)}
-        .footer a{color:var(--green);text-decoration:none;font-weight:700}
-        .footer .tagline{font-size:1.8rem;font-weight:900;color:var(--green);margin:30px 0}
-        .footer p { margin: 0 0 20px 0; }
+        .content {
+            width: 92%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
 
-        @media(max-width:768px){
-            .advertise-section{padding:30px 20px;}
-            .back-btn{font-size:1.1rem;padding:12px 24px;}
+        .advertise-section {
+            background: #fff;
+            border: 4px solid var(--green);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 10px 35px rgba(21,37,20,0.25);
+            margin-bottom: 3rem;
+        }
+        .advertise-section h1 {
+            font-size: 2.4rem;
+            color: var(--green);
+            margin: 0 0 1.2rem;
+            text-align: center;
+            font-weight: 900;
+        }
+        .advertise-section h2 {
+            color: #000;
+            font-size: 1.8rem;
+            margin: 2.5rem 0 1rem;
+            border-bottom: 2px solid var(--green);
+            padding-bottom: 0.5rem;
+        }
+        .advertise-section h3 {
+            color: var(--green);
+            margin: 0 0 0.8rem;
+            font-size: 1.55rem;
+        }
+        .advertise-section p {
+            font-size: 1.1rem;
+            margin: 1rem 0;
+        }
+
+        .plans-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin: 2.5rem 0;
+        }
+        .plan-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            width: 340px;
+            max-width: 100%;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(21,37,20,0.15);
+            transition: all 0.3s ease;
+        }
+        .plan-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 32px rgba(21,37,20,0.25);
+        }
+        .plan-card.sponsored {
+            border: 3px solid var(--green);
+            background: #f8fdf8;
+        }
+        .plan-card.banner {
+            border: 3px solid var(--gold);
+            background: #fffdf5;
+        }
+        .plan-price {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--green);
+            margin: 0.8rem 0 0.4rem;
+        }
+        .plan-price small {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        .subscribe-btn {
+            display: block;
+            width: 100%;
+            padding: 1.1rem;
+            margin-top: 1.5rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: all 0.25s ease;
+        }
+        .subscribe-btn.green {
+            background: var(--green);
+            color: white;
+        }
+        .subscribe-btn.gold {
+            background: var(--gold);
+            color: #000;
+        }
+        .subscribe-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        }
+
+        .cta-text, .disclaimer {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .cta-text a {
+            color: var(--green);
+            font-weight: 600;
+        }
+        .disclaimer {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 3rem 1rem 2rem;
+            background: #fff;
+            width: 100%;
+            text-align: center;
+            border-top: 6px solid var(--green);
+        }
+        footer a {
+            color: var(--green);
+            text-decoration: none;
+            font-weight: 700;
+        }
+        .tagline {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--green);
+            margin: 1.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .advertise-section { padding: 2rem 1.25rem; }
+            .plans-container { flex-direction: column; align-items: center; gap: 1.8rem; }
+            .plan-card { width: 100%; max-width: 380px; }
         }
     </style>
 </head>
@@ -139,7 +238,6 @@
 
     <div class="content">
 
-        <!-- Big Go Back button -->
         <a href="/" class="back-btn">← Go Back to Top Tools</a>
 
         <div class="advertise-section">
@@ -149,28 +247,52 @@
 
             <h2>Available Advertising Options</h2>
             <ul>
-                <li><strong>Display Banners</strong> — High-visibility banner ads placed strategically on the homepage and tool listings pages (sidebar, top, or between sections). Perfect for brand awareness or driving direct traffic to your tool/site.</li>
-                <li><strong>Sponsored Top Rankings</strong> — Get your tool featured at the top of the list (with a clear "SPONSORED" badge) for maximum exposure. These premium slots appear above organic results and are limited for best performance.</li>
+                <li><strong>Display Banner:</strong> High-visibility banner ad placed strategically on the Top of the homepage. Perfect for brand awareness or direct traffic.</li>
+                <li><strong>Sponsored Top Rankings:</strong> Feature your tool at the top of the list (only 5 spots) with a clear "SPONSORED" badge for maximum exposure.</li>
             </ul>
 
-            <p>Pricing is flexible and depends on placement, duration, and package. We offer monthly or longer-term options — <strong>contact us to discuss your goals and get a custom quote</strong>.</p>
+            <p>Subscribe below to get started instantly. Recurring every 30 days via secure Stripe checkout. We'll email setup instructions (tool URL, logo, link text, etc.) within 24 hours after payment.</p>
 
-            <div class="email-cta">
-                Email us at:<br>
-                <a href="mailto:Business@topDividendETFs.com">Business@topDividendETFs.com</a>
+            <div class="plans-container">
+
+                <div class="plan-card sponsored">
+                    <h3>Sponsored Tool Row<br>(1 of 5 top rows)</h3>
+                    <div class="plan-price">$9 <small>/ 30 days</small></div>
+                    <p style="color:#555; margin: 1rem 0 1.5rem;">Pinned tool (Top 5 position at all times)</p>
+                    <a href="https://buy.stripe.com/28E28s4slgd01rF0Ok1Fe00" 
+                       class="subscribe-btn green" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        Subscribe – $9
+                    </a>
+                </div>
+
+                <div class="plan-card banner">
+                    <h3>Top Banner Ad<br>(30 days)</h3>
+                    <div class="plan-price">$49 <small>/ 30 days</small></div>
+                    <p style="color:#555; margin: 1rem 0 1.5rem;">Premium display banner placement on homepage!</p>
+                    <a href="https://buy.stripe.com/3cI6oIe2V8Ky5HV68E1Fe01" 
+                       class="subscribe-btn gold" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        Subscribe – $49
+                    </a>
+                </div>
+
             </div>
 
-            <p>We respond within 24–48 hours and love working with quality dividend-focused tools, services, calculators, trackers, research platforms, newsletters, and more.</p>
+            <div class="cta-text">
+                Questions or custom needs? <a href="mailto:Business@topDividendETFs.com">Email us</a>
+            </div>
 
             <p class="disclaimer">
-                All advertising is clearly labeled. Placement decisions are at our discretion. TopDividendTools.com is for educational and entertainment purposes only and does not provide financial advice.
+                All advertising is clearly labeled. Placement decisions are at our discretion. Subscriptions auto-renew every 30 days — cancel anytime via the link in your Stripe receipt email. TopDividendTools.com is for educational and entertainment purposes only and does not provide financial advice.
             </p>
         </div>
 
     </div>
 
-    <!-- Footer — now identical to the homepage -->
-    <footer class="footer">
+    <footer>
         <p>
             <a href="https://topdividendetfs.com" target="_blank">Top Dividend ETFs</a> | 
             Contact: <a href="mailto:hello@topdividendtools.com">hello@topdividendtools.com</a> | 
