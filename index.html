@@ -420,7 +420,6 @@
             <option value="Dividend Calculator">Dividend Calculator</option>
             <option value="Dividend Tracker">Dividend Tracker</option>
             <option value="Portfolio Tracker">Portfolio Tracker</option>
-
         </select>
     </div>
 
@@ -601,20 +600,41 @@ function sortTable(col) {
 }
 
 function applyFilters() {
-    const search = document.getElementById('searchFilter').value.toLowerCase();
-    const pricing = document.getElementById('pricingFilter').value.toLowerCase();
-    const category = document.getElementById('categoryFilter').value;
+    const search = document.getElementById('searchFilter').value.toLowerCase().trim();
+    const pricing = document.getElementById('pricingFilter').value.toLowerCase().trim();
+    const selectedCategory = document.getElementById('categoryFilter').value.trim();
 
     allRows.forEach(item => {
         const tr = item.row;
         const name = tr.cells[0].textContent.toLowerCase();
-        const cat = tr.cells[1].textContent;
-        const price = tr.cells[3].textContent.toLowerCase();
+        
+        // Get category cell and split into array
+        let catText = tr.cells[1].textContent.trim();
+        let categories = catText 
+            ? catText.split(',').map(c => c.trim().toLowerCase())
+            : [];
+
+        const price = tr.cells[3].textContent.toLowerCase().trim();
 
         let show = true;
-        if (search && !name.includes(search) && !cat.includes(search)) show = false;
+
+        // Search filter (name or any category)
+        if (search) {
+            const matchesName = name.includes(search);
+            const matchesCategory = categories.some(c => c.includes(search));
+            if (!matchesName && !matchesCategory) show = false;
+        }
+
+        // Pricing filter
         if (pricing && !price.includes(pricing)) show = false;
-        if (category && cat !== category) show = false;
+
+        // Category filter – checks if selected category is in the list
+        if (selectedCategory) {
+            const selectedLower = selectedCategory.toLowerCase();
+            if (!categories.includes(selectedLower)) {
+                show = false;
+            }
+        }
 
         tr.style.display = show ? '' : 'none';
     });
