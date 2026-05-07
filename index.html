@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
@@ -178,6 +178,35 @@
             margin-top: 12px !important;
         }
 
+        .sponsor-banner {
+            display: block;
+            width: 100%;
+            max-width: 900px;
+            margin: 20px auto 5px;
+            text-decoration: none;
+            border-radius: 14px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            transition: transform 0.22s ease, box-shadow 0.22s ease;
+        }
+        .sponsor-banner:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 48px rgba(0,0,0,0.3);
+        }
+        .sponsor-banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .sponsor-text {
+            text-align: center;
+            margin: 8px 0 25px 0;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #666;
+        }
+
         #filters {
             margin: 20px auto 30px;
             display: flex;
@@ -340,7 +369,7 @@
         }
         .footer {
             margin-top: auto;
-            padding: 50px 20px;
+            padding: 30px 20px 50px 20px;
             background: #fff;
             width: 100%;
             text-align: center;
@@ -381,177 +410,16 @@
     <div class="top-disclaimer">
         The most accurate & complete directory of dividend investing tools on the internet<br>
         <strong>👀 Seen by thousands monthly • 100% FREE • Updated Daily!</strong><br>
-
-        <div style="text-align: center; margin: 25px 0;">
-            <a href="https://topdividendetfs.com/"
-               style="background-color: #152514; 
-                      color: #FFD700;
-                      padding: 10px 20px; 
-                      text-align: center; 
-                      text-decoration: none; 
-                      display: inline-block; 
-                      font-size: 18px; 
-                      border-radius: 6px; 
-                      font-weight: bold; 
-                      box-shadow: 0 0 40px rgba(255, 245, 157, 0.5), 0 2px 4px rgba(0,0,0,0.2); 
-                      transition: box-shadow 0.3s ease;">
-                👉 Top 100 Dividend ETFs
-            </a>
-        </div>
-
         <strong class="disclaimer-line">Not Financial advice! <br>*Always do your own research!*</strong>
     </div>
- <!-- ── DISPLAY BANNER AD ── -->
-<style>
-    .etf-banner {
-        display: block;
-        width: 100%;
-        max-width: 900px;
-        margin: 0 auto 28px;
-        text-decoration: none;
-        border-radius: 18px;
-        overflow: hidden;
-        position: relative;
-        background: linear-gradient(135deg, #0d2e1a 0%, #1a4a28 40%, #0d2e1a 100%);
-        border: 2px solid #FFD700;
-        box-shadow:
-            0 0 0 1px rgba(255,215,0,0.15),
-            0 8px 32px rgba(0,0,0,0.45),
-            0 2px 8px rgba(255,215,0,0.18);
-        transition: transform 0.22s ease, box-shadow 0.22s ease;
-    }
-    .etf-banner:hover {
-        transform: translateY(-3px) scale(1.012);
-        box-shadow:
-            0 0 0 2px rgba(255,215,0,0.35),
-            0 16px 48px rgba(0,0,0,0.55),
-            0 4px 16px rgba(255,215,0,0.3);
-    }
-    .etf-banner::before,
-    .etf-banner::after {
-        content: '';
-        position: absolute;
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(255,215,0,0.12) 0%, transparent 70%);
-        pointer-events: none;
-    }
-    .etf-banner::before { top: -40px; left: -40px; }
-    .etf-banner::after  { bottom: -40px; right: -40px; }
-    .etf-banner-inner {
-        position: relative;
-        z-index: 1;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 20px 30px;
-        gap: 16px;
-    }
-    .etf-banner-left {
-        display: flex;
-        align-items: center;
-        gap: 18px;
-    }
-    .etf-banner-icon {
-        width: 52px;
-        height: 52px;
-        border-radius: 14px;
-        background: rgba(255,215,0,0.12);
-        border: 1.5px solid rgba(255,215,0,0.35);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-    }
-    .etf-banner-icon svg {
-        width: 28px;
-        height: 28px;
-    }
-    .etf-banner-text {
-        display: flex;
-        flex-direction: column;
-        gap: 3px;
-    }
-    .etf-banner-eyebrow {
-        font-size: 0.72rem;
-        font-weight: 700;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: rgba(255,215,0,0.65);
-    }
-    .etf-banner-title {
-        font-size: 1.35rem;
-        font-weight: 900;
-        color: #FFD700;
-        line-height: 1.15;
-        text-shadow: 0 2px 12px rgba(255,215,0,0.25);
-    }
-    .etf-banner-sub {
-        font-size: 0.82rem;
-        font-weight: 600;
-        color: rgba(255,255,255,0.55);
-        margin-top: 2px;
-    }
-    .etf-banner-cta {
-        flex-shrink: 0;
-        background: #FFD700;
-        color: #0d1a0f;
-        font-weight: 900;
-        font-size: 0.9rem;
-        padding: 12px 24px;
-        border-radius: 12px;
-        white-space: nowrap;
-        box-shadow: 0 4px 16px rgba(255,215,0,0.4);
-        transition: background 0.18s ease, box-shadow 0.18s ease;
-        letter-spacing: 0.02em;
-    }
-    .etf-banner:hover .etf-banner-cta {
-        background: #ffe84d;
-        box-shadow: 0 6px 24px rgba(255,215,0,0.6);
-    }
-    .etf-banner-shimmer {
-        position: absolute;
-        top: 0; left: 0; right: 0;
-        height: 2px;
-        background: linear-gradient(90deg, transparent 0%, #FFD700 30%, #fff8a0 50%, #FFD700 70%, transparent 100%);
-        opacity: 0.7;
-    }
-    @media (max-width: 600px) {
-        .etf-banner-inner { flex-direction: column; text-align: center; padding: 20px; }
-        .etf-banner-left { flex-direction: column; gap: 10px; }
-        .etf-banner-title { font-size: 1.1rem; }
-        .etf-banner-cta { width: 100%; text-align: center; padding: 14px 0; }
-    }
-</style>
 
-<a href="https://topdividendetfs.com/" target="_blank" class="etf-banner" rel="noopener">
-    <div class="etf-banner-shimmer"></div>
-    <div class="etf-banner-inner">
-        <div class="etf-banner-left">
-            <div class="etf-banner-icon">
-                <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <polyline points="2,22 8,14 13,18 19,8 26,4" stroke="#FFD700" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
-                    <circle cx="26" cy="4" r="2.5" fill="#FFD700"/>
-                    <line x1="2" y1="26" x2="26" y2="26" stroke="rgba(255,215,0,0.35)" stroke-width="1.2"/>
-                </svg>
-            </div>
-            <div class="etf-banner-text">
-                <div class="etf-banner-eyebrow">Free Resource &nbsp;•&nbsp; Updated Daily</div>
-                <div class="etf-banner-title">Top 100 Dividend ETFs</div>
-                <div class="etf-banner-sub">Sorted By Yield &amp; NO Price Decay &nbsp;📈</div>
-            </div>
-        </div>
-        <div class="etf-banner-cta">View the List &rarr;</div>
-    </div>
-</a>
-<!-- ── END DISPLAY BANNER AD ── -->
-<div style="text-align: center; margin: 15px auto 25px; max-width: 728px; width: 100%;">
-   
+    <!-- ── TOP SPONSOR BANNER AD ── -->
+    <a href="https://lsfunds.com/etfs/ovl" target="_blank" class="sponsor-banner" rel="noopener">
+        <img src="https://i.postimg.cc/vmgXHnVX/Approved-OVL-Top-Dividend-Tools-ad.png" alt="Sponsor Banner">
     </a>
-    <div style="margin-top: 8px; font-size: 0.82rem; color: #555; font-weight: 500;">
-    </div>
-</div>
+    <div class="sponsor-text">Sponsored by</div>
+    <!-- ── END TOP SPONSOR BANNER ── -->
+
     <div id="filters">
         <button id="resetFilters">Reset Filters</button>
         <input type="text" id="searchFilter" placeholder="Search Tool Name or Category">
@@ -594,8 +462,14 @@
     </p>
 
     <footer class="footer">
+        <!-- ── BOTTOM SPONSOR BANNER AD ── -->
+        <a href="https://lsfunds.com/etfs/ovl" target="_blank" class="sponsor-banner" rel="noopener" style="margin: 20px auto 5px;">
+            <img src="https://i.postimg.cc/vmgXHnVX/Approved-OVL-Top-Dividend-Tools-ad.png" alt="Sponsor Banner">
+        </a>
+        <div class="sponsor-text">Sponsored by</div>
+        <!-- ── END BOTTOM SPONSOR BANNER ── -->
+
         <p>
-            <a href="https://topdividendetfs.com" target="_blank">👉 Top Dividend ETFs 👈</a> | 
             Contact: <a href="mailto:Business@topdividendETFs.com">Business@topdividendETFs.com</a> | 
             <a href="/terms.html">Terms of Use</a> | 
             <a href="/privacy.html">Privacy Policy</a>
