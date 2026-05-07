@@ -178,33 +178,34 @@
             margin-top: 12px !important;
         }
 
-        .sponsor-banner {
-            display: block;
-            width: 100%;
+        .banner {
+            width: 90%;
             max-width: 900px;
-            margin: 20px auto 5px;
+            margin: 15px auto;
+            padding: 0;
+            background: none;
+            border-radius: 0;
+            box-shadow: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .banner a {
             text-decoration: none;
-            border-radius: 14px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-            transition: transform 0.22s ease, box-shadow 0.22s ease;
-        }
-        .sponsor-banner:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 48px rgba(0,0,0,0.3);
-        }
-        .sponsor-banner img {
-            width: 100%;
-            height: auto;
             display: block;
         }
-        .sponsor-text {
-            text-align: center;
-            margin: 8px 0 25px 0;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #666;
+        .banner img {
+            display: block;
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            object-fit: contain;
+            background: transparent;
+            transition: transform 0.3s ease;
+        }
+        .banner:hover img {
+            transform: scale(1.02);
         }
 
         #filters {
@@ -414,10 +415,12 @@
     </div>
 
     <!-- ── TOP SPONSOR BANNER AD ── -->
-    <a href="https://lsfunds.com/etfs/ovl" target="_blank" class="sponsor-banner" rel="noopener">
-        <img src="https://i.postimg.cc/vmgXHnVX/Approved-OVL-Top-Dividend-Tools-ad.png" alt="Sponsor Banner">
-    </a>
-    <div class="sponsor-text">Sponsored by</div>
+    <div class="banner">
+        <a href="https://lsfunds.com/etfs/ovl" target="_blank" rel="noopener">
+            <img src="https://i.postimg.cc/vmgXHnVX/Approved-OVL-Top-Dividend-Tools-ad.png" alt="Sponsor Banner">
+        </a>
+        <small style="color:#666; font-size:0.85em; font-weight:700;">Sponsored by</small>
+    </div>
     <!-- ── END TOP SPONSOR BANNER ── -->
 
     <div id="filters">
@@ -463,10 +466,12 @@
 
     <footer class="footer">
         <!-- ── BOTTOM SPONSOR BANNER AD ── -->
-        <a href="https://lsfunds.com/etfs/ovl" target="_blank" class="sponsor-banner" rel="noopener" style="margin: 20px auto 5px;">
-            <img src="https://i.postimg.cc/vmgXHnVX/Approved-OVL-Top-Dividend-Tools-ad.png" alt="Sponsor Banner">
-        </a>
-        <div class="sponsor-text">Sponsored by</div>
+        <div class="banner">
+            <a href="https://lsfunds.com/etfs/ovl" target="_blank" rel="noopener">
+                <img src="https://i.postimg.cc/vmgXHnVX/Approved-OVL-Top-Dividend-Tools-ad.png" alt="Sponsor Banner">
+            </a>
+            <small style="color:#666; font-size:0.85em; font-weight:700;">Sponsored by</small>
+        </div>
         <!-- ── END BOTTOM SPONSOR BANNER ── -->
 
         <p>
