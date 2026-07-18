@@ -35,486 +35,709 @@
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --green: #152514;
+            --green-mid: #1d3a26;
+            --green-dark: #0d1a0f;
+            --green-soft: #eaf3ec;
+            --gold: #FFD700;
+            --gold-soft: #fff8d6;
+            --paper: #f4f7f4;
+            --ink: #101c14;
+            --ink-soft: #4a5a4f;
+            --line: #dde7de;
+            --free: #1e8e4e;
+            --blue: #2323FF;
+            --radius: 14px;
+            --shadow-sm: 0 2px 10px rgba(16,28,20,.08);
+            --shadow-md: 0 8px 28px rgba(16,28,20,.14);
+        }
+
+        * { box-sizing: border-box; }
+
         html, body {
-            margin: 0; padding: 0; overflow-x: hidden; width: 100%;
-            font-family: 'Inter', sans-serif; line-height: 1.5; color: #000; background: #f8f9fa;
+            margin: 0; padding: 0; width: 100%; overflow-x: hidden;
+            font-family: 'Sora', sans-serif;
+            color: var(--ink); background: var(--paper);
+            line-height: 1.55;
         }
-        :root { --green: #152514; --green-dark: #0d1a0f; --gold: #FFD700; }
 
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        a { color: var(--green); }
+
+        /* ───────── HEADER ───────── */
         header {
-            background: #1a3224; padding: 20px 20px 16px; text-align: center; width: 100%;
-            box-shadow: 0 4px 20px rgba(0,0,0,.3);
-            background-image: url('https://www.transparenttextures.com/patterns/noise.png');
-            background-blend-mode: overlay; position: relative;
+            background: linear-gradient(160deg, #1a3224 0%, var(--green-dark) 100%);
+            background-image: url('https://www.transparenttextures.com/patterns/noise.png'), linear-gradient(160deg, #1a3224 0%, #0d1a0f 100%);
+            background-blend-mode: overlay, normal;
+            border-bottom: 3px solid var(--gold);
         }
-        .site-logo { max-width: 420px; width: 92%; height: auto; display: block; margin: 0 auto; }
-        @media (max-width: 480px) { .site-logo { max-width: 320px; } }
-
-        .advertise-btn {
-            position: absolute; top: 32px; left: 16px; background: #2323FF; color: #ffffff !important;
-            padding: 8px 15px; border-radius: 10px; font-weight: 900; font-size: 0.85rem;
-            text-decoration: none; box-shadow: 0 4px 12px rgba(35,35,255,.5); transition: all .25s ease; z-index: 100;
+        .header-inner {
+            max-width: 1200px; margin: 0 auto; padding: 18px 20px;
+            display: flex; align-items: center; justify-content: space-between; gap: 16px;
         }
-        .advertise-btn:hover { background: #3a3aff; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(35,35,255,.6); }
+        .site-logo { max-width: 340px; width: 100%; height: auto; display: block; }
+        .header-actions { display: flex; gap: 10px; flex-shrink: 0; }
 
-        .submit-btn {
-            position: absolute; top: 32px; right: 16px; background: var(--gold); color: #000 !important;
-            padding: 8px 15px; border-radius: 10px; font-weight: 900; font-size: 0.85rem;
-            text-decoration: none; box-shadow: 0 4px 12px rgba(255,215,0,.5); transition: all .25s ease; z-index: 100;
+        .hdr-btn {
+            display: inline-block; padding: 10px 18px; border-radius: 10px;
+            font-weight: 800; font-size: 0.85rem; text-decoration: none;
+            transition: transform .2s ease, box-shadow .2s ease; white-space: nowrap;
         }
-        .submit-btn:hover { background: #ffed4e; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255,215,0,.6); }
+        .hdr-btn:hover { transform: translateY(-2px); }
+        .hdr-btn.advertise { background: var(--blue); color: #fff; box-shadow: 0 4px 14px rgba(35,35,255,.45); }
+        .hdr-btn.submit { background: var(--gold); color: #000; box-shadow: 0 4px 14px rgba(255,215,0,.4); }
 
-        @media (max-width: 768px) {
-            .advertise-btn, .submit-btn { top: 28px; padding: 7px 13px; font-size: 0.78rem; }
-            header { padding-top: 65px; }
+        @media (max-width: 720px) {
+            .header-inner { flex-direction: column; padding: 16px 16px 14px; }
+            .site-logo { max-width: 280px; }
+            .header-actions { width: 100%; justify-content: center; }
+            .hdr-btn { flex: 1; text-align: center; max-width: 180px; }
         }
 
-        .main-h1 { text-align: center; margin: 26px auto 10px; padding: 0 15px; max-width: 1280px; }
-        .main-h1 h1 { font-size: 2.4rem; margin: 0; color: #000; line-height: 1.1; font-weight: 900; }
-        .main-h1 span { display: block; font-size: 1.25rem; color: #000; font-weight: 700; margin-top: 6px; }
-
-        .content { width: 94%; max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
-
-        .top-disclaimer {
-            max-width: 1000px; margin: 16px auto 20px; padding: 0 20px; text-align: center;
-            font-size: 1.08rem; font-weight: 700; color: #000; line-height: 1.6;
+        /* ───────── HERO ───────── */
+        .hero { text-align: center; padding: 34px 20px 6px; max-width: 900px; margin: 0 auto; }
+        .hero h1 {
+            font-size: clamp(1.7rem, 4.5vw, 2.6rem); font-weight: 800;
+            margin: 0 0 6px; line-height: 1.12; letter-spacing: -0.01em;
         }
-        .disclaimer-line { font-weight: 900 !important; font-size: 1.15rem !important; color: #c62828 !important; margin-top: 12px !important; }
-
-        .banner {
-            width: 90%; max-width: 900px; margin: 15px auto; padding: 0; background: none;
-            border-radius: 0; box-shadow: none; display: flex; flex-direction: column; align-items: center; gap: 8px;
+        .hero .sub { font-size: clamp(1rem, 2.5vw, 1.2rem); font-weight: 600; color: var(--ink-soft); margin: 0; }
+        .hero .trust {
+            margin: 14px auto 0; font-size: 0.95rem; font-weight: 700; line-height: 1.6;
         }
-        .banner a { text-decoration: none; display: block; }
-        .banner img { display: block; width: auto; height: auto; max-width: 100%; object-fit: contain; background: transparent; transition: transform 0.3s ease; }
-        .banner:hover img { transform: scale(1.02); }
+        .hero .warn {
+            display: inline-block; margin-top: 10px; padding: 6px 16px;
+            background: #fdeaea; border: 1px solid #f3c2c2; border-radius: 999px;
+            color: #b02a2a; font-weight: 800; font-size: 0.9rem;
+        }
 
-        #filters { margin: 20px auto 30px; display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; align-items: center; }
-        #resetFilters { padding: 12px 28px; background: var(--green); color: #fff; border-radius: 10px; cursor: pointer; font-weight: 800; border: none; }
+        /* ───────── SHELL ───────── */
+        .shell { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* ───────── SPONSOR BANNER ───────── */
+        .banner { margin: 22px auto 8px; text-align: center; max-width: 900px; }
+        .banner a { display: inline-block; text-decoration: none; }
+        .banner img { max-width: 100%; height: auto; display: block; transition: transform .3s ease; border-radius: 10px; }
+        .banner a:hover img { transform: scale(1.015); }
+        .banner small { display: block; margin-top: 6px; color: var(--ink-soft); font-size: 0.8rem; font-weight: 700; }
+
+        /* ───────── FILTER BAR ───────── */
+        .toolbar {
+            position: sticky; top: 0; z-index: 50;
+            background: rgba(244,247,244,.92); backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line);
+            padding: 14px 0 10px; margin-top: 18px;
+        }
+        .toolbar-row {
+            max-width: 1200px; margin: 0 auto; padding: 0 20px;
+            display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+        }
+        .search-wrap { position: relative; flex: 1 1 240px; min-width: 200px; }
+        .search-wrap svg {
+            position: absolute; left: 13px; top: 50%; transform: translateY(-50%);
+            width: 16px; height: 16px; stroke: var(--ink-soft); pointer-events: none;
+        }
+        #searchFilter {
+            width: 100%; padding: 11px 14px 11px 38px; border-radius: 10px;
+            border: 1.5px solid var(--line); background: #fff; font-size: 0.95rem;
+            font-family: 'Sora', sans-serif; color: var(--ink);
+        }
+        #searchFilter:focus { outline: 2px solid var(--green); outline-offset: 1px; border-color: var(--green); }
+
+        .toolbar select {
+            padding: 11px 34px 11px 14px; border-radius: 10px; border: 1.5px solid var(--line);
+            background: #fff url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23152514' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 12px center;
+            font-size: 0.92rem; font-family: 'Sora', sans-serif; font-weight: 600;
+            color: var(--ink); appearance: none; cursor: pointer;
+        }
+        .toolbar select:focus { outline: 2px solid var(--green); outline-offset: 1px; }
+
+        #resetFilters {
+            padding: 11px 18px; background: var(--green); color: #fff; border: none;
+            border-radius: 10px; font-weight: 700; font-size: 0.9rem; cursor: pointer;
+            font-family: 'Sora', sans-serif; transition: background .2s;
+        }
         #resetFilters:hover { background: var(--green-dark); }
-        select, input { padding: 12px 18px; border-radius: 10px; border: 1px solid #ccc; font-size: 1rem; }
 
-        #toolsTable {
-            width: 100%; border-collapse: collapse; background: #fff;
-            border: 4px solid var(--green); border-radius: 14px; overflow: hidden;
-            box-shadow: 0 10px 35px rgba(21,37,20,.28); margin: 10px 0;
+        .chip-row {
+            max-width: 1200px; margin: 10px auto 0; padding: 0 20px;
+            display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
         }
-        th {
-            background: var(--green); color: #fff; padding: 18px 12px; font-size: 1.05rem;
-            font-weight: 700; cursor: pointer; position: relative; padding-right: 28px;
+        .chip {
+            padding: 6px 14px; border-radius: 999px; border: 1.5px solid var(--line);
+            background: #fff; color: var(--ink); font-size: 0.83rem; font-weight: 700;
+            cursor: pointer; font-family: 'Sora', sans-serif; transition: all .15s ease;
         }
-        th:hover { background: var(--green-dark); }
-        th::after { content: ""; position: absolute; right: 12px; top: 50%; transform: translateY(-50%); width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; opacity: 0.6; }
-        th.sort-asc::after { border-bottom: 8px solid #fff; opacity: 1; }
-        th.sort-desc::after { border-top: 8px solid #fff; opacity: 1; }
+        .chip:hover { border-color: var(--green); }
+        .chip.active { background: var(--green); border-color: var(--green); color: #fff; }
+        .chip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
 
-        td { padding: 16px 12px; font-size: 1rem; text-align: center; white-space: normal; word-wrap: break-word; }
-        tr:nth-child(even) { background: #f9fff9; }
-
-        /* Clickable row style */
-        tbody tr {
-            cursor: pointer;
-            transition: background .2s, box-shadow .2s;
+        .result-meta {
+            max-width: 1200px; margin: 14px auto 0; padding: 0 20px;
+            display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap;
         }
-        tbody tr:hover { background: #e8f5e8 !important; }
-        tbody tr:hover .tool-name { text-decoration: underline; }
+        .result-count { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; font-weight: 500; color: var(--ink-soft); }
+        .click-hint { font-size: 0.83rem; color: var(--ink-soft); font-weight: 600; }
 
-        .tool-name { font-weight: 800; font-size: 1.35rem; color: var(--green); }
-        .free { color: #27ae60 !important; font-weight: 900; }
-        .sponsored-badge { display: inline-block; background: var(--gold); color: #000; font-size: 0.75rem; font-weight: 900; padding: 3px 10px; border-radius: 6px; margin-top: 6px; }
-
-        @media (max-width: 768px) {
-            th { display: none; }
-            tr { display: flex; flex-direction: column; background: #fff; border-radius: 14px; margin: 16px 0; padding: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.14); border: 1px solid #eee; }
-            td { display: flex; justify-content: space-between; padding: 11px 0; font-size: 1.06rem; border-bottom: 1px solid #f0f0f0; }
-            td:last-child { border: none; }
-            td:before { content: attr(data-label); font-weight: 700; color: var(--green); min-width: 160px; }
-            .tool-name { margin-bottom: 8px; }
+        /* ───────── CARD GRID ───────── */
+        .grid {
+            max-width: 1200px; margin: 14px auto 0; padding: 0 20px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 16px;
         }
+        @media (max-width: 380px) { .grid { grid-template-columns: 1fr; } }
+
+        .tool-card {
+            background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius);
+            padding: 20px 20px 18px; cursor: pointer; position: relative;
+            display: flex; flex-direction: column; gap: 10px;
+            transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+            box-shadow: var(--shadow-sm);
+        }
+        .tool-card:hover, .tool-card:focus-visible {
+            transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--green);
+            outline: none;
+        }
+        .tool-card.sponsored { border-color: var(--gold); background: linear-gradient(180deg, #fffdf2 0%, #fff 55%); }
+
+        .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+        .card-name { font-size: 1.2rem; font-weight: 800; color: var(--green); line-height: 1.2; margin: 0; }
+        .badge-sponsored {
+            flex-shrink: 0; background: var(--gold); color: #000; font-size: 0.68rem; font-weight: 800;
+            padding: 4px 9px; border-radius: 6px; letter-spacing: 0.04em;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .card-cats { display: flex; flex-wrap: wrap; gap: 6px; }
+        .cat-tag {
+            font-size: 0.72rem; font-weight: 700; color: var(--green-mid);
+            background: var(--green-soft); padding: 3px 10px; border-radius: 999px;
+        }
+
+        .card-line { font-size: 0.9rem; color: var(--ink-soft); margin: 0; }
+        .card-line b { color: var(--ink); font-weight: 700; }
+        .card-feature {
+            font-size: 0.88rem; color: var(--ink-soft); margin: 0; line-height: 1.5;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+        }
+
+        .card-bottom {
+            margin-top: auto; padding-top: 12px; border-top: 1px solid var(--line);
+            display: flex; align-items: center; justify-content: space-between; gap: 10px;
+        }
+        .price-pill {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; font-weight: 700;
+            padding: 5px 12px; border-radius: 8px; background: #f0f2f0; color: var(--ink);
+        }
+        .price-pill.is-free { background: #e4f5ea; color: var(--free); }
 
         .visit-btn {
-            display: inline-block; background: var(--green); color: white !important; font-weight: 800;
-            font-size: 0.94rem; padding: 9px 20px; border-radius: 10px; text-decoration: none;
-            box-shadow: 0 0 12px rgba(21,37,20,0.5); transition: all .25s ease;
+            background: var(--green); color: #fff !important; font-weight: 700; font-size: 0.85rem;
+            padding: 9px 18px; border-radius: 9px; text-decoration: none;
+            transition: background .2s, transform .2s; font-family: 'Sora', sans-serif;
         }
-        .visit-btn:hover { background: var(--green-dark); transform: translateY(-2px); }
+        .visit-btn:hover { background: var(--green-dark); transform: translateY(-1px); }
 
-        .loading { text-align: center; padding: 60px; font-size: 1.6rem; color: #555; font-weight: 600; }
-        .disclaimer { font-size: 0.95rem; color: #555; margin: 50px auto 0; max-width: 1000px; line-height: 1.7; text-align: center; }
+        /* ───────── STATES ───────── */
+        .loading { text-align: center; padding: 70px 20px; font-size: 1.2rem; color: var(--ink-soft); font-weight: 600; }
+        .empty-state {
+            display: none; text-align: center; padding: 60px 20px; max-width: 480px; margin: 0 auto;
+        }
+        .empty-state h3 { font-size: 1.2rem; margin: 0 0 6px; }
+        .empty-state p { color: var(--ink-soft); margin: 0 0 18px; }
 
-        .footer { margin-top: auto; padding: 30px 20px 50px 20px; background: #fff; width: 100%; text-align: center; border-top: 6px solid var(--green); }
-        .footer a { color: var(--green); text-decoration: none; font-weight: 700; }
-        .footer .tagline { font-size: 1.8rem; font-weight: 900; color: var(--green); margin: 30px 0; }
-        .footer p { margin: 0 0 20px 0; }
-
-        /* ── DETAIL PAGE STYLES ── */
-        #detailPage { display: none; width: 100%; }
-        #listPage { width: 100%; }
+        /* ───────── DETAIL PAGE ───────── */
+        #detailPage { display: none; max-width: 1000px; margin: 0 auto; padding: 0 20px; }
 
         .detail-back-btn {
             display: inline-flex; align-items: center; gap: 8px;
-            background: var(--green); color: #fff; font-weight: 800; font-size: 1rem;
-            padding: 10px 22px; border-radius: 10px; text-decoration: none; border: none;
-            cursor: pointer; box-shadow: 0 4px 14px rgba(21,37,20,0.35); transition: all .25s;
-            margin: 24px 0 20px 0;
+            background: var(--green); color: #fff; font-weight: 700; font-size: 0.95rem;
+            padding: 10px 20px; border-radius: 10px; border: none; cursor: pointer;
+            font-family: 'Sora', sans-serif; box-shadow: var(--shadow-sm);
+            transition: background .2s, transform .2s; margin: 26px 0 20px; text-decoration: none;
         }
         .detail-back-btn:hover { background: var(--green-dark); transform: translateY(-2px); }
 
         .detail-hero {
-            width: 100%; background: var(--green); border-radius: 18px; padding: 40px 36px 36px;
-            box-sizing: border-box; color: #fff; margin-bottom: 28px;
-            background-image: url('https://www.transparenttextures.com/patterns/noise.png');
-            background-blend-mode: overlay;
+            background: linear-gradient(160deg, var(--green-mid) 0%, var(--green-dark) 100%);
+            background-image: url('https://www.transparenttextures.com/patterns/noise.png'), linear-gradient(160deg, #1d3a26 0%, #0d1a0f 100%);
+            background-blend-mode: overlay, normal;
+            border-radius: 18px; padding: 38px 34px; color: #fff; margin-bottom: 22px;
+            border-bottom: 3px solid var(--gold);
         }
-        .detail-hero-sponsored { display: inline-block; background: var(--gold); color: #000; font-size: 0.8rem; font-weight: 900; padding: 4px 12px; border-radius: 6px; margin-bottom: 14px; }
-        .detail-hero h2 { font-size: 2.6rem; font-weight: 900; margin: 0 0 10px 0; line-height: 1.1; }
+        .detail-hero-sponsored {
+            display: inline-block; background: var(--gold); color: #000; font-size: 0.72rem;
+            font-weight: 800; padding: 4px 12px; border-radius: 6px; margin-bottom: 14px;
+            font-family: 'JetBrains Mono', monospace; letter-spacing: 0.04em;
+        }
+        .detail-hero h2 { font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 800; margin: 0 0 12px; line-height: 1.1; }
         .detail-hero-category {
-            display: inline-block; background: rgba(255,255,255,0.18); color: #fff;
-            font-size: 0.95rem; font-weight: 700; padding: 5px 14px; border-radius: 20px;
-            margin-bottom: 0;
+            display: inline-block; background: rgba(255,255,255,.16); color: #fff;
+            font-size: 0.88rem; font-weight: 700; padding: 5px 14px; border-radius: 999px;
         }
 
         .detail-cards-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 18px; width: 100%; margin-bottom: 24px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 16px; margin-bottom: 22px;
         }
         .detail-card {
-            background: #fff; border: 2px solid #e8f0e8; border-radius: 14px;
-            padding: 22px 22px 20px; box-shadow: 0 4px 18px rgba(21,37,20,0.09);
-            display: flex; flex-direction: column; gap: 8px;
+            background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius);
+            padding: 20px; box-shadow: var(--shadow-sm);
         }
         .detail-card-label {
-            font-size: 0.8rem; font-weight: 800; color: #6a9a6a; text-transform: uppercase;
-            letter-spacing: 0.08em;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 700;
+            color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;
         }
-        .detail-card-value { font-size: 1.18rem; font-weight: 700; color: #111; line-height: 1.4; }
-        .detail-card-value.free-color { color: #27ae60; }
+        .detail-card-value { font-size: 1.1rem; font-weight: 700; line-height: 1.45; }
+        .detail-card-value.free-color { color: var(--free); }
 
         .detail-feature-box {
-            width: 100%; background: #f0f7f0; border-left: 5px solid var(--green);
-            border-radius: 0 14px 14px 0; padding: 22px 26px; box-sizing: border-box;
-            margin-bottom: 28px;
+            background: var(--green-soft); border-left: 4px solid var(--green);
+            border-radius: 0 var(--radius) var(--radius) 0; padding: 22px 26px; margin-bottom: 26px;
         }
-        .detail-feature-box h3 { font-size: 1rem; font-weight: 800; color: var(--green); margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.07em; }
-        .detail-feature-box p { font-size: 1.12rem; font-weight: 600; color: #111; margin: 0; line-height: 1.6; }
+        .detail-feature-box h3 {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; font-weight: 700;
+            color: var(--green); margin: 0 0 8px; text-transform: uppercase; letter-spacing: 0.08em;
+        }
+        .detail-feature-box p { font-size: 1.05rem; font-weight: 600; margin: 0; line-height: 1.6; }
 
-        .detail-cta-area { text-align: center; margin: 10px 0 32px; }
+        .detail-cta-area { text-align: center; margin: 8px 0 30px; }
         .detail-visit-btn {
-            display: inline-block; background: var(--green); color: #fff; font-weight: 900;
-            font-size: 1.22rem; padding: 16px 44px; border-radius: 14px; text-decoration: none;
-            box-shadow: 0 6px 22px rgba(21,37,20,0.45); transition: all .25s ease; letter-spacing: 0.01em;
+            display: inline-block; background: var(--green); color: #fff; font-weight: 800;
+            font-size: 1.15rem; padding: 16px 44px; border-radius: 14px; text-decoration: none;
+            box-shadow: 0 6px 22px rgba(21,37,20,.4); transition: all .25s ease;
+            font-family: 'Sora', sans-serif;
         }
-        .detail-visit-btn:hover { background: var(--green-dark); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(21,37,20,0.5); }
-        .detail-visit-sub { margin-top: 10px; font-size: 0.9rem; color: #888; font-weight: 600; }
+        .detail-visit-btn:hover { background: var(--green-dark); transform: translateY(-3px); }
+        .detail-visit-sub { margin-top: 10px; font-size: 0.85rem; color: var(--ink-soft); font-weight: 600; }
+        .detail-disclaimer { font-size: 0.85rem; color: var(--ink-soft); text-align: center; margin: 0 0 26px; }
 
-        .detail-disclaimer {
-            font-size: 0.88rem; color: #999; text-align: center; margin: 0 0 30px;
+        /* ───────── FOOTER ───────── */
+        .disclaimer {
+            font-size: 0.9rem; color: var(--ink-soft); margin: 50px auto 0;
+            max-width: 900px; line-height: 1.7; text-align: center; padding: 0 20px;
         }
+        .footer {
+            margin-top: 44px; padding: 34px 20px 54px; background: #fff;
+            border-top: 4px solid var(--green); text-align: center;
+        }
+        .footer a { color: var(--green); text-decoration: none; font-weight: 700; }
+        .footer .tagline { font-size: 1.5rem; font-weight: 800; color: var(--green); margin: 26px 0; }
+        .footer p { margin: 0 0 18px; }
+        .footer .blog-btn {
+            display: inline-block; background: var(--green); color: #fff; font-weight: 700;
+            font-size: 1rem; padding: 12px 28px; border-radius: 12px; text-decoration: none;
+            box-shadow: var(--shadow-sm); transition: background .2s, transform .2s; margin-top: 18px;
+        }
+        .footer .blog-btn:hover { background: var(--green-dark); transform: translateY(-3px); }
 
-        .click-hint {
-            font-size: 0.85rem; color: #666; text-align: center; margin: 0 0 12px;
-            font-weight: 600;
+        @media (prefers-reduced-motion: reduce) {
+            * { transition: none !important; animation: none !important; }
         }
     </style>
 </head>
 <body>
 
-<div class="content">
-
-    <header>
-        <a href="/advertise.html" class="advertise-btn">Advertise</a>
+<header>
+    <div class="header-inner">
+        <a href="/advertise.html" class="hdr-btn advertise">Advertise</a>
         <a href="/">
             <img src="https://topdividendtools.com/TopDividennn.png" alt="TopDividendTools.com" class="site-logo">
         </a>
-        <a href="submit-tool.html" class="submit-btn">Submit Tool</a>
-    </header>
+        <a href="submit-tool.html" class="hdr-btn submit">Submit Tool</a>
+    </div>
+</header>
 
-    <!-- ═══════════ LIST PAGE ═══════════ -->
-    <div id="listPage">
-        <div class="main-h1">
-            <h1>Top Dividend Investing Tools 2026
-                <span>Best Dividend Trackers, Calculators, Research sites & More!</span>
-            </h1>
-        </div>
+<!-- ═══════════ LIST PAGE ═══════════ -->
+<div id="listPage">
 
-        <div class="top-disclaimer">
-            The most accurate &amp; complete directory of dividend investing tools on the internet<br>
-            <strong>👀 Seen by thousands monthly • 100% FREE • Updated Daily!</strong><br>
-            <strong class="disclaimer-line">Not Financial advice! <br>*Always do your own research!*</strong>
-        </div>
+    <div class="hero">
+        <h1>Top Dividend Investing Tools 2026</h1>
+        <p class="sub">Best Dividend Trackers, Calculators, Research Sites &amp; More</p>
+        <p class="trust">The most accurate &amp; complete directory of dividend investing tools on the internet<br>
+        👀 Seen by thousands monthly • 100% FREE • Updated Daily!</p>
+        <span class="warn">Not financial advice — always do your own research!</span>
+    </div>
 
-        <div class="banner">
-            <a href="https://lsfunds.com/etfs/ovl" target="_blank" rel="noopener">
-                <img src="https://topdividendtools.com/Revised%20Top%20Dividend%20Tools%20OVL%20ad.png" alt="Sponsor Banner">
-            </a>
-            <small style="color:#666; font-size:0.85em; font-weight:700;">Sponsored by</small>
-        </div>
+    <div class="banner">
+        <a href="https://lsfunds.com/etfs/ovl" target="_blank" rel="noopener" onclick="trackSponsorClick('top')">
+            <img src="https://topdividendtools.com/Revised%20Top%20Dividend%20Tools%20OVL%20ad.png" alt="Sponsor Banner">
+        </a>
+        <small>Sponsored by</small>
+    </div>
 
-        <div id="filters">
-            <button id="resetFilters">Reset Filters</button>
-            <input type="text" id="searchFilter" placeholder="Search Tool Name or Category">
-            <select id="pricingFilter">
+    <div class="toolbar">
+        <div class="toolbar-row">
+            <div class="search-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+                <input type="text" id="searchFilter" placeholder="Search tools…" aria-label="Search tools by name or category">
+            </div>
+            <select id="pricingFilter" aria-label="Filter by pricing">
                 <option value="">Pricing: All</option>
                 <option value="Free">Free Only</option>
                 <option value="Paid Premium">Paid Premium</option>
                 <option value="Paid">Paid Only</option>
             </select>
-            <select id="categoryFilter">
-                <option value="">Category: All</option>
-                <option value="Research">Research</option>
-                <option value="YouTube">YouTube</option>
-                <option value="News & Research">News &amp; Research</option>
-                <option value="General Stock Market Site">General Stock Market Site</option>
-                <option value="Dividend Calculator">Dividend Calculator</option>
-                <option value="Dividend Tracker">Dividend Tracker</option>
-                <option value="Portfolio Tracker">Portfolio Tracker</option>
+            <select id="sortSelect" aria-label="Sort tools">
+                <option value="default">Sort: Featured</option>
+                <option value="name-asc">Name A → Z</option>
+                <option value="name-desc">Name Z → A</option>
+                <option value="pricing">Free First</option>
             </select>
+            <button id="resetFilters">Reset</button>
         </div>
-
-        <div class="loading" id="loading">Loading latest dividend tools data…</div>
-        <p class="click-hint" id="clickHint" style="display:none;">👆 Click any tool to see full details</p>
-
-        <table id="toolsTable" style="display:none">
-            <thead>
-                <tr>
-                    <th onclick="sortTable(0)">Tool Name</th>
-                    <th onclick="sortTable(1)">Category</th>
-                    <th onclick="sortTable(2)">Best For</th>
-                    <th onclick="sortTable(3)">Pricing</th>
-                    <th onclick="sortTable(4)">Key Feature</th>
-                    <th>Visit</th>
-                </tr>
-            </thead>
-            <tbody id="toolsBody"></tbody>
-        </table>
-
-        <p class="disclaimer">
-            Disclaimer: TopDividendTools.com is for educational &amp; entertainment purposes only. Rankings are subjective and may include affiliate links. We are not financial advisors. Always verify data and do your own research.
-        </p>
-
-        <footer class="footer">
-            <div class="banner">
-                <a href="https://lsfunds.com/etfs/ovl" target="_blank" rel="noopener">
-                    <img src="https://topdividendtools.com/Revised%20Top%20Dividend%20Tools%20OVL%20ad.png" alt="Sponsor Banner">
-                </a>
-                <small style="color:#666; font-size:0.85em; font-weight:700;">Sponsored by</small>
-            </div>
-            <p>
-                Contact: <a href="mailto:Business@topdividendETFs.com">Business@topdividendETFs.com</a> |
-                <a href="/terms.html">Terms of Use</a> |
-                <a href="/privacy.html">Privacy Policy</a>
-            </p>
-            <div class="tagline">The #1 Resource for Dividend Investors</div>
-            <p style="font-size: 0.85rem; color: #666; margin: 16px auto 0; max-width: 800px; line-height: 1.4; text-align: center;">
-                TopDividendTools.com may contain affiliate links. These are provided at no extra cost to you and help support the site if you make a purchase through them. Thank you for your support!
-            </p>
-            <a href="/blog.html" style="display: inline-block; background: #152514; color: white; font-weight: bold; font-size: 1.05rem; padding: 12px 28px; border-radius: 12px; text-decoration: none; box-shadow: 0 4px 12px rgba(21,37,20,0.5); transition: all 0.3s ease; margin: 20px 0;" onmouseover="this.style.background='#0d1a0f'; this.style.transform='translateY(-3px)';" onmouseout="this.style.background='#152514'; this.style.transform='translateY(0)';">Blog</a>
-        </footer>
+        <div class="chip-row" id="chipRow" role="group" aria-label="Filter by category"></div>
     </div>
 
-    <!-- ═══════════ DETAIL PAGE ═══════════ -->
-    <div id="detailPage">
-        <button class="detail-back-btn" onclick="showList()">
-            ← Back to All Tools
-        </button>
-
-        <div class="detail-hero">
-            <div id="detail-sponsored-badge" class="detail-hero-sponsored" style="display:none">SPONSORED</div>
-            <h2 id="detail-name"></h2>
-            <div id="detail-category" class="detail-hero-category"></div>
-        </div>
-
-        <div class="detail-cards-grid">
-            <div class="detail-card">
-                <div class="detail-card-label">💰 Pricing</div>
-                <div class="detail-card-value" id="detail-pricing"></div>
-            </div>
-            <div class="detail-card">
-                <div class="detail-card-label">🎯 Best For</div>
-                <div class="detail-card-value" id="detail-bestfor"></div>
-            </div>
-        </div>
-
-        <div class="detail-feature-box">
-            <h3>⭐ Key Feature</h3>
-            <p id="detail-keyfeature"></p>
-        </div>
-
-        <div class="detail-cta-area">
-            <a id="detail-visit-link" href="#" target="_blank" rel="noopener" class="detail-visit-btn" onclick="trackVisit()">
-                Visit Tool →
-            </a>
-            <p class="detail-visit-sub">Opens in a new tab</p>
-        </div>
-
-        <p class="detail-disclaimer">
-            Not financial advice. Always do your own research. TopDividendTools.com may earn a commission if you click affiliate links.
-        </p>
-
-        <!-- Sponsor banner on detail page too -->
-        <div class="banner">
-            <a href="https://lsfunds.com/etfs/ovl" target="_blank" rel="noopener" onclick="trackSponsorClick('detail')">
-                <img src="https://topdividendtools.com/Revised%20Top%20Dividend%20Tools%20OVL%20ad.png" alt="Sponsor Banner">
-            </a>
-            <small style="color:#666; font-size:0.85em; font-weight:700;">Sponsored by</small>
-        </div>
-
-        <div style="text-align:center; margin: 10px 0 40px;">
-            <button class="detail-back-btn" onclick="showList()">← Back to All Tools</button>
-        </div>
+    <div class="result-meta">
+        <span class="result-count" id="resultCount"></span>
+        <span class="click-hint" id="clickHint" style="display:none;">👆 Tap any card for full details</span>
     </div>
 
+    <div class="loading" id="loading">Loading latest dividend tools data…</div>
+
+    <div class="empty-state" id="emptyState">
+        <h3>No tools match those filters</h3>
+        <p>Try a different search term or clear your filters to see the full directory.</p>
+        <button id="emptyReset" class="detail-back-btn" style="margin:0;">Clear all filters</button>
+    </div>
+
+    <div class="grid" id="toolsGrid"></div>
+
+    <p class="disclaimer">
+        Disclaimer: TopDividendTools.com is for educational &amp; entertainment purposes only. Rankings are subjective and may include affiliate links. We are not financial advisors. Always verify data and do your own research.
+    </p>
 </div>
+
+<!-- ═══════════ DETAIL PAGE ═══════════ -->
+<div id="detailPage">
+    <button class="detail-back-btn" onclick="showList()">← Back to All Tools</button>
+
+    <div class="detail-hero">
+        <div id="detail-sponsored-badge" class="detail-hero-sponsored" style="display:none">SPONSORED</div>
+        <h2 id="detail-name"></h2>
+        <div id="detail-category" class="detail-hero-category"></div>
+    </div>
+
+    <div class="detail-cards-grid">
+        <div class="detail-card">
+            <div class="detail-card-label">💰 Pricing</div>
+            <div class="detail-card-value" id="detail-pricing"></div>
+        </div>
+        <div class="detail-card">
+            <div class="detail-card-label">🎯 Best For</div>
+            <div class="detail-card-value" id="detail-bestfor"></div>
+        </div>
+    </div>
+
+    <div class="detail-feature-box">
+        <h3>⭐ Key Feature</h3>
+        <p id="detail-keyfeature"></p>
+    </div>
+
+    <div class="detail-cta-area">
+        <a id="detail-visit-link" href="#" target="_blank" rel="noopener" class="detail-visit-btn" onclick="trackVisit()">Visit Tool →</a>
+        <p class="detail-visit-sub">Opens in a new tab</p>
+    </div>
+
+    <p class="detail-disclaimer">
+        Not financial advice. Always do your own research. TopDividendTools.com may earn a commission if you click affiliate links.
+    </p>
+
+    <div class="banner">
+        <a href="https://lsfunds.com/etfs/ovl" target="_blank" rel="noopener" onclick="trackSponsorClick('detail')">
+            <img src="https://topdividendtools.com/Revised%20Top%20Dividend%20Tools%20OVL%20ad.png" alt="Sponsor Banner">
+        </a>
+        <small>Sponsored by</small>
+    </div>
+
+    <div style="text-align:center; margin: 14px 0 40px;">
+        <button class="detail-back-btn" onclick="showList()" style="margin:0;">← Back to All Tools</button>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="banner" style="margin-top:0;">
+        <a href="https://lsfunds.com/etfs/ovl" target="_blank" rel="noopener" onclick="trackSponsorClick('footer')">
+            <img src="https://topdividendtools.com/Revised%20Top%20Dividend%20Tools%20OVL%20ad.png" alt="Sponsor Banner">
+        </a>
+        <small>Sponsored by</small>
+    </div>
+    <p>
+        Contact: <a href="mailto:Business@topdividendETFs.com">Business@topdividendETFs.com</a> |
+        <a href="/terms.html">Terms of Use</a> |
+        <a href="/privacy.html">Privacy Policy</a>
+    </p>
+    <div class="tagline">The #1 Resource for Dividend Investors</div>
+    <p style="font-size:0.85rem; color:var(--ink-soft); max-width:800px; margin:0 auto; line-height:1.5;">
+        TopDividendTools.com may contain affiliate links. These are provided at no extra cost to you and help support the site if you make a purchase through them. Thank you for your support!
+    </p>
+    <a href="/blog.html" class="blog-btn">Blog</a>
+</footer>
 
 <script>
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQyl3IN9OtH6Ux2mS1Ojx3hqlXF8Bqztx4hQKsKilSaRLpovens0Wv-aWRfUON54vgS8RghFV7ZSV-K/pub?output=csv";
-
-let allRows = [];
-let currentSort = { col: 0, dir: 'asc' };
 const PREMIUM_SLOTS = 5;
 
-// Store raw tool data for detail page
 let toolDataStore = [];
 let currentTool = null;
+let activeCategory = '';
 
-function getPricingPriority(pricingText) {
-    const text = pricingText.toLowerCase().trim();
-    if (text.includes('free')) return 1;
-    if (text.includes('premium') || text.includes('paid premium')) return 2;
-    if (text.includes('paid') || text !== '') return 3;
-    return 4;
+/* ── Robust CSV parser: handles quoted fields, "" escapes, AND
+      line breaks inside cells (the bug that hid rows before). ── */
+function parseCSV(text) {
+    const rows = [];
+    let row = [], field = '', inQuotes = false;
+    for (let i = 0; i < text.length; i++) {
+        const c = text[i];
+        if (inQuotes) {
+            if (c === '"') {
+                if (text[i + 1] === '"') { field += '"'; i++; }
+                else { inQuotes = false; }
+            } else { field += c; }
+        } else {
+            if (c === '"') { inQuotes = true; }
+            else if (c === ',') { row.push(field.trim()); field = ''; }
+            else if (c === '\n' || c === '\r') {
+                if (c === '\r' && text[i + 1] === '\n') i++;
+                row.push(field.trim()); field = '';
+                if (row.some(f => f !== '')) rows.push(row);
+                row = [];
+            } else { field += c; }
+        }
+    }
+    row.push(field.trim());
+    if (row.some(f => f !== '')) rows.push(row);
+    return rows;
 }
 
 function slugify(name) {
     return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
 
-function parseCSVLine(line) {
-    const result = [];
-    let current = '';
-    let inQuotes = false;
-    for (let char of line) {
-        if (char === '"' && !inQuotes) { inQuotes = true; }
-        else if (char === '"' && inQuotes) { inQuotes = false; }
-        else if (char === ',' && !inQuotes) { result.push(current.trim()); current = ''; }
-        else { current += char; }
-    }
-    result.push(current.trim());
-    return result;
+function getPricingPriority(pricingText) {
+    const t = (pricingText || '').toLowerCase();
+    if (t.includes('free')) return 1;
+    if (t.includes('premium')) return 2;
+    if (t) return 3;
+    return 4;
+}
+
+function toolUrl(website) {
+    return website.startsWith('http') ? website : 'https://' + website;
 }
 
 async function loadData() {
     try {
         const res = await fetch(CSV_URL + '&t=' + Date.now());
         const csv = await res.text();
-        renderTable(csv);
-    } catch(e) {
+        buildStore(csv);
+        buildChips();
+        render();
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('clickHint').style.display = 'inline';
+        handleHashChange();
+    } catch (e) {
         document.getElementById('loading').textContent = 'Error loading data — please refresh';
     }
 }
 
-function renderTable(csv) {
-    const lines = csv.split('\n');
-    const tbody = document.getElementById('toolsBody');
-    tbody.innerHTML = '';
-    allRows = [];
+function buildStore(csv) {
+    const rows = parseCSV(csv);
     toolDataStore = [];
-
-    for (let i = 1; i < lines.length; i++) {
-        if (!lines[i].trim()) continue;
-        const cols = parseCSVLine(lines[i]);
-        if (cols.length < 6) continue;
-
+    for (let i = 1; i < rows.length; i++) {
+        const cols = rows[i];
+        while (cols.length < 6) cols.push('');
         const [website, name, category, bestFor, keyFeature, pricing] = cols;
-        const isPremium = i <= PREMIUM_SLOTS;
-
-        // Store raw data
-        const toolData = { website, name, category, bestFor, keyFeature, pricing, isPremium };
-        toolDataStore.push(toolData);
-
-        const tr = document.createElement('tr');
-        tr.dataset.toolIndex = toolDataStore.length - 1;
-
-        // Row click handler
-        tr.addEventListener('click', function(e) {
-            // Don't open detail if they clicked the visit button directly
-            if (e.target.closest('.visit-btn')) return;
-            const idx = parseInt(this.dataset.toolIndex);
-            openToolDetail(toolDataStore[idx]);
+        if (!name) continue;
+        toolDataStore.push({
+            website, name, category, bestFor, keyFeature, pricing,
+            isPremium: i <= PREMIUM_SLOTS,
+            categories: category ? category.split(',').map(c => c.trim()).filter(Boolean) : []
         });
-
-        const nameCell = `<div>
-            <div class="tool-name">${name}</div>
-            ${isPremium ? '<div class="sponsored-badge">SPONSORED</div>' : ''}
-        </div>`;
-
-        const visitHTML = `
-            <a href="${website.startsWith('http') ? website : 'https://' + website}" 
-               target="_blank" class="visit-btn"
-               onclick="trackVisitFromList('${name.replace(/'/g,"\\'")}', '${website.replace(/'/g,"\\'")}'); event.stopPropagation();">
-                Visit Tool
-            </a>`;
-
-        const cells = [nameCell, category, bestFor, pricing, keyFeature, visitHTML];
-
-        cells.forEach((content, idx) => {
-            const td = document.createElement('td');
-            td.innerHTML = content;
-            td.setAttribute('data-label', ['Tool Name','Category','Best For','Pricing','Key Feature','Visit'][idx]);
-            if (idx === 3 && pricing.toLowerCase().includes('free')) td.className += ' free';
-            tr.appendChild(td);
-        });
-
-        tbody.appendChild(tr);
-        allRows.push({ row: tr, isSponsored: isPremium });
     }
-
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('toolsTable').style.display = 'table';
-    document.getElementById('clickHint').style.display = 'block';
-
-    sortByPricingPriority();
-
-    // Check if we landed on a hash deep-link
-    handleHashChange();
 }
 
+/* Category chips generated from the sheet itself — never out of sync */
+function buildChips() {
+    const cats = new Set();
+    toolDataStore.forEach(t => t.categories.forEach(c => cats.add(c)));
+    const chipRow = document.getElementById('chipRow');
+    chipRow.innerHTML = '';
+
+    const allChip = document.createElement('button');
+    allChip.className = 'chip active';
+    allChip.textContent = 'All Categories';
+    allChip.onclick = () => { activeCategory = ''; setActiveChip(allChip); render(); };
+    chipRow.appendChild(allChip);
+
+    [...cats].sort().forEach(cat => {
+        const chip = document.createElement('button');
+        chip.className = 'chip';
+        chip.textContent = cat;
+        chip.onclick = () => { activeCategory = cat.toLowerCase(); setActiveChip(chip); render(); };
+        chipRow.appendChild(chip);
+    });
+}
+
+function setActiveChip(chip) {
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+}
+
+function getFiltered() {
+    const search = document.getElementById('searchFilter').value.toLowerCase().trim();
+    const pricing = document.getElementById('pricingFilter').value.toLowerCase().trim();
+    return toolDataStore.filter(t => {
+        if (search) {
+            const inName = t.name.toLowerCase().includes(search);
+            const inCat = t.categories.some(c => c.toLowerCase().includes(search));
+            if (!inName && !inCat) return false;
+        }
+        if (pricing && !(t.pricing || '').toLowerCase().includes(pricing)) return false;
+        if (activeCategory && !t.categories.some(c => c.toLowerCase() === activeCategory)) return false;
+        return true;
+    });
+}
+
+function getSorted(list) {
+    const mode = document.getElementById('sortSelect').value;
+    const sponsored = list.filter(t => t.isPremium);
+    const normal = list.filter(t => !t.isPremium);
+    if (mode === 'name-asc') {
+        normal.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (mode === 'name-desc') {
+        normal.sort((a, b) => b.name.localeCompare(a.name));
+    } else {
+        /* 'default' (Featured) and 'pricing' both put Free first */
+        normal.sort((a, b) => getPricingPriority(a.pricing) - getPricingPriority(b.pricing));
+    }
+    return [...sponsored, ...normal];
+}
+
+function render() {
+    const grid = document.getElementById('toolsGrid');
+    const list = getSorted(getFiltered());
+    grid.innerHTML = '';
+
+    document.getElementById('resultCount').textContent =
+        list.length + ' of ' + toolDataStore.length + ' tools';
+
+    const empty = document.getElementById('emptyState');
+    empty.style.display = list.length === 0 ? 'block' : 'none';
+
+    list.forEach(tool => {
+        const card = document.createElement('div');
+        card.className = 'tool-card' + (tool.isPremium ? ' sponsored' : '');
+        card.tabIndex = 0;
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', 'View details for ' + tool.name);
+
+        const top = document.createElement('div');
+        top.className = 'card-top';
+        const nameEl = document.createElement('h3');
+        nameEl.className = 'card-name';
+        nameEl.textContent = tool.name;
+        top.appendChild(nameEl);
+        if (tool.isPremium) {
+            const badge = document.createElement('span');
+            badge.className = 'badge-sponsored';
+            badge.textContent = 'SPONSORED';
+            top.appendChild(badge);
+        }
+        card.appendChild(top);
+
+        if (tool.categories.length) {
+            const cats = document.createElement('div');
+            cats.className = 'card-cats';
+            tool.categories.forEach(c => {
+                const tag = document.createElement('span');
+                tag.className = 'cat-tag';
+                tag.textContent = c;
+                cats.appendChild(tag);
+            });
+            card.appendChild(cats);
+        }
+
+        if (tool.bestFor) {
+            const bf = document.createElement('p');
+            bf.className = 'card-line';
+            const b = document.createElement('b');
+            b.textContent = 'Best for: ';
+            bf.appendChild(b);
+            bf.appendChild(document.createTextNode(tool.bestFor));
+            card.appendChild(bf);
+        }
+
+        if (tool.keyFeature) {
+            const kf = document.createElement('p');
+            kf.className = 'card-feature';
+            kf.textContent = tool.keyFeature;
+            card.appendChild(kf);
+        }
+
+        const bottom = document.createElement('div');
+        bottom.className = 'card-bottom';
+        const pill = document.createElement('span');
+        pill.className = 'price-pill' + ((tool.pricing || '').toLowerCase().includes('free') ? ' is-free' : '');
+        pill.textContent = tool.pricing || '—';
+        bottom.appendChild(pill);
+
+        const visit = document.createElement('a');
+        visit.className = 'visit-btn';
+        visit.href = toolUrl(tool.website);
+        visit.target = '_blank';
+        visit.rel = 'noopener';
+        visit.textContent = 'Visit Tool';
+        visit.addEventListener('click', (e) => {
+            e.stopPropagation();
+            trackVisitFromList(tool.name, tool.website);
+        });
+        bottom.appendChild(visit);
+        card.appendChild(bottom);
+
+        card.addEventListener('click', () => openToolDetail(tool));
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openToolDetail(tool); }
+        });
+
+        grid.appendChild(card);
+    });
+}
+
+/* ───────── DETAIL VIEW ───────── */
 function openToolDetail(tool) {
     currentTool = tool;
 
-    // Populate detail page
     document.getElementById('detail-name').textContent = tool.name;
     document.getElementById('detail-category').textContent = tool.category;
-    document.getElementById('detail-pricing').textContent = tool.pricing;
-    document.getElementById('detail-pricing').className = 'detail-card-value' + (tool.pricing.toLowerCase().includes('free') ? ' free-color' : '');
+    const priceEl = document.getElementById('detail-pricing');
+    priceEl.textContent = tool.pricing;
+    priceEl.className = 'detail-card-value' + ((tool.pricing || '').toLowerCase().includes('free') ? ' free-color' : '');
     document.getElementById('detail-bestfor').textContent = tool.bestFor;
     document.getElementById('detail-keyfeature').textContent = tool.keyFeature;
-
-    const url = tool.website.startsWith('http') ? tool.website : 'https://' + tool.website;
-    document.getElementById('detail-visit-link').href = url;
-
+    document.getElementById('detail-visit-link').href = toolUrl(tool.website);
     document.getElementById('detail-sponsored-badge').style.display = tool.isPremium ? 'inline-block' : 'none';
 
-    // Switch views
     document.getElementById('listPage').style.display = 'none';
     document.getElementById('detailPage').style.display = 'block';
     window.scrollTo(0, 0);
 
-    // Update hash (for browser back button + pageview tracking)
     const slug = slugify(tool.name);
     history.pushState({ tool: tool.name }, '', '#/tool/' + slug);
 
-    // 📊 GA4: virtual pageview for the detail page
     if (typeof gtag !== 'undefined') {
         gtag('event', 'page_view', {
             page_title: tool.name + ' – Top Dividend Tools',
             page_location: window.location.href,
             page_path: '/tool/' + slug
         });
-        // 📊 GA4: detail view event
         gtag('event', 'tool_detail_view', {
             tool_name: tool.name,
             tool_category: tool.category,
@@ -528,11 +751,7 @@ function showList() {
     document.getElementById('detailPage').style.display = 'none';
     document.getElementById('listPage').style.display = 'block';
     window.scrollTo(0, 0);
-
-    // Restore hash-free URL
     history.pushState({}, '', window.location.pathname);
-
-    // 📊 GA4: virtual pageview back to list
     if (typeof gtag !== 'undefined') {
         gtag('event', 'page_view', {
             page_title: 'Top Dividend Investing Tools 2026',
@@ -542,6 +761,7 @@ function showList() {
     }
 }
 
+/* ───────── GA4 TRACKING ───────── */
 function trackVisit() {
     if (!currentTool || typeof gtag === 'undefined') return;
     gtag('event', 'tool_visit', {
@@ -551,103 +771,43 @@ function trackVisit() {
         source: 'detail_page'
     });
 }
-
 function trackVisitFromList(name, url) {
     if (typeof gtag === 'undefined') return;
-    gtag('event', 'tool_visit', {
-        tool_name: name,
-        tool_url: url,
-        source: 'list_page'
-    });
+    gtag('event', 'tool_visit', { tool_name: name, tool_url: url, source: 'list_page' });
 }
-
 function trackSponsorClick(source) {
     if (typeof gtag === 'undefined') return;
     gtag('event', 'sponsor_click', { source: source });
 }
 
-// Handle browser back/forward
+/* ───────── ROUTING ───────── */
 window.addEventListener('popstate', handleHashChange);
-
 function handleHashChange() {
     const hash = window.location.hash;
     if (hash.startsWith('#/tool/') && toolDataStore.length > 0) {
         const slug = hash.replace('#/tool/', '');
         const tool = toolDataStore.find(t => slugify(t.name) === slug);
-        if (tool) {
-            openToolDetail(tool);
-            return;
-        }
+        if (tool) { openToolDetail(tool); return; }
     }
-    // Default: show list
-    if (document.getElementById('detailPage').style.display === 'block') {
-        showList();
-    }
+    if (document.getElementById('detailPage').style.display === 'block') showList();
 }
 
-function sortByPricingPriority() {
-    const sponsored = allRows.filter(item => item.isSponsored);
-    const normal = allRows.filter(item => !item.isSponsored);
-    normal.sort((a, b) => {
-        const priA = getPricingPriority(a.row.cells[3].textContent);
-        const priB = getPricingPriority(b.row.cells[3].textContent);
-        return priA - priB;
-    });
-    const sorted = [...sponsored, ...normal];
-    const tbody = document.getElementById('toolsBody');
-    tbody.innerHTML = '';
-    sorted.forEach(item => tbody.appendChild(item.row));
-}
+/* ───────── FILTER WIRING ───────── */
+document.getElementById('searchFilter').addEventListener('input', render);
+document.getElementById('pricingFilter').addEventListener('change', render);
+document.getElementById('sortSelect').addEventListener('change', render);
 
-function sortTable(col) {
-    const dir = (currentSort.col === col && currentSort.dir === 'asc') ? 'desc' : 'asc';
-    currentSort = { col, dir };
-    document.querySelectorAll('th').forEach((th, i) => { th.className = i === col ? `sort-${dir}` : ''; });
-    const sponsored = allRows.filter(item => item.isSponsored);
-    const normal = allRows.filter(item => !item.isSponsored);
-    normal.sort((a, b) => {
-        const A = a.row.cells[col].textContent.trim();
-        const B = b.row.cells[col].textContent.trim();
-        return dir === 'asc'
-            ? A.localeCompare(B, undefined, {numeric: true, sensitivity: 'base'})
-            : B.localeCompare(A, undefined, {numeric: true, sensitivity: 'base'});
-    });
-    const sorted = [...sponsored, ...normal];
-    const tbody = document.getElementById('toolsBody');
-    tbody.innerHTML = '';
-    sorted.forEach(item => tbody.appendChild(item.row));
+function resetAll() {
+    document.getElementById('searchFilter').value = '';
+    document.getElementById('pricingFilter').value = '';
+    document.getElementById('sortSelect').value = 'default';
+    activeCategory = '';
+    const first = document.querySelector('.chip');
+    if (first) setActiveChip(first);
+    render();
 }
-
-function applyFilters() {
-    const search = document.getElementById('searchFilter').value.toLowerCase().trim();
-    const pricing = document.getElementById('pricingFilter').value.toLowerCase().trim();
-    const selectedCategory = document.getElementById('categoryFilter').value.trim();
-    allRows.forEach(item => {
-        const tr = item.row;
-        const name = tr.cells[0].textContent.toLowerCase();
-        let catText = tr.cells[1].textContent.trim();
-        let categories = catText ? catText.split(',').map(c => c.trim().toLowerCase()) : [];
-        const price = tr.cells[3].textContent.toLowerCase().trim();
-        let show = true;
-        if (search) {
-            const matchesName = name.includes(search);
-            const matchesCategory = categories.some(c => c.includes(search));
-            if (!matchesName && !matchesCategory) show = false;
-        }
-        if (pricing && !price.includes(pricing)) show = false;
-        if (selectedCategory) {
-            const selectedLower = selectedCategory.toLowerCase();
-            if (!categories.includes(selectedLower)) show = false;
-        }
-        tr.style.display = show ? '' : 'none';
-    });
-    sortByPricingPriority();
-}
-
-document.getElementById('searchFilter').oninput = applyFilters;
-document.getElementById('pricingFilter').onchange = applyFilters;
-document.getElementById('categoryFilter').onchange = applyFilters;
-document.getElementById('resetFilters').onclick = () => location.reload();
+document.getElementById('resetFilters').addEventListener('click', resetAll);
+document.getElementById('emptyReset').addEventListener('click', resetAll);
 
 loadData();
 </script>
