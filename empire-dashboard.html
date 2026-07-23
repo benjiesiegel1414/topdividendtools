@@ -68,11 +68,14 @@ details.setup ol{font-size:.92em;color:#444}
 .rt{font-family:'JetBrains Mono',monospace;font-size:.7em;font-weight:700;color:#fff;background:var(--red);border-radius:20px;padding:2px 10px;display:inline-flex;align-items:center;gap:5px}
 .rt .dot{width:7px;height:7px;border-radius:50%;background:#fff;animation:pulse 1.6s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:14px 0 6px}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0 6px}
 .m{background:var(--emerald-light);border-radius:10px;padding:10px 8px;text-align:center}
 .m .k{font-size:.68em;text-transform:uppercase;letter-spacing:.8px;color:#4a6a5e}
 .m .v{font-family:'Sora',sans-serif;font-weight:800;font-size:1.45em;color:var(--emerald-dark)}
 .m .d{font-family:'JetBrains Mono',monospace;font-size:.75em;font-weight:700;margin-top:2px}
+.m.live30{background:var(--accent-light)}
+.m.live30 .k{color:var(--accent-dark)}
+.m.live30 .v{color:var(--accent-dark)}
 .d.up{color:var(--green)}.d.down{color:var(--red)}.d.flat{color:#888}
 .spark{height:95px;margin-top:10px}
 .card .err{color:var(--red);font-size:.85em;font-family:'JetBrains Mono',monospace;margin-top:8px;word-break:break-all}
@@ -106,7 +109,7 @@ details.setup ol{font-size:.92em;color:#444}
 .sale-flash{animation:saleflash 1.2s ease-out}
 @keyframes saleflash{0%{background:var(--accent-light)}100%{background:transparent}}
 .sales-err{color:var(--red);font-family:'JetBrains Mono',monospace;font-size:.82em}
-@media(max-width:640px){.metrics{grid-template-columns:1fr 1fr 1fr}.grid{grid-template-columns:1fr}}
+@media(max-width:640px){.metrics{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -164,6 +167,7 @@ details.setup ol{font-size:.92em;color:#444}
     <div class="tot"><div class="lbl">Events Today</div><div class="val" id="tEvents">–</div><div class="sub" id="tEventsD"></div></div>
     <div class="tot"><div class="lbl">Pageviews Today</div><div class="val" id="tViews">–</div><div class="sub" id="tViewsD"></div></div>
     <div class="tot gold"><div class="lbl">Live Right Now</div><div class="val" id="tLive">–</div><div class="sub">across all sites</div></div>
+    <div class="tot gold"><div class="lbl">Views In Last 30 Minutes</div><div class="val" id="tViews30">–</div><div class="sub">across all sites</div></div>
   </div>
 
   <!-- SITE CARDS -->
@@ -295,28 +299,33 @@ document.addEventListener('visibilitychange', ()=>{
   if(!document.hidden && accessToken) loadAll();
 });
 
-// Lightweight poll: only realtime active users (1 small request per site)
+// Lightweight poll: realtime active users + views last 30 min (1 small request per site)
 async function refreshLiveOnly(){
   if(!accessToken || !lastResults.length) return;
   await ensureFreshToken();
   if(Date.now() >= tokenExpiry && !accessToken) return;
-  let totalLive = 0;
+  let totalLive = 0, totalViews30 = 0;
   await Promise.all(lastResults.map(async r=>{
     if(r.err) return;
     try{
-      const rt = await ga4(r.site.prop, { metrics:[{name:'activeUsers'}] }, true);
+      const rt = await ga4(r.site.prop, { metrics:[{name:'activeUsers'},{name:'screenPageViews'}] }, true);
       r.live = parseInt(rt.rows?.[0]?.metricValues?.[0]?.value || 0);
-    }catch(e){ r.live = r.live || 0; }
+      r.views30 = parseInt(rt.rows?.[0]?.metricValues?.[1]?.value || 0);
+    }catch(e){ r.live = r.live || 0; r.views30 = r.views30 || 0; }
     totalLive += r.live;
+    totalViews30 += r.views30;
     const badge = $('rt-'+r.site.prop);
     if(badge){
       if(r.live > 0){ badge.classList.remove('hidden'); $('rtv-'+r.site.prop).textContent = r.live; }
       else badge.classList.add('hidden');
     }
+    const v30 = $('v30-'+r.site.prop);
+    if(v30) v30.textContent = fmt(r.views30);
   }));
   renderPulse(lastResults);
   loadStripe();
   $('tLive').textContent = fmt(totalLive);
+  $('tViews30').textContent = fmt(totalViews30);
   $('lastUpdated').textContent = 'live updated '+new Date().toLocaleTimeString()+' · auto-refreshing';
 }
 
@@ -340,11 +349,12 @@ async function fetchSite(site){
     metrics:[{name:'activeUsers'},{name:'eventCount'},{name:'screenPageViews'}],
     orderBys:[{dimension:{dimensionName:'date'}}]
   });
-  // Realtime active users
-  let live = 0;
+  // Realtime: active users + views in last 30 minutes
+  let live = 0, views30 = 0;
   try{
-    const rt = await ga4(site.prop, { metrics:[{name:'activeUsers'}] }, true);
+    const rt = await ga4(site.prop, { metrics:[{name:'activeUsers'},{name:'screenPageViews'}] }, true);
     live = parseInt(rt.rows?.[0]?.metricValues?.[0]?.value || 0);
+    views30 = parseInt(rt.rows?.[0]?.metricValues?.[1]?.value || 0);
   }catch(e){ /* realtime can fail on brand new properties; non-fatal */ }
 
   const rows = (daily.rows||[]).map(r=>({
@@ -353,7 +363,7 @@ async function fetchSite(site){
     events: +r.metricValues[1].value,
     views: +r.metricValues[2].value
   }));
-  return {rows, live};
+  return {rows, live, views30};
 }
 
 /* ============ RENDER ============ */
@@ -417,6 +427,7 @@ function cardHTML(site, rank){
       <div class="m"><div class="k">Visitors</div><div class="v" id="u-${site.prop}">–</div><div class="d" id="ud-${site.prop}"></div></div>
       <div class="m"><div class="k">Events</div><div class="v" id="e-${site.prop}">–</div><div class="d" id="ed-${site.prop}"></div></div>
       <div class="m"><div class="k">Pageviews</div><div class="v" id="v-${site.prop}">–</div><div class="d" id="vd-${site.prop}"></div></div>
+      <div class="m live30"><div class="k">Views 30 Min</div><div class="v" id="v30-${site.prop}">–</div><div class="d"></div></div>
     </div>
     <div class="spark"><canvas id="spark-${site.prop}"></canvas></div>
     <div class="err hidden" id="err-${site.prop}"></div>
@@ -478,12 +489,12 @@ async function loadAll(){
   // 1. Fetch everything first
   const results = await Promise.all(cfg.sites.map(async site=>{
     try{
-      const {rows, live} = await fetchSite(site);
+      const {rows, live, views30} = await fetchSite(site);
       const today = rows[rows.length-1] || {users:0,events:0,views:0};
       const yest  = rows[rows.length-2] || null;
-      return {site, rows, live, today, yest, err:null};
+      return {site, rows, live, views30, today, yest, err:null};
     }catch(err){
-      return {site, rows:[], live:0, today:{users:0,events:0,views:0}, yest:null, err:err.message};
+      return {site, rows:[], live:0, views30:0, today:{users:0,events:0,views:0}, yest:null, err:err.message};
     }
   }));
 
@@ -496,7 +507,7 @@ async function loadAll(){
   renderPulse(results);
   loadStripe();
 
-  let T={u:0,e:0,v:0,live:0}, Y={u:0,e:0,v:0};
+  let T={u:0,e:0,v:0,live:0,v30:0}, Y={u:0,e:0,v:0};
 
   results.forEach(r=>{
     const site=r.site;
@@ -508,6 +519,7 @@ async function loadAll(){
     $('u-'+site.prop).textContent = fmt(r.today.users);
     $('e-'+site.prop).textContent = fmt(r.today.events);
     $('v-'+site.prop).textContent = fmt(r.today.views);
+    $('v30-'+site.prop).textContent = fmt(r.views30);
 
     if(r.yest){
       const du=delta(r.today.users,r.yest.users), de=delta(r.today.events,r.yest.events), dv=delta(r.today.views,r.yest.views);
@@ -519,11 +531,12 @@ async function loadAll(){
     if(r.live>0){ $('rt-'+site.prop).classList.remove('hidden'); $('rtv-'+site.prop).textContent=r.live; }
 
     renderSpark(site, r.rows);
-    T.u+=r.today.users; T.e+=r.today.events; T.v+=r.today.views; T.live+=r.live;
+    T.u+=r.today.users; T.e+=r.today.events; T.v+=r.today.views; T.live+=r.live; T.v30+=r.views30;
   });
 
   $('tUsers').textContent=fmt(T.u); $('tEvents').textContent=fmt(T.e);
   $('tViews').textContent=fmt(T.v); $('tLive').textContent=fmt(T.live);
+  $('tViews30').textContent=fmt(T.v30);
   const dU=delta(T.u,Y.u), dE=delta(T.e,Y.e), dV=delta(T.v,Y.v);
   $('tUsersD').textContent = dU.txt+' vs yesterday';
   $('tEventsD').textContent = dE.txt+' vs yesterday';
