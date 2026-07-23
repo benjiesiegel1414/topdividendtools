@@ -175,6 +175,7 @@ details.setup ol{font-size:.92em;color:#444}
     <div class="sales-stat"><div class="k">💰 Sales Today</div><div class="v" id="sCount">–</div></div>
     <div class="sales-stat"><div class="k">Revenue Today</div><div class="v" id="sToday">–</div></div>
     <div class="sales-stat"><div class="k">Revenue 7 Days</div><div class="v" id="sWeek">–</div></div>
+    <div class="sales-stat"><div class="k" id="sMonthLbl">This Month's Sales</div><div class="v" id="sMonth">–</div></div>
     <div class="sales-recent"><div class="k">Recent Payments</div><div id="sRecent"></div></div>
   </div>
 
@@ -382,20 +383,36 @@ async function loadStripe(){
   if(!cfg.stripeKey) return;
   $('salesPanel').classList.remove('hidden');
   try{
-    const since = Math.floor(Date.now()/1000) - 7*86400;
-    const r = await fetch('https://api.stripe.com/v1/charges?limit=100&created[gte]='+since,{
-      headers:{'Authorization':'Bearer '+cfg.stripeKey}
-    });
-    if(!r.ok){ const e=await r.json().catch(()=>({})); throw new Error(e.error?.message||('HTTP '+r.status)); }
-    const data = await r.json();
-    const paid = (data.data||[]).filter(c=> c.paid && !c.refunded);
+    const now = new Date();
+    const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+    const weekMs = Date.now() - 7*86400*1000;
+    // Fetch back to whichever is older: start of this month or 7 days ago
+    const since = Math.floor(Math.min(monthStart.getTime(), weekMs)/1000);
+
+    // Paginate: Stripe caps at 100 charges per page
+    let all = [], starting_after = null, pages = 0;
+    while(pages < 5){
+      let url = 'https://api.stripe.com/v1/charges?limit=100&created[gte]='+since;
+      if(starting_after) url += '&starting_after='+starting_after;
+      const r = await fetch(url,{ headers:{'Authorization':'Bearer '+cfg.stripeKey} });
+      if(!r.ok){ const e=await r.json().catch(()=>({})); throw new Error(e.error?.message||('HTTP '+r.status)); }
+      const data = await r.json();
+      all = all.concat(data.data||[]);
+      if(!data.has_more || !all.length) break;
+      starting_after = all[all.length-1].id;
+      pages++;
+    }
+    const paid = all.filter(c=> c.paid && !c.refunded);
 
     const startOfDay = new Date(); startOfDay.setHours(0,0,0,0);
     const dayTs = Math.floor(startOfDay.getTime()/1000);
+    const weekTs = Math.floor(weekMs/1000);
+    const monthTs = Math.floor(monthStart.getTime()/1000);
 
-    let todayCount=0, todayRev=0, weekRev=0;
+    let todayCount=0, todayRev=0, weekRev=0, monthRev=0, monthCount=0;
     paid.forEach(c=>{
-      weekRev += c.amount;
+      if(c.created >= monthTs){ monthRev += c.amount; monthCount++; }
+      if(c.created >= weekTs) weekRev += c.amount;
       if(c.created >= dayTs){ todayCount++; todayRev += c.amount; }
     });
 
@@ -405,6 +422,8 @@ async function loadStripe(){
     $('sCount').textContent = todayCount;
     $('sToday').textContent = money(todayRev);
     $('sWeek').textContent = money(weekRev);
+    $('sMonthLbl').textContent = now.toLocaleString('en-US',{month:'long'}) + ' Sales (' + monthCount + ')';
+    $('sMonth').textContent = money(monthRev);
 
     // Recent list (last 5), flash any charge we haven't seen before
     $('sRecent').innerHTML = paid.slice(0,5).map(c=>{
