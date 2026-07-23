@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dividend Empire — Network Dashboard</title>
+<meta name="robots" content="noindex, nofollow">
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Lato:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -29,6 +30,8 @@ button{font-family:'Lato',sans-serif;font-weight:900;border:none;border-radius:8
 .btn-danger{background:transparent;color:var(--red);border:1px solid var(--red);padding:6px 10px;font-size:.8em}
 .wrap{max-width:1200px;margin:0 auto;padding:22px 18px}
 .status{font-size:.85em;color:#dfe8e4;font-family:'JetBrains Mono',monospace}
+
+/* Setup / config */
 .panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;margin-bottom:20px;box-shadow:0 2px 10px rgba(10,66,52,.05)}
 .panel h2{font-family:'Sora',sans-serif;color:var(--emerald-dark);font-size:1.15em;margin:0 0 12px}
 .panel p{font-size:.95em;color:#444;margin:6px 0}
@@ -43,6 +46,8 @@ button{font-family:'Lato',sans-serif;font-weight:900;border:none;border-radius:8
 details.setup{margin-top:8px}
 details.setup summary{cursor:pointer;font-weight:700;color:var(--emerald)}
 details.setup ol{font-size:.92em;color:#444}
+
+/* Network totals */
 .totals{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:22px}
 .tot{background:var(--emerald-dark);color:#fff;border-radius:12px;padding:16px 18px;position:relative;overflow:hidden}
 .tot .lbl{font-size:.72em;text-transform:uppercase;letter-spacing:1.2px;color:#bcd6cc}
@@ -52,22 +57,38 @@ details.setup ol{font-size:.92em;color:#444}
 .tot.gold .lbl{color:#5c4a10}
 .tot.gold .val{color:#1a1f1d}
 .tot.gold .sub{color:#6b5716}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
-.card{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--emerald);border-radius:12px;padding:18px;box-shadow:0 2px 10px rgba(10,66,52,.05)}
-.card h3{font-family:'Sora',sans-serif;color:var(--emerald-dark);margin:0 0 2px;font-size:1.05em;display:flex;justify-content:space-between;align-items:center}
+
+/* Site cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:20px}
+.card{background:var(--card);border:1px solid var(--line);border-top:5px solid var(--emerald);border-radius:14px;padding:24px;box-shadow:0 2px 10px rgba(10,66,52,.05)}
+.card h3{font-family:'Sora',sans-serif;color:var(--emerald-dark);margin:0 0 2px;font-size:1.3em;display:flex;justify-content:space-between;align-items:center}
+.rank{display:inline-block;background:var(--gold);color:#1a1f1d;font-family:'JetBrains Mono',monospace;font-size:.6em;font-weight:700;border-radius:6px;padding:2px 8px;margin-right:8px;vertical-align:middle}
 .rt{font-family:'JetBrains Mono',monospace;font-size:.7em;font-weight:700;color:#fff;background:var(--red);border-radius:20px;padding:2px 10px;display:inline-flex;align-items:center;gap:5px}
 .rt .dot{width:7px;height:7px;border-radius:50%;background:#fff;animation:pulse 1.6s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0 6px}
-.m{background:var(--emerald-light);border-radius:8px;padding:8px 10px;text-align:center}
-.m .k{font-size:.68em;text-transform:uppercase;letter-spacing:.8px;color:#4a6a5e}
-.m .v{font-family:'Sora',sans-serif;font-weight:800;font-size:1.25em;color:var(--emerald-dark)}
-.m .d{font-family:'JetBrains Mono',monospace;font-size:.7em;font-weight:700;margin-top:1px}
+.metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:16px 0 8px}
+.m{background:var(--emerald-light);border-radius:10px;padding:14px 12px;text-align:center}
+.m .k{font-size:.75em;text-transform:uppercase;letter-spacing:.8px;color:#4a6a5e}
+.m .v{font-family:'Sora',sans-serif;font-weight:800;font-size:1.7em;color:var(--emerald-dark)}
+.m .d{font-family:'JetBrains Mono',monospace;font-size:.8em;font-weight:700;margin-top:2px}
 .d.up{color:var(--green)}.d.down{color:var(--red)}.d.flat{color:#888}
-.spark{height:70px;margin-top:8px}
+.spark{height:120px;margin-top:12px}
 .card .err{color:var(--red);font-size:.85em;font-family:'JetBrains Mono',monospace;margin-top:8px;word-break:break-all}
 .footer-note{text-align:center;color:#889;font-size:.8em;margin:26px 0 10px;font-family:'JetBrains Mono',monospace}
 .hidden{display:none}
+
+/* Live pulse visualization */
+.pulse-panel{background:var(--emerald-dark);border-radius:14px;padding:20px 24px;margin:0 0 22px;position:relative;overflow:hidden}
+.pulse-panel .ttl{font-family:'JetBrains Mono',monospace;font-size:.72em;letter-spacing:2px;color:#bcd6cc;text-transform:uppercase;margin-bottom:12px}
+.pulse-panel .ttl b{color:var(--gold);font-size:1.5em;vertical-align:middle;margin-right:6px}
+.pulse-sites{display:flex;flex-wrap:wrap;gap:18px 26px}
+.pulse-site{display:flex;align-items:center;gap:8px}
+.pulse-site .nm{font-size:.8em;color:#dfe8e4;font-weight:700;white-space:nowrap}
+.pulse-dots{display:flex;flex-wrap:wrap;gap:5px;max-width:340px}
+.pdot{width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 6px rgba(201,162,39,.8);animation:breathe 2.4s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.45);opacity:.45}}
+.pulse-empty{color:#7ea294;font-size:.85em;font-family:'JetBrains Mono',monospace}
+@media (prefers-reduced-motion: reduce){.pdot,.rt .dot{animation:none}}
 @media(max-width:640px){.metrics{grid-template-columns:1fr 1fr 1fr}.grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -85,9 +106,10 @@ details.setup ol{font-size:.92em;color:#444}
 
 <div class="wrap">
 
+  <!-- CONFIG PANEL -->
   <div class="panel" id="configPanel">
     <h2>Setup</h2>
-    <p><strong>1.</strong> Paste your Google OAuth <strong>Client ID</strong>:</p>
+    <p><strong>1.</strong> Paste your Google OAuth <strong>Client ID</strong> (one-time setup, instructions below):</p>
     <div class="field">
       <input id="clientId" placeholder="xxxxxxxx.apps.googleusercontent.com">
     </div>
@@ -103,22 +125,30 @@ details.setup ol{font-size:.92em;color:#444}
     <details class="setup">
       <summary>First-time setup: getting your OAuth Client ID (5 minutes, free)</summary>
       <ol>
-        <li>Go to <code>console.cloud.google.com</code> → create a project</li>
+        <li>Go to <code>console.cloud.google.com</code> → create a project (call it "Empire Dashboard")</li>
         <li>APIs &amp; Services → Library → search <strong>Google Analytics Data API</strong> → Enable</li>
-        <li>APIs &amp; Services → OAuth consent screen → External → add your GA email as a Test User</li>
+        <li>APIs &amp; Services → OAuth consent screen → External → fill in app name + your email → add yourself as a Test User</li>
         <li>APIs &amp; Services → Credentials → Create Credentials → <strong>OAuth client ID</strong> → Web application</li>
-        <li>Under "Authorized JavaScript origins" add the domain where this page is hosted (e.g. <code>https://topdividendtools.com</code>)</li>
+        <li>Under "Authorized JavaScript origins" add: <code>http://localhost:8000</code></li>
         <li>Copy the Client ID and paste it above</li>
+        <li>Run the dashboard with a local server: open a terminal in this file's folder and run <code>python3 -m http.server 8000</code> (or <code>python -m http.server 8000</code> on Windows), then visit <code>http://localhost:8000/empire-dashboard.html</code></li>
       </ol>
-      <p>Everything stays in your browser. Read-only Analytics access, no server, no third parties.</p>
+      <p>Everything stays on your machine. The dashboard talks directly to Google's API with read-only Analytics access, no server, no third parties.</p>
     </details>
   </div>
 
+  <!-- NETWORK TOTALS -->
   <div class="totals hidden" id="totals">
     <div class="tot"><div class="lbl">Visitors Today</div><div class="val" id="tUsers">–</div><div class="sub" id="tUsersD"></div></div>
     <div class="tot"><div class="lbl">Events Today</div><div class="val" id="tEvents">–</div><div class="sub" id="tEventsD"></div></div>
     <div class="tot"><div class="lbl">Pageviews Today</div><div class="val" id="tViews">–</div><div class="sub" id="tViewsD"></div></div>
     <div class="tot gold"><div class="lbl">Live Right Now</div><div class="val" id="tLive">–</div><div class="sub">across all sites</div></div>
+  </div>
+
+  <!-- SITE CARDS -->
+  <div class="pulse-panel hidden" id="pulsePanel">
+    <div class="ttl"><b id="pulseTotal">0</b> PEOPLE ON YOUR SITES RIGHT NOW</div>
+    <div class="pulse-sites" id="pulseSites"></div>
   </div>
 
   <div class="grid" id="grid"></div>
@@ -127,6 +157,7 @@ details.setup ol{font-size:.92em;color:#444}
 </div>
 
 <script>
+/* ============ CONFIG STORAGE ============ */
 const LS_KEY='empire_dash_cfg';
 let cfg = JSON.parse(localStorage.getItem(LS_KEY) || '{"clientId":"","sites":[]}');
 let accessToken = null;
@@ -162,6 +193,7 @@ $('clientId').value = cfg.clientId || '';
 renderSiteList();
 if(cfg.clientId && cfg.sites.length) $('configPanel').classList.add('hidden');
 
+/* ============ AUTH ============ */
 let tokenClient = null;
 function initAuth(){
   if(!cfg.clientId){ alert('Add your OAuth Client ID in Config first'); $('configPanel').classList.remove('hidden'); return; }
@@ -182,6 +214,7 @@ function initAuth(){
 $('authBtn').onclick = initAuth;
 $('refreshBtn').onclick = ()=> loadAll();
 
+/* ============ GA4 API ============ */
 async function ga4(propId, body, realtime=false){
   const url = `https://analyticsdata.googleapis.com/v1beta/properties/${propId}:${realtime?'runRealtimeReport':'runReport'}`;
   const r = await fetch(url,{
@@ -194,17 +227,19 @@ async function ga4(propId, body, realtime=false){
 }
 
 async function fetchSite(site){
+  // Last 8 days daily: users, events, pageviews
   const daily = await ga4(site.prop, {
     dateRanges:[{startDate:'7daysAgo',endDate:'today'}],
     dimensions:[{name:'date'}],
     metrics:[{name:'activeUsers'},{name:'eventCount'},{name:'screenPageViews'}],
     orderBys:[{dimension:{dimensionName:'date'}}]
   });
+  // Realtime active users
   let live = 0;
   try{
     const rt = await ga4(site.prop, { metrics:[{name:'activeUsers'}] }, true);
     live = parseInt(rt.rows?.[0]?.metricValues?.[0]?.value || 0);
-  }catch(e){}
+  }catch(e){ /* realtime can fail on brand new properties; non-fatal */ }
 
   const rows = (daily.rows||[]).map(r=>({
     date: r.dimensionValues[0].value,
@@ -215,6 +250,7 @@ async function fetchSite(site){
   return {rows, live};
 }
 
+/* ============ RENDER ============ */
 function fmt(n){ return n.toLocaleString('en-US'); }
 function delta(today, yesterday){
   if(!yesterday) return {txt:'–', cls:'flat'};
@@ -223,9 +259,9 @@ function delta(today, yesterday){
   return {txt:(pct>0?'▲ ':'▼ ')+Math.abs(pct).toFixed(0)+'%', cls:pct>0?'up':'down'};
 }
 
-function cardHTML(site){
+function cardHTML(site, rank){
   return `<div class="card" id="card-${site.prop}">
-    <h3>${site.name} <span class="rt hidden" id="rt-${site.prop}"><span class="dot"></span><span id="rtv-${site.prop}">0</span> live</span></h3>
+    <h3><span><span class="rank">#${rank}</span>${site.name}</span> <span class="rt hidden" id="rt-${site.prop}"><span class="dot"></span><span id="rtv-${site.prop}">0</span> live</span></h3>
     <div class="metrics">
       <div class="m"><div class="k">Visitors</div><div class="v" id="u-${site.prop}">–</div><div class="d" id="ud-${site.prop}"></div></div>
       <div class="m"><div class="k">Events</div><div class="v" id="e-${site.prop}">–</div><div class="d" id="ed-${site.prop}"></div></div>
@@ -257,41 +293,78 @@ function renderSpark(site, rows){
   });
 }
 
+function renderPulse(results){
+  const totalLive = results.reduce((s,r)=> s + (r.live||0), 0);
+  $('pulseTotal').textContent = totalLive;
+  $('pulsePanel').classList.remove('hidden');
+  if(totalLive === 0){
+    $('pulseSites').innerHTML = '<span class="pulse-empty">quiet right now — dots appear as visitors arrive</span>';
+    return;
+  }
+  const MAX_DOTS = 150; // keep the page light even on big traffic days
+  const scale = totalLive > MAX_DOTS ? MAX_DOTS/totalLive : 1;
+  $('pulseSites').innerHTML = results
+    .filter(r=> r.live > 0)
+    .sort((a,b)=> b.live - a.live)
+    .map(r=>{
+      const dots = Math.max(1, Math.round(r.live * scale));
+      const dotHtml = Array.from({length:dots},(_,i)=>
+        `<span class="pdot" style="animation-delay:${((i*0.37)%2.4).toFixed(2)}s"></span>`).join('');
+      return `<div class="pulse-site"><span class="nm">${r.site.name} · ${r.live}</span><span class="pulse-dots">${dotHtml}</span></div>`;
+    }).join('');
+}
+
 async function loadAll(){
   if(!accessToken){ return; }
   if(!cfg.sites.length){ $('configPanel').classList.remove('hidden'); return; }
-  $('grid').innerHTML = cfg.sites.map(cardHTML).join('');
   $('totals').classList.remove('hidden');
   $('status').textContent = 'Loading…';
+  $('grid').innerHTML = '<p style="color:#888;font-family:JetBrains Mono,monospace">fetching '+cfg.sites.length+' properties…</p>';
 
-  let T={u:0,e:0,v:0,live:0}, Y={u:0,e:0,v:0};
-
-  await Promise.all(cfg.sites.map(async site=>{
+  // 1. Fetch everything first
+  const results = await Promise.all(cfg.sites.map(async site=>{
     try{
       const {rows, live} = await fetchSite(site);
       const today = rows[rows.length-1] || {users:0,events:0,views:0};
       const yest  = rows[rows.length-2] || null;
-
-      $('u-'+site.prop).textContent = fmt(today.users);
-      $('e-'+site.prop).textContent = fmt(today.events);
-      $('v-'+site.prop).textContent = fmt(today.views);
-
-      if(yest){
-        const du=delta(today.users,yest.users), de=delta(today.events,yest.events), dv=delta(today.views,yest.views);
-        $('ud-'+site.prop).textContent=du.txt; $('ud-'+site.prop).className='d '+du.cls;
-        $('ed-'+site.prop).textContent=de.txt; $('ed-'+site.prop).className='d '+de.cls;
-        $('vd-'+site.prop).textContent=dv.txt; $('vd-'+site.prop).className='d '+dv.cls;
-        Y.u+=yest.users; Y.e+=yest.events; Y.v+=yest.views;
-      }
-      if(live>0){ $('rt-'+site.prop).classList.remove('hidden'); $('rtv-'+site.prop).textContent=live; }
-
-      renderSpark(site, rows);
-      T.u+=today.users; T.e+=today.events; T.v+=today.views; T.live+=live;
+      return {site, rows, live, today, yest, err:null};
     }catch(err){
-      $('err-'+site.prop).textContent = err.message;
-      $('err-'+site.prop).classList.remove('hidden');
+      return {site, rows:[], live:0, today:{users:0,events:0,views:0}, yest:null, err:err.message};
     }
   }));
+
+  // 2. Sort: most visitors today first (errored sites sink to the bottom)
+  results.sort((a,b)=> (b.err?-1:b.today.users) - (a.err?-1:a.today.users));
+
+  // 3. Render cards in ranked order
+  $('grid').innerHTML = results.map((r,i)=> cardHTML(r.site, i+1)).join('');
+  renderPulse(results);
+
+  let T={u:0,e:0,v:0,live:0}, Y={u:0,e:0,v:0};
+
+  results.forEach(r=>{
+    const site=r.site;
+    if(r.err){
+      $('err-'+site.prop).textContent = r.err;
+      $('err-'+site.prop).classList.remove('hidden');
+      return;
+    }
+    $('u-'+site.prop).textContent = fmt(r.today.users);
+    $('e-'+site.prop).textContent = fmt(r.today.events);
+    $('v-'+site.prop).textContent = fmt(r.today.views);
+
+    if(r.yest){
+      const du=delta(r.today.users,r.yest.users), de=delta(r.today.events,r.yest.events), dv=delta(r.today.views,r.yest.views);
+      $('ud-'+site.prop).textContent=du.txt; $('ud-'+site.prop).className='d '+du.cls;
+      $('ed-'+site.prop).textContent=de.txt; $('ed-'+site.prop).className='d '+de.cls;
+      $('vd-'+site.prop).textContent=dv.txt; $('vd-'+site.prop).className='d '+dv.cls;
+      Y.u+=r.yest.users; Y.e+=r.yest.events; Y.v+=r.yest.views;
+    }
+    if(r.live>0){ $('rt-'+site.prop).classList.remove('hidden'); $('rtv-'+site.prop).textContent=r.live; }
+
+    renderSpark(site, r.rows);
+    T.u+=r.today.users; T.e+=r.today.events; T.v+=r.today.views; T.live+=r.live;
+  });
 
   $('tUsers').textContent=fmt(T.u); $('tEvents').textContent=fmt(T.e);
   $('tViews').textContent=fmt(T.v); $('tLive').textContent=fmt(T.live);
