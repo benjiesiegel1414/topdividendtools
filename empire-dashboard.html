@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dividend Empire — Network Dashboard</title>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Lato:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --emerald:#0f5c46;--emerald-dark:#0a4234;--emerald-light:#e8f5f0;
+  --gold:#c9a227;--gold-light:#f7efd8;
+  --ink:#1a1f1d;--paper:#f6f7f6;--card:#ffffff;--line:#e2e7e4;
+  --red:#c0392b;--green:#1e8449;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Lato',sans-serif;line-height:1.5}
+header{background:var(--emerald-dark);color:#fff;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+header h1{font-family:'Sora',sans-serif;font-size:1.25em;margin:0;letter-spacing:.3px}
+header h1 span{color:var(--gold)}
+.hdr-right{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+button{font-family:'Lato',sans-serif;font-weight:900;border:none;border-radius:8px;padding:10px 16px;cursor:pointer;font-size:.95em}
+.btn-gold{background:var(--gold);color:#1a1f1d}
+.btn-gold:hover{filter:brightness(1.05)}
+.btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35)}
+.btn-ghost:hover{background:rgba(255,255,255,.08)}
+.btn-emerald{background:var(--emerald);color:#fff}
+.btn-danger{background:transparent;color:var(--red);border:1px solid var(--red);padding:6px 10px;font-size:.8em}
+.wrap{max-width:1200px;margin:0 auto;padding:22px 18px}
+.status{font-size:.85em;color:#dfe8e4;font-family:'JetBrains Mono',monospace}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;margin-bottom:20px;box-shadow:0 2px 10px rgba(10,66,52,.05)}
+.panel h2{font-family:'Sora',sans-serif;color:var(--emerald-dark);font-size:1.15em;margin:0 0 12px}
+.panel p{font-size:.95em;color:#444;margin:6px 0}
+.panel code{font-family:'JetBrains Mono',monospace;background:var(--emerald-light);padding:1px 6px;border-radius:4px;font-size:.85em}
+.field{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.field input{flex:1;min-width:180px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.9em}
+.field input:focus{outline:none;border-color:var(--emerald)}
+.site-row{display:flex;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.site-row:last-child{border-bottom:none}
+.site-row .nm{font-weight:900;color:var(--emerald-dark);min-width:170px}
+.site-row .pid{font-family:'JetBrains Mono',monospace;font-size:.85em;color:#666}
+details.setup{margin-top:8px}
+details.setup summary{cursor:pointer;font-weight:700;color:var(--emerald)}
+details.setup ol{font-size:.92em;color:#444}
+.totals{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:22px}
+.tot{background:var(--emerald-dark);color:#fff;border-radius:12px;padding:16px 18px;position:relative;overflow:hidden}
+.tot .lbl{font-size:.72em;text-transform:uppercase;letter-spacing:1.2px;color:#bcd6cc}
+.tot .val{font-family:'Sora',sans-serif;font-size:1.9em;font-weight:800;margin-top:4px}
+.tot .sub{font-size:.78em;color:var(--gold);font-family:'JetBrains Mono',monospace;margin-top:2px}
+.tot.gold{background:var(--gold)}
+.tot.gold .lbl{color:#5c4a10}
+.tot.gold .val{color:#1a1f1d}
+.tot.gold .sub{color:#6b5716}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--emerald);border-radius:12px;padding:18px;box-shadow:0 2px 10px rgba(10,66,52,.05)}
+.card h3{font-family:'Sora',sans-serif;color:var(--emerald-dark);margin:0 0 2px;font-size:1.05em;display:flex;justify-content:space-between;align-items:center}
+.rt{font-family:'JetBrains Mono',monospace;font-size:.7em;font-weight:700;color:#fff;background:var(--red);border-radius:20px;padding:2px 10px;display:inline-flex;align-items:center;gap:5px}
+.rt .dot{width:7px;height:7px;border-radius:50%;background:#fff;animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0 6px}
+.m{background:var(--emerald-light);border-radius:8px;padding:8px 10px;text-align:center}
+.m .k{font-size:.68em;text-transform:uppercase;letter-spacing:.8px;color:#4a6a5e}
+.m .v{font-family:'Sora',sans-serif;font-weight:800;font-size:1.25em;color:var(--emerald-dark)}
+.m .d{font-family:'JetBrains Mono',monospace;font-size:.7em;font-weight:700;margin-top:1px}
+.d.up{color:var(--green)}.d.down{color:var(--red)}.d.flat{color:#888}
+.spark{height:70px;margin-top:8px}
+.card .err{color:var(--red);font-size:.85em;font-family:'JetBrains Mono',monospace;margin-top:8px;word-break:break-all}
+.footer-note{text-align:center;color:#889;font-size:.8em;margin:26px 0 10px;font-family:'JetBrains Mono',monospace}
+.hidden{display:none}
+@media(max-width:640px){.metrics{grid-template-columns:1fr 1fr 1fr}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>DIVIDEND EMPIRE <span>·</span> Network Dashboard</h1>
+  <div class="hdr-right">
+    <span class="status" id="status">Not signed in</span>
+    <button class="btn-ghost" id="cfgBtn">⚙ Config</button>
+    <button class="btn-gold" id="authBtn">Sign in with Google</button>
+    <button class="btn-emerald hidden" id="refreshBtn">↻ Refresh</button>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="panel" id="configPanel">
+    <h2>Setup</h2>
+    <p><strong>1.</strong> Paste your Google OAuth <strong>Client ID</strong>:</p>
+    <div class="field">
+      <input id="clientId" placeholder="xxxxxxxx.apps.googleusercontent.com">
+    </div>
+    <p><strong>2.</strong> Add each site with its GA4 <strong>numeric Property ID</strong> (GA4 Admin → Property Settings → Property ID, e.g. <code>412345678</code> — NOT the G-XXXX tag):</p>
+    <div class="field">
+      <input id="siteName" placeholder="Site name e.g. WeeklyETFs" style="flex:1">
+      <input id="siteProp" placeholder="Property ID e.g. 412345678" style="flex:1">
+      <button class="btn-emerald" id="addSite">+ Add Site</button>
+    </div>
+    <div id="siteList"></div>
+    <p style="margin-top:14px"><button class="btn-gold" id="saveCfg">Save Config</button></p>
+
+    <details class="setup">
+      <summary>First-time setup: getting your OAuth Client ID (5 minutes, free)</summary>
+      <ol>
+        <li>Go to <code>console.cloud.google.com</code> → create a project</li>
+        <li>APIs &amp; Services → Library → search <strong>Google Analytics Data API</strong> → Enable</li>
+        <li>APIs &amp; Services → OAuth consent screen → External → add your GA email as a Test User</li>
+        <li>APIs &amp; Services → Credentials → Create Credentials → <strong>OAuth client ID</strong> → Web application</li>
+        <li>Under "Authorized JavaScript origins" add the domain where this page is hosted (e.g. <code>https://topdividendtools.com</code>)</li>
+        <li>Copy the Client ID and paste it above</li>
+      </ol>
+      <p>Everything stays in your browser. Read-only Analytics access, no server, no third parties.</p>
+    </details>
+  </div>
+
+  <div class="totals hidden" id="totals">
+    <div class="tot"><div class="lbl">Visitors Today</div><div class="val" id="tUsers">–</div><div class="sub" id="tUsersD"></div></div>
+    <div class="tot"><div class="lbl">Events Today</div><div class="val" id="tEvents">–</div><div class="sub" id="tEventsD"></div></div>
+    <div class="tot"><div class="lbl">Pageviews Today</div><div class="val" id="tViews">–</div><div class="sub" id="tViewsD"></div></div>
+    <div class="tot gold"><div class="lbl">Live Right Now</div><div class="val" id="tLive">–</div><div class="sub">across all sites</div></div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="footer-note" id="lastUpdated"></div>
+</div>
+
+<script>
+const LS_KEY='empire_dash_cfg';
+let cfg = JSON.parse(localStorage.getItem(LS_KEY) || '{"clientId":"","sites":[]}');
+let accessToken = null;
+let charts = {};
+
+const $ = id => document.getElementById(id);
+
+function renderSiteList(){
+  $('siteList').innerHTML = cfg.sites.map((s,i)=>`
+    <div class="site-row">
+      <span class="nm">${s.name}</span>
+      <span class="pid">property ${s.prop}</span>
+      <button class="btn-danger" onclick="removeSite(${i})">remove</button>
+    </div>`).join('') || '<p style="color:#999;font-size:.9em">No sites added yet</p>';
+}
+function removeSite(i){ cfg.sites.splice(i,1); renderSiteList(); }
+$('addSite').onclick = ()=>{
+  const name=$('siteName').value.trim(), prop=$('siteProp').value.trim().replace(/\D/g,'');
+  if(!name||!prop){ alert('Need both a name and a numeric property ID'); return; }
+  cfg.sites.push({name, prop});
+  $('siteName').value=''; $('siteProp').value='';
+  renderSiteList();
+};
+$('saveCfg').onclick = ()=>{
+  cfg.clientId = $('clientId').value.trim();
+  localStorage.setItem(LS_KEY, JSON.stringify(cfg));
+  $('status').textContent = 'Config saved — sign in to load data';
+  if(cfg.clientId && cfg.sites.length) $('configPanel').classList.add('hidden');
+};
+$('cfgBtn').onclick = ()=> $('configPanel').classList.toggle('hidden');
+
+$('clientId').value = cfg.clientId || '';
+renderSiteList();
+if(cfg.clientId && cfg.sites.length) $('configPanel').classList.add('hidden');
+
+let tokenClient = null;
+function initAuth(){
+  if(!cfg.clientId){ alert('Add your OAuth Client ID in Config first'); $('configPanel').classList.remove('hidden'); return; }
+  tokenClient = google.accounts.oauth2.initTokenClient({
+    client_id: cfg.clientId,
+    scope: 'https://www.googleapis.com/auth/analytics.readonly',
+    callback: (resp)=>{
+      if(resp.error){ $('status').textContent='Auth error: '+resp.error; return; }
+      accessToken = resp.access_token;
+      $('status').textContent = 'Signed in ✓';
+      $('authBtn').classList.add('hidden');
+      $('refreshBtn').classList.remove('hidden');
+      loadAll();
+    }
+  });
+  tokenClient.requestAccessToken();
+}
+$('authBtn').onclick = initAuth;
+$('refreshBtn').onclick = ()=> loadAll();
+
+async function ga4(propId, body, realtime=false){
+  const url = `https://analyticsdata.googleapis.com/v1beta/properties/${propId}:${realtime?'runRealtimeReport':'runReport'}`;
+  const r = await fetch(url,{
+    method:'POST',
+    headers:{'Authorization':'Bearer '+accessToken,'Content-Type':'application/json'},
+    body: JSON.stringify(body)
+  });
+  if(!r.ok){ const e=await r.json().catch(()=>({})); throw new Error(e.error?.message || ('HTTP '+r.status)); }
+  return r.json();
+}
+
+async function fetchSite(site){
+  const daily = await ga4(site.prop, {
+    dateRanges:[{startDate:'7daysAgo',endDate:'today'}],
+    dimensions:[{name:'date'}],
+    metrics:[{name:'activeUsers'},{name:'eventCount'},{name:'screenPageViews'}],
+    orderBys:[{dimension:{dimensionName:'date'}}]
+  });
+  let live = 0;
+  try{
+    const rt = await ga4(site.prop, { metrics:[{name:'activeUsers'}] }, true);
+    live = parseInt(rt.rows?.[0]?.metricValues?.[0]?.value || 0);
+  }catch(e){}
+
+  const rows = (daily.rows||[]).map(r=>({
+    date: r.dimensionValues[0].value,
+    users: +r.metricValues[0].value,
+    events: +r.metricValues[1].value,
+    views: +r.metricValues[2].value
+  }));
+  return {rows, live};
+}
+
+function fmt(n){ return n.toLocaleString('en-US'); }
+function delta(today, yesterday){
+  if(!yesterday) return {txt:'–', cls:'flat'};
+  const pct = ((today-yesterday)/yesterday)*100;
+  if(Math.abs(pct)<0.5) return {txt:'flat', cls:'flat'};
+  return {txt:(pct>0?'▲ ':'▼ ')+Math.abs(pct).toFixed(0)+'%', cls:pct>0?'up':'down'};
+}
+
+function cardHTML(site){
+  return `<div class="card" id="card-${site.prop}">
+    <h3>${site.name} <span class="rt hidden" id="rt-${site.prop}"><span class="dot"></span><span id="rtv-${site.prop}">0</span> live</span></h3>
+    <div class="metrics">
+      <div class="m"><div class="k">Visitors</div><div class="v" id="u-${site.prop}">–</div><div class="d" id="ud-${site.prop}"></div></div>
+      <div class="m"><div class="k">Events</div><div class="v" id="e-${site.prop}">–</div><div class="d" id="ed-${site.prop}"></div></div>
+      <div class="m"><div class="k">Pageviews</div><div class="v" id="v-${site.prop}">–</div><div class="d" id="vd-${site.prop}"></div></div>
+    </div>
+    <div class="spark"><canvas id="spark-${site.prop}"></canvas></div>
+    <div class="err hidden" id="err-${site.prop}"></div>
+  </div>`;
+}
+
+function renderSpark(site, rows){
+  const ctx = $('spark-'+site.prop).getContext('2d');
+  if(charts[site.prop]) charts[site.prop].destroy();
+  charts[site.prop] = new Chart(ctx,{
+    type:'line',
+    data:{
+      labels: rows.map(r=> r.date.slice(4,6)+'/'+r.date.slice(6,8)),
+      datasets:[{
+        data: rows.map(r=>r.users),
+        borderColor:'#0f5c46', backgroundColor:'rgba(15,92,70,.12)',
+        fill:true, tension:.3, pointRadius:2, borderWidth:2
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:false}, tooltip:{callbacks:{label:c=>c.parsed.y+' visitors'}}},
+      scales:{x:{ticks:{font:{size:9}},grid:{display:false}}, y:{display:false,beginAtZero:true}}
+    }
+  });
+}
+
+async function loadAll(){
+  if(!accessToken){ return; }
+  if(!cfg.sites.length){ $('configPanel').classList.remove('hidden'); return; }
+  $('grid').innerHTML = cfg.sites.map(cardHTML).join('');
+  $('totals').classList.remove('hidden');
+  $('status').textContent = 'Loading…';
+
+  let T={u:0,e:0,v:0,live:0}, Y={u:0,e:0,v:0};
+
+  await Promise.all(cfg.sites.map(async site=>{
+    try{
+      const {rows, live} = await fetchSite(site);
+      const today = rows[rows.length-1] || {users:0,events:0,views:0};
+      const yest  = rows[rows.length-2] || null;
+
+      $('u-'+site.prop).textContent = fmt(today.users);
+      $('e-'+site.prop).textContent = fmt(today.events);
+      $('v-'+site.prop).textContent = fmt(today.views);
+
+      if(yest){
+        const du=delta(today.users,yest.users), de=delta(today.events,yest.events), dv=delta(today.views,yest.views);
+        $('ud-'+site.prop).textContent=du.txt; $('ud-'+site.prop).className='d '+du.cls;
+        $('ed-'+site.prop).textContent=de.txt; $('ed-'+site.prop).className='d '+de.cls;
+        $('vd-'+site.prop).textContent=dv.txt; $('vd-'+site.prop).className='d '+dv.cls;
+        Y.u+=yest.users; Y.e+=yest.events; Y.v+=yest.views;
+      }
+      if(live>0){ $('rt-'+site.prop).classList.remove('hidden'); $('rtv-'+site.prop).textContent=live; }
+
+      renderSpark(site, rows);
+      T.u+=today.users; T.e+=today.events; T.v+=today.views; T.live+=live;
+    }catch(err){
+      $('err-'+site.prop).textContent = err.message;
+      $('err-'+site.prop).classList.remove('hidden');
+    }
+  }));
+
+  $('tUsers').textContent=fmt(T.u); $('tEvents').textContent=fmt(T.e);
+  $('tViews').textContent=fmt(T.v); $('tLive').textContent=fmt(T.live);
+  const dU=delta(T.u,Y.u), dE=delta(T.e,Y.e), dV=delta(T.v,Y.v);
+  $('tUsersD').textContent = dU.txt+' vs yesterday';
+  $('tEventsD').textContent = dE.txt+' vs yesterday';
+  $('tViewsD').textContent = dV.txt+' vs yesterday';
+
+  $('status').textContent = 'Signed in ✓';
+  $('lastUpdated').textContent = 'last updated '+new Date().toLocaleTimeString();
+}
+</script>
+</body>
+</html>
