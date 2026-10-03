@@ -239,8 +239,8 @@ table.score tfoot td{border-top:2px solid var(--line);border-bottom:none;backgro
     <div class="tot"><div class="lbl">Visitors Today</div><div class="val" id="tUsers">–</div><div class="sub" id="tUsersD"></div></div>
     <div class="tot"><div class="lbl">Events Today</div><div class="val" id="tEvents">–</div><div class="sub" id="tEventsD"></div></div>
     <div class="tot"><div class="lbl">Pageviews Today</div><div class="val" id="tViews">–</div><div class="sub" id="tViewsD"></div></div>
-    <div class="tot gold"><div class="lbl">Live Right Now</div><div class="val" id="tLive">–</div><div class="sub">across all sites</div></div>
-    <div class="tot gold"><div class="lbl">Views In Last 30 Minutes</div><div class="val" id="tViews30">–</div><div class="sub">across all sites</div></div>
+    <div class="tot gold"><div class="lbl">Live Right Now</div><div class="val" id="tLive">–</div><div class="sub">across network sites</div></div>
+    <div class="tot gold"><div class="lbl">Views In Last 30 Minutes</div><div class="val" id="tViews30">–</div><div class="sub">across network sites</div></div>
   </div>
 
   <!-- SALES -->
@@ -302,6 +302,21 @@ table.score tfoot td{border-top:2px solid var(--line);border-bottom:none;backgro
 /* ============ CONFIG STORAGE ============ */
 const LS_KEY='empire_dash_cfg';
 let cfg = JSON.parse(localStorage.getItem(LS_KEY) || '{"clientId":"","sites":[]}');
+/* Sites added Oct 2026, merged in automatically by property ID so nothing needs re-entering.
+   network:false = shown with its own card but left out of every network total, goal and 30-day benchmark. */
+const NEW_SITES = [
+  {name:'TopETFs', prop:'556133383'},
+  {name:'PhotonicsETFs', prop:'557085792'},
+  {name:'DividendProjection', prop:'555927902'},
+  {name:'WellingtonList', prop:'557170838', network:false}
+];
+NEW_SITES.forEach(n=>{
+  const ex = cfg.sites.find(s=>String(s.prop)===n.prop);
+  if(!ex) cfg.sites.push({...n});
+  else if(n.network===false && ex.network===undefined) ex.network=false;
+});
+if(cfg.clientId) localStorage.setItem(LS_KEY, JSON.stringify(cfg));
+const inNetwork = s => s.network!==false;
 let accessToken = null;
 let charts = {};
 let netChart = null;
@@ -318,10 +333,12 @@ function renderSiteList(){
     <div class="site-row">
       <span class="nm">${s.name}</span>
       <span class="pid">property ${s.prop}</span>
+      <label style="font-size:.85em;color:#555;display:inline-flex;align-items:center;gap:5px"><input type="checkbox" ${inNetwork(s)?'checked':''} onchange="toggleNet(${i},this.checked)"> count in network totals</label>
       <button class="btn-danger" onclick="removeSite(${i})">remove</button>
     </div>`).join('') || '<p style="color:#999;font-size:.9em">No sites added yet</p>';
 }
 function removeSite(i){ cfg.sites.splice(i,1); renderSiteList(); }
+function toggleNet(i,on){ if(on) delete cfg.sites[i].network; else cfg.sites[i].network=false; }
 $('addSite').onclick = ()=>{
   const name=$('siteName').value.trim(), prop=$('siteProp').value.trim().replace(/\D/g,'');
   if(!name||!prop){ alert('Need both a name and a numeric property ID'); return; }
@@ -435,8 +452,7 @@ async function refreshLiveOnly(){
       r.live = parseInt(rt.rows?.[0]?.metricValues?.[0]?.value || 0);
       r.views30 = parseInt(rt.rows?.[0]?.metricValues?.[1]?.value || 0);
     }catch(e){ r.live = r.live || 0; r.views30 = r.views30 || 0; }
-    totalLive += r.live;
-    totalViews30 += r.views30;
+    if(inNetwork(r.site)){ totalLive += r.live; totalViews30 += r.views30; }
     const badge = $('rt-'+r.site.prop);
     if(badge){
       if(r.live > 0){ badge.classList.remove('hidden'); $('rtv-'+r.site.prop).textContent = r.live; }
@@ -659,7 +675,7 @@ async function loadStripe(){
 
 /* ============ GOAL RATIOS + 30-DAY BENCHMARK ============ */
 function renderGoals(results){
-  const ok = results.filter(r=>!r.err);
+  const ok = results.filter(r=>!r.err && inNetwork(r.site));
   $('goalsWrap').classList.remove('hidden');
   $('pvGoalLbl').textContent = 'goal '+pvGoal().toFixed(2);
   $('evGoalLbl').textContent = 'goal '+evGoal().toFixed(1);
@@ -737,7 +753,7 @@ function updatePace(results){
 
   const el = $('benchPace');
   if(!el) return;
-  const net = networkPace(ok);
+  const net = networkPace(ok.filter(r=>inNetwork(r.site)));
   if(!net){
     $('benchChip').textContent = 'no hourly data';
     $('benchChip').className = 'chip neutral';
@@ -814,8 +830,8 @@ function renderScorecard(results){
     const vs = avgU ? ((u-avgU)/avgU)*100 : null;
     const vsTxt = vs===null ? '–' : (vs>0?'▲ +':vs<0?'▼ ':'') + vs.toFixed(0)+'%';
     const vsC = vs===null || Math.abs(vs)<5 ? 'flat' : vs>0 ? 'hit' : 'below';
-    return `<tr>
-      <td>${r.site.name}</td>
+    return `<tr${inNetwork(r.site)?'':' style="opacity:.75"'}>
+      <td>${r.site.name}${inNetwork(r.site)?'':' <span style="font-size:.75em;color:#8a6d12">(not in totals)</span>'}</td>
       <td>${fmt(u)}</td>
       ${paceCell(r.pace)}
       <td class="cell ${pvC}">${u ? pv.toFixed(2) : '–'}</td>
@@ -825,13 +841,13 @@ function renderScorecard(results){
     </tr>`;
   }).join('');
 
-  const T = ok.reduce((a,r)=>({
+  const T = ok.filter(r=>inNetwork(r.site)).reduce((a,r)=>({
     u:a.u+r.today.users, e:a.e+r.today.events, v:a.v+r.today.views,
     a30:a.a30 + (r.avg ? r.avg.users : 0)
   }), {u:0,e:0,v:0,a30:0});
   const tpv = T.u ? T.v/T.u : 0, tev = T.u ? T.e/T.u : 0;
   const tvs = T.a30 ? ((T.u-T.a30)/T.a30)*100 : null;
-  const net = networkPace(ok);
+  const net = networkPace(ok.filter(r=>inNetwork(r.site)));
   const paceHdr = net && !net.waiting ? 'Pace by '+hourLabel(net.h) : 'Hourly pace';
 
   $('scoreTable').innerHTML = `
@@ -862,8 +878,8 @@ function renderScorecard(results){
 
 /* ============ RENDER ============ */
 function cardHTML(site, rank){
-  return `<div class="card" id="card-${site.prop}">
-    <h3><span><span class="rank">#${rank}</span>${site.name}</span> <span class="rt hidden" id="rt-${site.prop}"><span class="dot"></span><span id="rtv-${site.prop}">0</span> live</span></h3>
+  return `<div class="card" id="card-${site.prop}"${inNetwork(site)?'':' style="border-top-color:#c9a227"'}>
+    <h3><span><span class="rank">${inNetwork(site)?'#'+rank:'·'}</span>${site.name}${inNetwork(site)?'':' <span style="font-family:Lato,sans-serif;font-size:.62em;font-weight:700;color:#8a6d12;background:#f7efd8;border-radius:20px;padding:2px 8px;vertical-align:middle">not in totals</span>'}</span> <span class="rt hidden" id="rt-${site.prop}"><span class="dot"></span><span id="rtv-${site.prop}">0</span> live</span></h3>
     <div class="metrics">
       <div class="m"><div class="k">Visitors</div><div class="v" id="u-${site.prop}">–</div><div class="d" id="ud-${site.prop}"></div></div>
       <div class="m"><div class="k">Events</div><div class="v" id="e-${site.prop}">–</div><div class="d" id="ed-${site.prop}"></div></div>
@@ -955,7 +971,7 @@ async function loadAll(){
   }));
 
   // 2. Sort: most visitors today first (errored sites sink to the bottom)
-  results.sort((a,b)=> (b.err?-1:b.today.users) - (a.err?-1:a.today.users));
+  results.sort((a,b)=> (inNetwork(b.site)-inNetwork(a.site)) || ((b.err?-1:b.today.users) - (a.err?-1:a.today.users)));
   lastResults = results;
 
   // 3. Render cards in ranked order
@@ -994,12 +1010,12 @@ async function loadAll(){
       $('ud-'+site.prop).textContent=du.txt; $('ud-'+site.prop).className='d '+du.cls;
       $('ed-'+site.prop).textContent=de.txt; $('ed-'+site.prop).className='d '+de.cls;
       $('vd-'+site.prop).textContent=dv.txt; $('vd-'+site.prop).className='d '+dv.cls;
-      Y.u+=r.yest.users; Y.e+=r.yest.events; Y.v+=r.yest.views;
+      if(inNetwork(site)){ Y.u+=r.yest.users; Y.e+=r.yest.events; Y.v+=r.yest.views; }
     }
     if(r.live>0){ $('rt-'+site.prop).classList.remove('hidden'); $('rtv-'+site.prop).textContent=r.live; }
 
     renderSpark(site, r.spark);
-    T.u+=r.today.users; T.e+=r.today.events; T.v+=r.today.views; T.live+=r.live; T.v30+=r.views30;
+    if(inNetwork(site)){ T.u+=r.today.users; T.e+=r.today.events; T.v+=r.today.views; T.live+=r.live; T.v30+=r.views30; }
   });
 
   $('tUsers').textContent=fmt(T.u); $('tEvents').textContent=fmt(T.e);
