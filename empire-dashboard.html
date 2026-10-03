@@ -306,10 +306,12 @@ let cfg = JSON.parse(localStorage.getItem(LS_KEY) || '{"clientId":"","sites":[]}
    network:false = shown with its own card but left out of every network total, goal and 30-day benchmark. */
 const NEW_SITES = [
   {name:'TopETFs', prop:'556133383'},
-  {name:'PhotonicsETFs', prop:'557085792'},
   {name:'DividendProjection', prop:'555927902'},
   {name:'WellingtonList', prop:'557170838', network:false}
 ];
+// Sites taken off the dashboard (also cleared from saved config)
+const REMOVED_PROPS = ['557085792']; // PhotonicsETFs, paused Oct 2026
+cfg.sites = cfg.sites.filter(s=>!REMOVED_PROPS.includes(String(s.prop)));
 NEW_SITES.forEach(n=>{
   const ex = cfg.sites.find(s=>String(s.prop)===n.prop);
   if(!ex) cfg.sites.push({...n});
