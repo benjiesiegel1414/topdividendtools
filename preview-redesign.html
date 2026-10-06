@@ -141,7 +141,7 @@
 
         /* cards */
         .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
-        .card { display: flex; flex-direction: column; gap: 10px; padding: 18px; border-radius: var(--r); background: #fff; border: 1px solid var(--line); transition: border-color .15s, box-shadow .15s; }
+        .card { display: flex; flex-direction: column; gap: 10px; padding: 18px; border-radius: var(--r); background: #fff; border: 1px solid var(--line); cursor: pointer; transition: border-color .15s, box-shadow .15s; }
         .card:hover { border-color: var(--green); box-shadow: 0 4px 18px rgba(16,28,20,.07); }
         .card.is-feat { border: 2px solid var(--gold); background: linear-gradient(180deg, #fffdf2 0%, #fff 60%); }
         .card .row1 { display: flex; align-items: center; gap: 12px; }
@@ -617,6 +617,7 @@ function render() {
         v.addEventListener('click', () => trackVisitFromList(tool.name, tool.website));
         links.appendChild(det); links.appendChild(v); foot.appendChild(links);
         card.appendChild(foot);
+        card.addEventListener('click', e => { if (e.target.closest('a, button, input, label, select')) return; if (window.getSelection && String(window.getSelection())) return; openToolDetail(tool); });
         grid.appendChild(card);
     });
 }
