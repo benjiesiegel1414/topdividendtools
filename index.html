@@ -109,7 +109,12 @@
         .star { color: #b89500; }
 
         /* category tiles */
-        .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+        .tiles { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; container: tiles / inline-size; }
+        .tiles > * { flex: 0 0 100%; min-width: 0; }
+        @container tiles (min-width: 452px) { .tiles > * { flex-basis: calc((100% - 12px) / 2); } }
+        @container tiles (min-width: 684px) { .tiles > * { flex-basis: calc((100% - 24px) / 3); } }
+        @container tiles (min-width: 916px) { .tiles > * { flex-basis: calc((100% - 36px) / 4); } }
+        @container tiles (min-width: 1148px) { .tiles > * { flex-basis: calc((100% - 48px) / 5); } }
         .tile { display: flex; align-items: center; gap: 14px; padding: 16px; border-radius: 12px; border: 1px solid var(--line); background: #fbfcfb; cursor: pointer; text-align: left; color: var(--ink); transition: border-color .15s, background .15s; }
         .tile:hover, .tile.on { border-color: var(--green); background: #fff; }
         .tile.on { box-shadow: 0 0 0 2px rgba(21,37,20,.15); }
@@ -118,7 +123,12 @@
         .tile .n { display: block; font-size: 12px; color: var(--ink-3); font-weight: 500; }
 
         /* featured */
-        .feat { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+        .feat { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; container: feat / inline-size; }
+        .feat > * { flex: 0 0 100%; min-width: 0; }
+        @container feat (min-width: 474px) { .feat > * { flex-basis: calc((100% - 14px) / 2); } }
+        @container feat (min-width: 718px) { .feat > * { flex-basis: calc((100% - 28px) / 3); } }
+        @container feat (min-width: 962px) { .feat > * { flex-basis: calc((100% - 42px) / 4); } }
+        @container feat (min-width: 1140px) { .feat > * { flex-basis: calc((100% - 56px) / 5); } }
         .fcard { display: flex; flex-direction: column; gap: 10px; padding: 18px; border-radius: var(--r); background: var(--gold-soft); border: 2px solid var(--gold); color: var(--ink); text-decoration: none; min-height: 150px; cursor: pointer; text-align: left; transition: transform .15s, box-shadow .15s; }
         .fcard:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
         .fcard .top { display: flex; align-items: center; justify-content: space-between; }
@@ -139,7 +149,10 @@
         .count { font-size: 13px; color: var(--ink-3); }
 
         /* cards */
-        .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+        .cards { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; container: cards / inline-size; }
+        .cards > * { flex: 0 0 100%; min-width: 0; }
+        @container cards (min-width: 614px) { .cards > * { flex-basis: calc((100% - 14px) / 2); } }
+        @container cards (min-width: 928px) { .cards > * { flex-basis: calc((100% - 28px) / 3); } }
         .card { display: flex; flex-direction: column; gap: 10px; padding: 18px; border-radius: var(--r); background: #fff; border: 1px solid var(--line); cursor: pointer; transition: border-color .15s, box-shadow .15s; }
         .card:hover { border-color: var(--green); box-shadow: 0 4px 18px rgba(16,28,20,.07); }
         .card.is-feat { border: 2px solid var(--gold); background: linear-gradient(180deg, #fffdf2 0%, #fff 60%); }
@@ -200,9 +213,15 @@
         .panel { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 24px; }
         .panel h2 { margin: 0 0 12px; font-size: 18px; font-weight: 800; }
         .panel p { margin: 0 0 10px; color: var(--ink-2); }
-        .glance { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 10px 16px; font-size: 14px; }
-        .glance dt { color: var(--ink-3); }
-        .glance dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; }
+        .glance { margin: 0; display: flex; flex-direction: column; text-align: center; }
+        .glance .g-row { padding: 14px 4px; border-top: 1px solid var(--line); display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .glance .g-row:first-child { border-top: 0; padding-top: 4px; }
+        .glance dt { color: var(--ink-3); font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+        .glance dd { margin: 0; font-weight: 700; font-size: 15px; line-height: 1.45; color: var(--ink); overflow-wrap: anywhere; max-width: 100%; }
+        .glance .g-price dd { background: var(--green-soft); color: var(--green); border-radius: 12px; padding: 8px 14px; font-size: 14.5px; }
+        .glance .chips { justify-content: center; }
+        .glance + .checked { text-align: center; border-top: 1px solid var(--line); padding-top: 12px; }
+        #d-glanceH { text-align: center; }
         .d-over p { font-size: 15.5px; line-height: 1.7; }
         .feats { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px 18px; }
         .feats li { position: relative; padding-left: 28px; color: var(--ink-2); font-size: 14.5px; line-height: 1.45; }
@@ -217,7 +236,10 @@
         .chips span { font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: #f0f4f1; color: var(--ink-2); }
         .checked { margin-top: 12px; font-size: 12px; color: var(--ink-3); }
         body.on-detail .ftr .banner { display: none; }
-        .alts { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+        .alts { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; container: alts / inline-size; }
+        .alts > * { flex: 0 0 100%; min-width: 0; }
+        @container alts (min-width: 412px) { .alts > * { flex-basis: calc((100% - 12px) / 2); } }
+        @container alts (min-width: 624px) { .alts > * { flex-basis: calc((100% - 24px) / 3); } }
         .alts button { text-align: left; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--line); background: #fff; cursor: pointer; display: flex; flex-direction: column; gap: 3px; color: var(--ink); }
         .alts button:hover { border-color: var(--green); }
         .alts small { color: var(--ink-3); font-size: 12.5px; }
@@ -374,13 +396,13 @@
             </div>
             <aside class="r" aria-label="Details">
                 <section class="panel">
-                    <h2>At a glance</h2>
+                    <h2 id="d-glanceH">At a glance</h2>
                     <dl class="glance">
-                        <dt>Pricing</dt><dd id="detail-pricing"></dd>
-                        <dt class="d-plat">Platforms</dt><dd class="d-plat"><div class="chips" id="d-plat"></div></dd>
-                        <dt class="d-sync">Brokerage sync</dt><dd class="d-sync" id="d-sync"></dd>
-                        <dt>Website</dt><dd class="mono" id="d-dom" style="font-size:13px"></dd>
-                        <dt>Categories</dt><dd id="detail-category"></dd>
+                        <div class="g-row g-price"><dt>Pricing</dt><dd id="detail-pricing"></dd></div>
+                        <div class="g-row d-plat"><dt>Platforms</dt><dd><div class="chips" id="d-plat"></div></dd></div>
+                        <div class="g-row d-sync"><dt>Brokerage sync</dt><dd id="d-sync"></dd></div>
+                        <div class="g-row"><dt>Website</dt><dd class="mono" id="d-dom" style="font-size:13px"></dd></div>
+                        <div class="g-row"><dt>Categories</dt><dd id="detail-category"></dd></div>
                     </dl>
                     <p class="checked" id="d-checked"></p>
                 </section>
