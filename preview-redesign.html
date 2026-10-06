@@ -204,6 +204,20 @@
         .glance { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 10px 16px; font-size: 14px; }
         .glance dt { color: var(--ink-3); }
         .glance dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; }
+        .d-over p { font-size: 15.5px; line-height: 1.7; }
+        .feats { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px 18px; }
+        .feats li { position: relative; padding-left: 28px; color: var(--ink-2); font-size: 14.5px; line-height: 1.45; }
+        .feats li::before { content: ""; position: absolute; left: 0; top: 1px; width: 18px; height: 18px; border-radius: 50%; background: var(--free-bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2314572f' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center/11px no-repeat; }
+        .fit { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+        .fit h3 { margin: 0 0 10px; font-size: 14px; font-weight: 800; letter-spacing: .3px; text-transform: uppercase; color: var(--ink-3); }
+        .fit ul { margin: 0; padding-left: 18px; color: var(--ink-2); font-size: 14.5px; }
+        .fit li { margin-bottom: 6px; }
+        .fit .good li::marker { color: #2E7D4F; } .fit .mind li::marker { color: var(--gold-ink); }
+        @media (max-width: 640px) { .fit { grid-template-columns: 1fr; } }
+        .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+        .chips span { font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: #f0f4f1; color: var(--ink-2); }
+        .checked { margin-top: 12px; font-size: 12px; color: var(--ink-3); }
+        body.on-detail .ftr .banner { display: none; }
         .alts { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
         .alts button { text-align: left; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--line); background: #fff; cursor: pointer; display: flex; flex-direction: column; gap: 3px; color: var(--ink); }
         .alts button:hover { border-color: var(--green); }
@@ -339,10 +353,20 @@
         <div class="cols">
             <div class="l">
                 <section class="panel">
-                    <h2>Overview</h2>
-                    <p id="d-over"></p>
-                    <h2 style="font-size:16px; margin-top:16px;">Key feature</h2>
-                    <p id="detail-keyfeature"></p>
+                    <h2 id="d-overH">Overview</h2>
+                    <div class="d-over" id="d-over"></div>
+                    <div id="d-kfWrap"><h2 style="font-size:16px; margin-top:16px;">Key feature</h2>
+                    <p id="detail-keyfeature"></p></div>
+                </section>
+                <section class="panel" id="d-featWrap">
+                    <h2 id="d-featH">What you can do</h2>
+                    <ul class="feats" id="d-feats"></ul>
+                </section>
+                <section class="panel" id="d-fitWrap">
+                    <div class="fit">
+                        <div class="good" id="d-goodWrap"><h3>Best for</h3><ul id="d-good"></ul></div>
+                        <div class="mind" id="d-mindWrap"><h3>Good to know</h3><ul id="d-mind"></ul></div>
+                    </div>
                 </section>
                 <section class="panel" id="d-altsWrap">
                     <h2 id="d-altsH">Alternatives</h2>
@@ -354,9 +378,12 @@
                     <h2>At a glance</h2>
                     <dl class="glance">
                         <dt>Pricing</dt><dd id="detail-pricing"></dd>
+                        <dt class="d-plat">Platforms</dt><dd class="d-plat"><div class="chips" id="d-plat"></div></dd>
+                        <dt class="d-sync">Brokerage sync</dt><dd class="d-sync" id="d-sync"></dd>
                         <dt>Website</dt><dd class="mono" id="d-dom" style="font-size:13px"></dd>
                         <dt>Categories</dt><dd id="detail-category"></dd>
                     </dl>
+                    <p class="checked" id="d-checked"></p>
                 </section>
                 <section class="getfeat">
                     <h2><span class="star">&#9733;</span> Is this your tool?</h2>
@@ -430,6 +457,7 @@ const MAIN_CATS = [
 ];
 
 let toolDataStore = [];
+let toolDetails = {};
 let currentTool = null;
 let activeCategory = '';
 let activePrice = '';
@@ -460,8 +488,10 @@ function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.
 
 async function loadData() {
     try {
+        const detP = fetch('/tool-details.json?v=1').then(r => r.ok ? r.json() : {}).catch(() => ({}));
         const res = await fetch(CSV_URL + '&t=' + Date.now());
         buildStore(await res.text());
+        toolDetails = (await detP) || {};
         document.getElementById('loading').style.display = 'none';
         renderStats(); renderTiles(); renderFeatured(); render();
         handleHashChange();
@@ -639,9 +669,27 @@ function openToolDetail(tool) {
     tags.appendChild(el('span', 'price' + (free ? ' free' : ''), priceLabel(tool.pricing)));
     if (tool.isPremium) tags.appendChild(el('span', 'feat-badge', '★ FEATURED'));
     tool.categories.forEach(c => tags.appendChild(el('span', null, c)));
-    document.getElementById('d-over').textContent = tool.name + (tool.bestFor ? ' is best for ' + tool.bestFor.replace(/\.$/, '').replace(/^./, c => c.toLowerCase()) + '.' : ' is listed in the ' + mainCat + ' category.');
+    const det = toolDetails[slugify(tool.name)] || null;
+    const over = document.getElementById('d-over'); over.innerHTML = '';
+    if (det && det.overview) det.overview.split(/\n\n+/).forEach(p => over.appendChild(el('p', null, p)));
+    else over.appendChild(el('p', null, tool.name + (tool.bestFor ? ' is best for ' + tool.bestFor.replace(/\.$/, '').replace(/^./, c => c.toLowerCase()) + '.' : ' is listed in the ' + mainCat + ' category.')));
+    document.getElementById('d-overH').textContent = 'What is ' + tool.name.replace(/\s+-\s+.*$/, '') + '?';
+    document.getElementById('d-kfWrap').style.display = (det && det.features && det.features.length) ? 'none' : '';
     document.getElementById('detail-keyfeature').textContent = tool.keyFeature || 'See the website for details.';
-    document.getElementById('detail-pricing').textContent = priceLabel(tool.pricing);
+    const fill = (id, arr) => { const u = document.getElementById(id); u.innerHTML = ''; (arr || []).forEach(x => u.appendChild(el('li', null, x))); return (arr || []).length; };
+    document.getElementById('d-featWrap').style.display = fill('d-feats', det && det.features) ? '' : 'none';
+    const g = fill('d-good', det && det.goodFor), m = fill('d-mind', det && det.consider);
+    document.getElementById('d-goodWrap').style.display = g ? '' : 'none';
+    document.getElementById('d-mindWrap').style.display = m ? '' : 'none';
+    document.getElementById('d-fitWrap').style.display = (g || m) ? '' : 'none';
+    document.getElementById('detail-pricing').textContent = (det && det.pricing) || priceLabel(tool.pricing);
+    const plat = document.getElementById('d-plat'); plat.innerHTML = '';
+    ((det && det.platforms) || []).forEach(p => plat.appendChild(el('span', null, p)));
+    document.querySelectorAll('.d-plat').forEach(x => x.style.display = plat.children.length ? '' : 'none');
+    const sync = det && /^(yes|no)$/i.test(det.brokerageSync || '') ? det.brokerageSync : '';
+    document.getElementById('d-sync').textContent = sync;
+    document.querySelectorAll('.d-sync').forEach(x => x.style.display = sync ? '' : 'none');
+    document.getElementById('d-checked').textContent = det ? 'Profile last checked ' + (det.checked || 'October 2026') + '. Pricing can change, confirm on the tool\u2019s site.' : '';
     document.getElementById('d-dom').textContent = domainOf(tool.website);
     document.getElementById('detail-category').textContent = tool.categories.join(', ') || 'N/A';
     const v = document.getElementById('detail-visit-link'); v.href = toolUrl(tool.website); v.textContent = 'Visit ' + domainOf(tool.website) + ' ↗';
@@ -653,6 +701,7 @@ function openToolDetail(tool) {
     updateTray();
     document.getElementById('listPage').style.display = 'none';
     document.getElementById('detailPage').style.display = 'block';
+    document.body.classList.add('on-detail');
     window.scrollTo(0, 0);
     const slug = slugify(tool.name);
     if (location.hash !== '#/tool/' + slug) history.pushState({ tool: tool.name }, '', '#/tool/' + slug);
@@ -665,6 +714,7 @@ function openToolDetail(tool) {
 function showList(push) {
     document.getElementById('detailPage').style.display = 'none';
     document.getElementById('listPage').style.display = 'block';
+    document.body.classList.remove('on-detail');
     document.title = 'Top Dividend Investing Tools 2026';
     window.scrollTo(0, 0);
     if (push !== false) history.pushState({}, '', location.pathname);
