@@ -566,6 +566,9 @@ async function loadData() {
 function buildStore(csv) {
     const rows = parseCSV(csv);
     toolDataStore = [];
+    /* Featured comes from the sheet's "Featured" column (yes = paid, house = our own picks).
+       Older sheets without that column fall back to the first PREMIUM_SLOTS rows. */
+    const featCol = (rows[0] || []).map(h => String(h).trim().toLowerCase()).indexOf('featured');
     for (let i = 1; i < rows.length; i++) {
         const cols = rows[i];
         while (cols.length < 6) cols.push('');
@@ -573,7 +576,7 @@ function buildStore(csv) {
         if (!name) continue;
         toolDataStore.push({
             website, name, category, bestFor, keyFeature, pricing,
-            isPremium: i <= PREMIUM_SLOTS,
+            isPremium: featCol >= 0 ? ['yes', 'house'].includes(String(cols[featCol] || '').trim().toLowerCase()) : i <= PREMIUM_SLOTS,
             categories: category ? category.split(',').map(c => c.trim()).filter(Boolean) : []
         });
     }
@@ -663,7 +666,7 @@ function render() {
         if (tool.isPremium) {
             const badge = document.createElement('span');
             badge.className = 'badge-sponsored';
-            badge.textContent = 'SPONSORED';
+            badge.textContent = '\u2605 FEATURED';
             top.appendChild(badge);
         }
         card.appendChild(top);

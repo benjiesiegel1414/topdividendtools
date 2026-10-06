@@ -14,337 +14,411 @@
       gtag('config', 'G-VLEK3HKD84');
     </script>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Submit a Tool – Top Dividend Investing Tools</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body {
-      font-family: 'Inter', sans-serif;
-      background: #f8f9fa;
-      color: #000;
-      min-height: 100vh;
-    }
-    :root {
-      --green: #152514;
-      --green-dark: #0d1a0f;
-      --gold: #FFD700;
-      --blue: #0066cc;
-      --blue-hover: #0055aa;
-    }
-    header {
-      background: #1a3224;
-      padding: 40px 20px;
-      text-align: center;
-      position: relative;
-      box-shadow: 0 4px 20px rgba(0,0,0,.3);
-      background-image: url('https://www.transparenttextures.com/patterns/noise.png');
-      background-blend-mode: overlay;
-    }
-    .logo {
-      max-width: 380px;
-      width: 90%;
-      height: auto;
-    }
-    .back-btn,
-    .advertise-btn {
-      position: absolute;
-      top: 35px;
-      padding: 10px 18px;
-      border-radius: 12px;
-      font-weight: 900;
-      text-decoration: none;
-      box-shadow: 0 4px 12px rgba(0,0,0,.5);
-      font-size: 0.95rem;
-      z-index: 10;
-    }
-    .back-btn {
-      left: 20px;
-      background: var(--gold);
-      color: #000;
-    }
-    .back-btn:hover { background: #ffed4e; }
-    .advertise-btn {
-      right: 20px;
-      background: var(--blue);
-      color: white;
-    }
-    .advertise-btn:hover { background: var(--blue-hover); }
-    .container {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-    h1 {
-      font-size: 2.4rem;
-      text-align: center;
-      margin: 20px 0;
-      font-weight: 900;
-    }
-    .subtitle {
-      text-align: center;
-      color: #555;
-      margin-bottom: 40px;
-      font-size: 1.2rem;
-    }
-    form {
-      background: white;
-      padding: 40px;
-      border-radius: 16px;
-      box-shadow: 0 10px 40px rgba(0,0,0,.1);
-      border: 1px solid #eee;
-    }
-    label {
-      display: block;
-      margin: 20px 0 8px;
-      font-weight: 700;
-      font-size: 1.05rem;
-    }
-    input, select {
-      width: 100%;
-      padding: 14px 16px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      font-size: 1rem;
-      margin-bottom: 15px;
-    }
-    input:focus, select:focus {
-      outline: none;
-      border-color: var(--green);
-      box-shadow: 0 0 0 3px rgba(21,37,20,.1);
-    }
-    button[type=submit] {
-      margin-top: 30px;
-      width: 100%;
-      padding: 16px;
-      background: var(--green);
-      color: white;
-      border: none;
-      border-radius: 12px;
-      font-size: 1.2rem;
-      font-weight: 900;
-      cursor: pointer;
-      box-shadow: 0 6px 20px rgba(21,37,20,.4);
-      transition: all 0.2s;
-    }
-    button[type=submit]:hover {
-      background: #0d1a0f;
-      transform: translateY(-3px);
-    }
-    .success, .error {
-      padding: 20px;
-      border-radius: 10px;
-      margin-top: 20px;
-      text-align: center;
-      font-weight: 700;
-      display: none;
-    }
-    .success { background: #d4edda; color: #155724; }
-    .error   { background: #f8d7da; color: #721c24; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit a Tool | TopDividendTools.com</title>
+    <meta name="description" content="Submit your dividend or stock market tool to TopDividendTools.com. Free listings are reviewed daily. Fast-Track and Featured placements available.">
+    <link rel="canonical" href="https://topdividendtools.com/submit-tool.html">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-    /* ────────────────────────────────────────────────
-       Improved checkbox styling
-    ──────────────────────────────────────────────── */
-    .checkbox-group {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      margin: 16px 0 32px 0;
-    }
-    .checkbox-label {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 1.05rem;
-      cursor: pointer;
-      padding: 8px 12px;
-      border-radius: 8px;
-      transition: background 0.2s;
-    }
-    .checkbox-label:hover {
-      background: rgba(21, 37, 20, 0.04);
-    }
-    .checkbox-label input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
-      accent-color: var(--green);
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-    @media (max-width: 600px) {
-      .checkbox-label {
-        font-size: 1.1rem;
-        padding: 10px 14px;
-      }
-      .checkbox-label input[type="checkbox"] {
-        width: 24px;
-        height: 24px;
-      }
-    }
-  </style>
+    <style>
+        :root {
+            --green: #152514; --green-mid: #1d3a26; --green-dark: #0d1a0f; --green-soft: #eaf3ec;
+            --gold: #FFD700; --gold-deep: #b89500; --gold-soft: #fff8d6;
+            --paper: #f4f7f4; --ink: #101c14; --ink-soft: #4a5a4f; --line: #dde7de;
+            --err: #b3261e;
+            --shadow-sm: 0 2px 10px rgba(16,28,20,.08); --shadow-md: 0 8px 28px rgba(16,28,20,.14);
+        }
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; font-family: 'Sora', sans-serif; color: var(--ink); background: var(--paper); line-height: 1.55; }
+        a { color: var(--green); }
+
+        header {
+            background-image: url('https://www.transparenttextures.com/patterns/noise.png'), linear-gradient(160deg, #1a3224 0%, #0d1a0f 100%);
+            background-blend-mode: overlay, normal; border-bottom: 3px solid var(--gold);
+        }
+        .header-inner { max-width: 1200px; margin: 0 auto; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+        .site-logo { max-width: 300px; width: 100%; height: auto; display: block; }
+        .hdr-btn { padding: 10px 18px; border-radius: 10px; font-weight: 800; font-size: .85rem; text-decoration: none; white-space: nowrap; background: var(--gold); color: #000; }
+
+        .wrap { max-width: 860px; margin: 0 auto; padding: 34px 18px 60px; }
+        h1 { font-size: clamp(1.7rem, 4vw, 2.4rem); font-weight: 800; text-align: center; margin: 0 0 6px; letter-spacing: -.5px; }
+        .lede { text-align: center; color: var(--ink-soft); margin: 0 auto 24px; max-width: 620px; }
+
+        .steps { display: flex; justify-content: center; gap: 22px; flex-wrap: wrap; margin: 0 0 26px; font-size: .85rem; color: var(--ink-soft); }
+        .steps span { display: flex; align-items: center; gap: 8px; }
+        .steps b { width: 24px; height: 24px; border-radius: 50%; background: var(--green); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: .75rem; }
+
+        form, .done { background: #fff; border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow-md); padding: 30px; }
+        fieldset { border: 0; margin: 0 0 8px; padding: 0; min-width: 0; }
+        legend { font-weight: 800; font-size: 1.05rem; margin-bottom: 14px; padding: 0; }
+        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .field { margin-bottom: 18px; }
+        .field > label, .lbl-row { display: block; font-weight: 700; font-size: .9rem; margin: 0 0 6px; }
+        .field small { font-weight: 400; color: var(--ink-soft); }
+        input[type=text], input[type=url], input[type=email], select, textarea {
+            width: 100%; padding: 12px 14px; border: 1px solid #cfd8d1; border-radius: 10px; font: inherit; font-size: .95rem; background: #fff; color: var(--ink);
+        }
+        textarea { min-height: 90px; resize: vertical; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px rgba(21,37,20,.12); }
+        .hint { font-size: .78rem; color: var(--ink-soft); margin-top: 5px; }
+        .count { float: right; font-weight: 400; color: var(--ink-soft); font-size: .78rem; }
+
+        .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+        .chip { position: relative; }
+        .chip input { position: absolute; opacity: 0; pointer-events: none; }
+        .chip span { display: inline-block; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); font-size: .85rem; font-weight: 600; cursor: pointer; transition: all .15s; }
+        .chip input:checked + span { background: var(--green); color: #fff; border-color: var(--green); }
+        .chip input:focus-visible + span { box-shadow: 0 0 0 3px rgba(21,37,20,.25); }
+
+        hr { border: 0; border-top: 1px solid var(--line); margin: 22px 0 24px; }
+
+        .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        .plan { position: relative; display: block; cursor: pointer; }
+        .plan input { position: absolute; opacity: 0; }
+        .plan .card { height: 100%; border: 2px solid var(--line); border-radius: 14px; padding: 18px 16px 16px; background: #fff; transition: all .15s; }
+        .plan:hover .card { border-color: #b9c9bd; }
+        .plan input:checked + .card { border-color: var(--green); box-shadow: 0 0 0 3px rgba(21,37,20,.12); background: var(--green-soft); }
+        .plan.featured input:checked + .card { border-color: var(--gold-deep); box-shadow: 0 0 0 3px rgba(255,215,0,.35); background: var(--gold-soft); }
+        .plan input:focus-visible + .card { outline: 3px solid var(--green); outline-offset: 2px; }
+        .plan .name { font-weight: 800; font-size: 1rem; display: flex; align-items: center; gap: 6px; }
+        .plan .price { font-size: 1.6rem; font-weight: 800; margin: 6px 0 2px; letter-spacing: -.5px; }
+        .plan .price small { font-size: .8rem; font-weight: 600; color: var(--ink-soft); }
+        .plan ul { margin: 10px 0 0; padding-left: 18px; font-size: .82rem; color: var(--ink-soft); }
+        .plan ul li { margin-bottom: 4px; }
+        .tag { position: absolute; top: -11px; right: 12px; z-index: 1; background: var(--gold); color: #000; font-size: .68rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; padding: 4px 9px; border-radius: 999px; box-shadow: var(--shadow-sm); }
+        .star { color: var(--gold-deep); }
+        .soldout .card { opacity: .55; cursor: not-allowed; }
+        .slots { font-size: .76rem; font-weight: 700; color: var(--gold-deep); margin-top: 8px; }
+
+        .preview { margin-top: 18px; border: 1px dashed #c9d6cc; border-radius: 12px; padding: 14px; background: var(--paper); }
+        .preview .plbl { font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px; }
+        .pcard { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; transition: all .15s; }
+        .pcard.is-featured { border: 2px solid var(--gold); box-shadow: 0 6px 18px rgba(201,164,0,.18); }
+        .pcard .t { font-weight: 800; display: flex; align-items: center; gap: 6px; }
+        .pcard .c { font-size: .78rem; color: var(--ink-soft); margin-top: 2px; }
+        .pcard .b { font-size: .86rem; margin-top: 6px; }
+
+        .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+        .agree { font-size: .8rem; color: var(--ink-soft); margin-top: 18px; }
+        button[type=submit] { margin-top: 14px; width: 100%; padding: 16px; border: 0; border-radius: 12px; background: var(--green); color: #fff; font: inherit; font-size: 1.05rem; font-weight: 800; cursor: pointer; box-shadow: 0 6px 20px rgba(21,37,20,.3); transition: transform .15s, background .15s; }
+        button[type=submit]:hover { background: var(--green-dark); transform: translateY(-2px); }
+        button[disabled] { opacity: .6; cursor: default; transform: none !important; }
+        .error { display: none; margin-top: 14px; padding: 12px 14px; border-radius: 10px; background: #fdecea; color: var(--err); font-weight: 600; font-size: .9rem; }
+
+        .done { display: none; text-align: center; padding: 40px 30px; }
+        .done .big { font-size: 2.6rem; }
+        .done h2 { margin: 6px 0 8px; }
+        .done p { color: var(--ink-soft); max-width: 520px; margin: 0 auto 10px; }
+        .done code { background: var(--paper); padding: 2px 8px; border-radius: 6px; font-size: .85rem; }
+        .done a.btn { display: inline-block; margin-top: 14px; background: var(--green); color: #fff; padding: 12px 22px; border-radius: 10px; font-weight: 700; text-decoration: none; }
+
+        .faq { margin-top: 34px; }
+        .faq h2 { font-size: 1.15rem; margin: 0 0 6px; }
+        .faq h3 { font-size: .98rem; margin: 18px 0 4px; }
+        .faq p { margin: 0; color: var(--ink-soft); font-size: .9rem; }
+
+        footer { text-align: center; padding: 26px 16px 40px; font-size: .85rem; color: var(--ink-soft); }
+
+        @media (max-width: 720px) {
+            .row, .plans { grid-template-columns: 1fr; }
+            .plans { gap: 18px; }
+            form, .done { padding: 22px 16px; }
+            .site-logo { max-width: 200px; }
+        }
+        @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+    </style>
 </head>
 <body>
 
 <header>
-  <a href="/" class="back-btn">Back to List</a>
-  <a href="https://topdividendtools.com/advertise.html" class="advertise-btn">Advertise</a>
-  <img src="https://topdividendtools.com/TopDividennn.png" alt="Top Dividend Tools Logo" class="logo">
+    <div class="header-inner">
+        <a href="/"><img src="https://topdividendtools.com/TopDividennn.png" alt="TopDividendTools.com" class="site-logo"></a>
+        <a href="/" class="hdr-btn">&larr; All Tools</a>
+    </div>
 </header>
 
-<div class="container">
-  <h1>Submit a Dividend Tool For FREE!</h1>
-  <p class="subtitle">Your tool will be reviewed and added if approved.<br>Submission sent securely.</p>
+<main class="wrap">
+    <h1>Submit Your Tool</h1>
+    <p class="lede">Get your dividend or stock market tool in front of thousands of investors every month. Free listings are reviewed daily, or skip the line with Fast-Track or Featured.</p>
 
-  <form id="submitForm">
-    <!-- Spam protection honeypot -->
-    <input type="text" name="_gotcha" style="display:none" />
-
-    <label for="toolName">Tool Name *</label>
-    <input type="text" name="Tool Name" id="toolName" placeholder="e.g. Dividend Tracker Pro" required>
-
-    <label for="website">Website URL *</label>
-    <input 
-      type="text" 
-      name="Website URL" 
-      id="website" 
-      placeholder="toolname.com or https://example.com" 
-      required
-      pattern="^(https?://)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(/.*)?$"
-      title="Please enter a valid website (e.g. toolname.com or https://example.com)"
-      onblur="addHttpsIfNeeded(this)"
-    >
-
-    <label>Categories * <span style="font-weight:normal; color:#555; font-size:0.95rem;">(select all that apply)</span></label>
-    
-    <div class="checkbox-group">
-      <label class="checkbox-label">
-        <input type="checkbox" name="Categories[]" value="Research" required>
-        <span>Research</span>
-      </label>
-      <label class="checkbox-label">
-        <input type="checkbox" name="Categories[]" value="YouTube">
-        <span>YouTube</span>
-      </label>
-      <label class="checkbox-label">
-        <input type="checkbox" name="Categories[]" value="News & Research">
-        <span>News & Research</span>
-      </label>
-      <label class="checkbox-label">
-        <input type="checkbox" name="Categories[]" value="General Stock Market Site">
-        <span>General Stock Market Site</span>
-      </label>
-      <label class="checkbox-label">
-        <input type="checkbox" name="Categories[]" value="Dividend Calculator">
-        <span>Dividend Calculator</span>
-      </label>
-      <label class="checkbox-label">
-        <input type="checkbox" name="Categories[]" value="Dividend Tracker">
-        <span>Dividend Tracker</span>
-      </label>
-      <label class="checkbox-label">
-        <input type="checkbox" name="Categories[]" value="Portfolio Tracker">
-        <span>Portfolio Tracker</span>
-      </label>
-      <label class="checkbox-label">
-        <input type="checkbox" name="Categories[]" value="Other">
-        <span>Other</span>
-      </label>
+    <div class="steps">
+        <span><b>1</b> Tell us about your tool</span>
+        <span><b>2</b> Choose a listing</span>
+        <span><b>3</b> We review it and it goes live</span>
     </div>
 
-    <label for="pricing">Pricing *</label>
-    <select name="Pricing" id="pricing" required>
-      <option value="">Choose...</option>
-      <option>Free</option>
-      <option>Paid</option>
-      <option>Freemium</option>
-    </select>
+    <form id="submitForm" novalidate>
+        <fieldset>
+            <legend>About your tool</legend>
+            <div class="row">
+                <div class="field">
+                    <label for="tool_name">Tool name</label>
+                    <input type="text" id="tool_name" name="tool_name" maxlength="80" placeholder="e.g. Dividend Tracker Pro" required>
+                </div>
+                <div class="field">
+                    <label for="website">Website</label>
+                    <input type="url" id="website" name="website" maxlength="300" placeholder="https://yourtool.com" required>
+                </div>
+            </div>
 
-    <label for="bestFor">Best For * (max 120 characters)</label>
-    <input 
-      type="text" 
-      name="Best For" 
-      id="bestFor" 
-      placeholder="e.g. Beginners tracking monthly dividends" 
-      maxlength="120" 
-      required
-    >
+            <div class="field">
+                <span class="lbl-row" id="catsLabel">Categories <small>(pick up to 3)</small></span>
+                <div class="chips" id="cats" role="group" aria-labelledby="catsLabel">
+                    <label class="chip"><input type="checkbox" value="Dividend Tracker"><span>Dividend Tracker</span></label>
+                    <label class="chip"><input type="checkbox" value="Portfolio Tracker"><span>Portfolio Tracker</span></label>
+                    <label class="chip"><input type="checkbox" value="Dividend Calculator"><span>Dividend Calculator</span></label>
+                    <label class="chip"><input type="checkbox" value="Research"><span>Research</span></label>
+                    <label class="chip"><input type="checkbox" value="News &amp; Research"><span>News &amp; Research</span></label>
+                    <label class="chip"><input type="checkbox" value="General Stock Market Site"><span>General Stock Market Site</span></label>
+                    <label class="chip"><input type="checkbox" value="YouTube"><span>YouTube</span></label>
+                    <label class="chip"><input type="checkbox" value="Other"><span>Other</span></label>
+                </div>
+            </div>
 
-    <label for="submitterEmail">Your Email (optional – for follow-up questions)</label>
-    <input 
-      type="email" 
-      name="_replyto" 
-      id="submitterEmail" 
-      placeholder="you@example.com"
-    >
+            <div class="row">
+                <div class="field">
+                    <label for="pricing">Pricing</label>
+                    <select id="pricing" name="pricing" required>
+                        <option value="">Choose...</option>
+                        <option>Free</option>
+                        <option>Freemium</option>
+                        <option>Paid</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="best_for">Best for <span class="count" id="bfCount">0/60</span></label>
+                    <input type="text" id="best_for" name="best_for" maxlength="60" placeholder="e.g. Tracking dividend income by month">
+                </div>
+            </div>
 
-    <button type="submit">Submit for Review</button>
-  </form>
+            <div class="field">
+                <label for="key_feature">Key feature <span class="count" id="kfCount">0/140</span></label>
+                <input type="text" id="key_feature" name="key_feature" maxlength="140" placeholder="The one thing that makes your tool stand out" required>
+            </div>
 
-  <div id="successMsg" class="success">
-    Thank you, Your tool submission was sent successfully.<br>We'll review it and get back to you if needed!
-  </div>
-  <div id="errorMsg" class="error">
-    Sorry, something went wrong. Please try again or email us directly at <strong>Business@TopDividendETFs.com</strong>.
-  </div>
-</div>
+            <div class="field">
+                <label for="description">Anything else? <small>(optional)</small></label>
+                <textarea id="description" name="description" maxlength="1200" placeholder="Who it is for, what makes it different, free trial details, etc."></textarea>
+            </div>
 
-<footer style="margin-top: auto; padding: 50px 20px; background: #fff; width: 100%; text-align: center; border-top: 6px solid var(--green);">
-  <p>
-    <a href="https://topdividendetfs.com" target="_blank">Top Dividend ETFs</a> | 
-    Contact: <a href="mailto:Business@topdividendETFs.com">Business@topdividendETFs.com</a> | 
-    <a href="/terms.html">Terms of Use</a> | 
-    <a href="/privacy.html">Privacy Policy</a>
-  </p>
-  <div style="font-size: 1.8rem; font-weight: 900; color: var(--green); margin: 30px 0;">
-    The #1 Resource for Dividend Investors!
-  </div>
-  <p style="font-size: 0.85rem; color: #666; margin: 16px auto 0; max-width: 800px; line-height: 1.4; text-align: center;">
-    TopDividendTools.com may contain affiliate links. These are provided at no extra cost to you and help support the site if you make a purchase through them. Thank you for your support!
-  </p>
+            <div class="field">
+                <label for="email">Your email</label>
+                <input type="email" id="email" name="email" maxlength="120" placeholder="you@yourtool.com" required>
+                <div class="hint">Only used to contact you about your listing. Never shown on the site.</div>
+            </div>
+        </fieldset>
+
+        <hr>
+
+        <fieldset>
+            <legend>Choose your listing</legend>
+            <div class="plans">
+                <label class="plan">
+                    <input type="radio" name="plan" value="free" checked>
+                    <div class="card">
+                        <div class="name">Free</div>
+                        <div class="price">$0</div>
+                        <ul>
+                            <li>Standard listing</li>
+                            <li>Reviewed in our daily batch</li>
+                            <li>Live within about 24 hours</li>
+                        </ul>
+                    </div>
+                </label>
+                <label class="plan">
+                    <input type="radio" name="plan" value="fasttrack">
+                    <div class="card">
+                        <div class="name">Fast-Track</div>
+                        <div class="price">$5 <small>one-time</small></div>
+                        <ul>
+                            <li>Skip the queue</li>
+                            <li>Reviewed right after checkout</li>
+                            <li>Usually live in minutes</li>
+                        </ul>
+                    </div>
+                </label>
+                <label class="plan featured" id="featuredPlan">
+                    <span class="tag">Best value</span>
+                    <input type="radio" name="plan" value="featured">
+                    <div class="card">
+                        <div class="name"><span class="star">&#9733;</span> Featured</div>
+                        <div class="price">$5 <small>/ month</small></div>
+                        <ul>
+                            <li>Pinned in the Featured row</li>
+                            <li>Gold star and highlighted card</li>
+                            <li>Fast-Track review included</li>
+                            <li>Cancel anytime</li>
+                        </ul>
+                        <div class="slots" id="slots"></div>
+                    </div>
+                </label>
+            </div>
+
+            <div class="preview" aria-hidden="true">
+                <div class="plbl">Preview</div>
+                <div class="pcard" id="pcard">
+                    <div class="t"><span class="star" id="pStar" hidden>&#9733;</span><span id="pName">Your tool name</span></div>
+                    <div class="c" id="pCats">Category</div>
+                    <div class="b" id="pFeat">Your key feature will show here.</div>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="hp" aria-hidden="true"><label>Leave empty <input type="text" name="website_hp" tabindex="-1" autocomplete="off"></label></div>
+
+        <p class="agree">By submitting you confirm the details are accurate. Every listing is reviewed, and spam, scams and tools unrelated to investing are not published. Paid plans are processed securely by Stripe.</p>
+        <button type="submit" id="submitBtn">Submit Free Listing</button>
+        <div class="error" id="err" role="alert"></div>
+    </form>
+
+    <div class="done" id="done" role="status">
+        <div class="big" id="doneIcon">&#9989;</div>
+        <h2 id="doneTitle">Thanks, we got it!</h2>
+        <p id="doneText"></p>
+        <p id="doneId"></p>
+        <a class="btn" href="/">Browse all tools</a>
+    </div>
+
+    <section class="faq">
+        <h2>Questions</h2>
+        <h3>How does review work?</h3>
+        <p>Every submission is checked to make sure the site loads, is not already listed, and is a real tool or resource for investors. Approved tools are added to the directory automatically.</p>
+        <h3>What does Featured include?</h3>
+        <p>Featured tools sit in a pinned row at the top of the directory with a gold star and a highlighted card for as long as the subscription is active. There are only a few Featured spots, so placement stays valuable.</p>
+        <h3>Can I cancel Featured?</h3>
+        <p>Yes, anytime. Your tool stays listed for free after the Featured period ends.</p>
+        <h3>Already listed and want to be Featured?</h3>
+        <p>Submit your tool again with the Featured plan and the same website, and we will upgrade your existing listing.</p>
+    </section>
+</main>
+
+<footer>
+    <a href="/">Home</a> | <a href="/advertise.html">Advertise</a> | <a href="/terms.html">Terms</a> | <a href="/privacy.html">Privacy</a><br>
+    Questions? <a href="mailto:Business@topdividendETFs.com">Business@topdividendETFs.com</a>
 </footer>
 
 <script>
-function addHttpsIfNeeded(input) {
-  let val = input.value.trim();
-  if (!val || val.match(/^https?:\/\//i)) return;
-  if (val.match(/^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}/i) || val.match(/^www\./i)) {
-    input.value = 'https://' + val;
-  }
+/* ===== settings ===== */
+var ENDPOINT = 'https://script.google.com/macros/s/AKfycbxAGowJRCLCzHGUpuIj_U-Ru97TH6pBe4z2a2vjcrvQDzeL7qPJrj7O5ccUzJMVO3ObcA/exec';
+var LINKS = { featured: 'https://buy.stripe.com/7sY5kEaQJ9OC3zNcx21Fe06', fasttrack: 'https://buy.stripe.com/6oU8wQ6At6Cqeer68E1Fe07' };   // Stripe Payment Links
+/* ==================== */
+
+var form = document.getElementById('submitForm');
+var btn = document.getElementById('submitBtn');
+var err = document.getElementById('err');
+var cats = [].slice.call(document.querySelectorAll('#cats input'));
+var labels = { free: 'Submit Free Listing', fasttrack: 'Continue to Checkout ($5)', featured: 'Continue to Checkout ($5/month)' };
+
+function plan() { return (form.querySelector('input[name=plan]:checked') || {}).value || 'free'; }
+function newId() {
+    var d = new Date(), p = function (n) { return ('0' + n).slice(-2); };
+    var r = '', a = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    for (var i = 0; i < 5; i++) r += a[Math.floor(Math.random() * a.length)];
+    return 'TDT-' + String(d.getFullYear()).slice(2) + p(d.getMonth() + 1) + p(d.getDate()) + '-' + r;
+}
+function showError(m) { err.textContent = m; err.style.display = 'block'; }
+function track(name, params) { try { if (typeof gtag === 'function') gtag('event', name, params || {}); } catch (e) {} }
+function showDone(icon, title, text, idHtml) {
+    form.style.display = 'none';
+    var d = document.getElementById('done'); d.style.display = 'block';
+    document.getElementById('doneIcon').innerHTML = icon;
+    document.getElementById('doneTitle').textContent = title;
+    document.getElementById('doneText').textContent = text;
+    document.getElementById('doneId').innerHTML = idHtml || '';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-const form = document.getElementById('submitForm');
-const successMsg = document.getElementById('successMsg');
-const errorMsg = document.getElementById('errorMsg');
-
-form.addEventListener('submit', async function(e) {
-  e.preventDefault();
-
-  successMsg.style.display = 'none';
-  errorMsg.style.display = 'none';
-
-  const data = new FormData(form);
-
-  try {
-    const response = await fetch('https://formspree.io/f/mvzzplqy', {
-      method: 'POST',
-      body: data,
-      headers: { 'Accept': 'application/json' }
+/* live preview + counters */
+function updatePreview() {
+    var name = document.getElementById('tool_name').value.trim();
+    var kf = document.getElementById('key_feature').value.trim();
+    var bf = document.getElementById('best_for').value;
+    var picked = cats.filter(function (c) { return c.checked; }).map(function (c) { return c.value; });
+    document.getElementById('pName').textContent = name || 'Your tool name';
+    document.getElementById('pCats').textContent = picked.length ? picked.join(' · ') : 'Category';
+    document.getElementById('pFeat').textContent = kf || 'Your key feature will show here.';
+    document.getElementById('bfCount').textContent = bf.length + '/60';
+    document.getElementById('kfCount').textContent = kf.length + '/140';
+    var f = plan() === 'featured';
+    document.getElementById('pcard').classList.toggle('is-featured', f);
+    document.getElementById('pStar').hidden = !f;
+    if (!btn.disabled) btn.textContent = labels[plan()];
+}
+form.addEventListener('input', updatePreview);
+form.addEventListener('change', updatePreview);
+cats.forEach(function (c) {
+    c.addEventListener('change', function () {
+        if (cats.filter(function (x) { return x.checked; }).length > 3) { c.checked = false; showError('Pick up to 3 categories.'); }
+        else err.style.display = 'none';
     });
-
-    if (response.ok) {
-      successMsg.style.display = 'block';
-      form.reset();
-      setTimeout(() => successMsg.style.display = 'none', 8000);
-    } else {
-      throw new Error('Server responded with error');
-    }
-  } catch (err) {
-    errorMsg.style.display = 'block';
-    setTimeout(() => errorMsg.style.display = 'none', 10000);
-  }
 });
-</script>
 
+/* Featured slots left */
+fetch(ENDPOINT).then(function (r) { return r.json(); }).then(function (d) {
+    var left = d.featuredLeft, el = document.getElementById('slots');
+    if (left === 0) {
+        var fp = document.getElementById('featuredPlan'); fp.classList.add('soldout');
+        fp.querySelector('input').disabled = true; el.textContent = 'Sold out. Check back soon.';
+    } else if (left <= 3) { el.textContent = 'Only ' + left + ' spot' + (left === 1 ? '' : 's') + ' left'; }
+}).catch(function () {});
+
+/* back from Stripe */
+if (new URLSearchParams(location.search).get('paid') === '1') {
+    showDone('&#127881;', 'Payment received, thank you!', 'Your tool is being reviewed now. Most paid listings go live within minutes of checkout.');
+    track('tool_submit_paid_return');
+}
+
+form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    err.style.display = 'none';
+    var name = document.getElementById('tool_name').value.trim();
+    var site = document.getElementById('website').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var picked = cats.filter(function (c) { return c.checked; }).map(function (c) { return c.value; });
+    if (!name) return showError('Please enter your tool name.');
+    if (!/^(https?:\/\/)?[^\s.]+\.[^\s]{2,}$/i.test(site)) return showError('Please enter a valid website address.');
+    if (!picked.length) return showError('Please pick at least one category.');
+    if (!document.getElementById('pricing').value) return showError('Please choose a pricing option.');
+    if (!document.getElementById('key_feature').value.trim()) return showError('Please describe your key feature.');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return showError('Please enter a valid email address.');
+
+    var p = plan(), id = newId();
+    var body = new URLSearchParams();
+    body.append('id', id); body.append('plan', p);
+    body.append('tool_name', name); body.append('website', site);
+    body.append('categories', picked.join(','));
+    ['pricing', 'best_for', 'key_feature', 'description', 'email', 'website_hp'].forEach(function (k) { body.append(k, form.elements[k].value.trim()); });
+    body.append('page', location.href);
+
+    btn.disabled = true; btn.textContent = p === 'free' ? 'Submitting...' : 'Saving your listing...';
+
+    fetch(ENDPOINT, { method: 'POST', body: body })
+        .then(function (r) { return r.json(); })
+        .catch(function () { return { ok: true, id: id, plan: p }; })   // response unreadable: the row is still saved
+        .then(function (res) {
+            if (!res || res.ok === false) throw new Error((res && res.error) || 'Something went wrong.');
+            var finalPlan = res.plan || p, sid = res.id || id;
+            track('tool_submit', { plan: finalPlan });
+            var link = LINKS[finalPlan];
+            if (finalPlan !== 'free' && link && link.indexOf('http') === 0) {
+                location.href = link + (link.indexOf('?') > -1 ? '&' : '?') +
+                    'client_reference_id=' + encodeURIComponent(sid) + '&prefilled_email=' + encodeURIComponent(email);
+                return;
+            }
+            showDone('&#9989;', 'Thanks, we got it!', 'Your free listing is in the review queue. Approved tools are added to the directory in our daily review, usually within 24 hours.', 'Reference: <code>' + sid + '</code>');
+        })
+        .catch(function (e2) {
+            btn.disabled = false; btn.textContent = labels[plan()];
+            showError(e2.message || 'Something went wrong. Please try again.');
+        });
+});
+updatePreview();
+</script>
 </body>
 </html>
