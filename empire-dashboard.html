@@ -302,9 +302,16 @@ table.score tfoot td{border-top:2px solid var(--line);border-bottom:none;backgro
 /* ============ CONFIG STORAGE ============ */
 const LS_KEY='empire_dash_cfg';
 let cfg = JSON.parse(localStorage.getItem(LS_KEY) || '{"clientId":"","sites":[]}');
-/* Sites added Oct 2026, merged in automatically by property ID so nothing needs re-entering.
+/* Every site, merged in automatically by property ID so nothing needs re-entering (even if browser storage is cleared).
    network:false = shown with its own card but left out of every network total, goal and 30-day benchmark. */
 const NEW_SITES = [
+  {name:'TopDividendETFs', prop:'506940918'},
+  {name:'WeeklyETFs', prop:'515350992'},
+  {name:'MonthlyETFs', prop:'524932241'},
+  {name:'GrowthETFs', prop:'526080171'},
+  {name:'TopDividendETFsPRO', prop:'533862803'},
+  {name:'ETFTotalReturns', prop:'535777281'},
+  {name:'TopDividendTools', prop:'521419190'},
   {name:'TopETFs', prop:'556133383'},
   {name:'DividendProjection', prop:'555927902'},
   {name:'WellingtonList', prop:'557170838', network:false}
