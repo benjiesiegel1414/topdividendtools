@@ -509,7 +509,7 @@ function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.
 
 async function loadData() {
     try {
-        const detP = fetch('/tool-details.json?v=1').then(r => r.ok ? r.json() : {}).catch(() => ({}));
+        const detP = fetch('/tool-details.json?v=2').then(r => r.ok ? r.json() : {}).catch(() => ({}));
         const res = await fetch(CSV_URL + '&t=' + Date.now());
         buildStore(await res.text());
         toolDetails = (await detP) || {};
