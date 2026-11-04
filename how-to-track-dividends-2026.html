@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9929351005136304"
+     crossorigin="anonymous"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VLEK3HKD84"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-VLEK3HKD84');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <title>How to Track Dividends in 2026: Spreadsheet vs App</title>
+    <meta name="description" content="How to track your dividends in 2026, step by step: the 5 numbers that matter, a free spreadsheet setup, and the best dividend tracker apps with real pricing.">
+    <link rel="canonical" href="https://topdividendtools.com/how-to-track-dividends-2026.html">
+
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:title" content="How to Track Dividends in 2026: Spreadsheet vs App">
+    <meta property="og:description" content="How to track your dividends in 2026, step by step: the 5 numbers that matter, a free spreadsheet setup, and the best dividend tracker apps with real pricing.">
+    <meta property="og:image" content="https://topdividendtools.com/og-image.png">
+    <meta property="og:url" content="https://topdividendtools.com/how-to-track-dividends-2026.html">
+    <meta property="og:type" content="article">
+
+    <!-- Twitter/X Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How to Track Dividends in 2026: Spreadsheet vs App">
+    <meta name="twitter:description" content="How to track your dividends in 2026, step by step: the 5 numbers that matter, a free spreadsheet setup, and the best dividend tracker apps with real pricing.">
+    <meta name="twitter:image" content="https://topdividendtools.com/og-image.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Track Dividends in 2026: Spreadsheet vs App",
+  "description": "How to track your dividends in 2026, step by step: the 5 numbers that matter, a free spreadsheet setup, and the best dividend tracker apps with real pricing.",
+  "image": "https://topdividendtools.com/og-image.png",
+  "author": {
+    "@type": "Person",
+    "name": "Benjamin Siegel"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "TopDividendTools.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://topdividendtools.com/logo.png"
+    }
+  },
+  "datePublished": "2026-11-04",
+  "dateModified": "2026-11-04",
+  "mainEntityOfPage": "https://topdividendtools.com/how-to-track-dividends-2026.html"
+}
+    </script>
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the best way to track your dividends?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pick one place and log shares, annual dividend per share and pay frequency for every holding. A spreadsheet works well for small portfolios at one broker. If you have several accounts, a dividend tracker app with brokerage sync, like Snowball Analytics, Sharesight, The Dividend Tracker or MerryDiv, saves time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which portfolio trackers offer the best dividend tracking features?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Look for forward income projections, a dividend calendar, automatic DRIP tracking and brokerage sync. Snowball Analytics and Sharesight are the most complete, The Dividend Tracker is built only for dividends, and MerryDiv focuses on a monthly income view across accounts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I track dividends in Google Sheets?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Make one row per holding with shares, annual dividend per share and a formula for annual income. GOOGLEFINANCE can update prices automatically, but you should enter dividend amounts yourself from a dividend history site, since Google Sheets does not reliably supply ETF dividends."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a free dividend tracker?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Snowball Analytics, Sharesight and The Dividend Tracker all have free plans capped at about 10 holdings, MerryDiv and Yieldos have free plans, and a spreadsheet is always free."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How often should I update my dividend tracker?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Once a month is enough for most investors. Update share counts after DRIP purchases, log the dividends you received and check your monthly average income."
+      }
+    }
+  ]
+}
+    </script>
+
+
+    <style>
+        :root {
+            --green: #152514;
+            --green-dark: #0d1a0f;
+            --gold: #FFD700;
+        }
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background: #f8f9fa;
+        }
+        header {
+            background: #1a3224;
+            padding: 20px 20px 16px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,.3);
+            background-image: url('https://www.transparenttextures.com/patterns/noise.png');
+            background-blend-mode: overlay;
+            position: relative;
+        }
+        .site-logo {
+            max-width: 420px;
+            width: 92%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        .advertise-btn, .submit-btn {
+            position: absolute;
+            top: 32px;
+            padding: 8px 15px;
+            border-radius: 10px;
+            font-weight: 900;
+            font-size: 0.85rem;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,.5);
+            transition: all .25s ease;
+        }
+        .advertise-btn {
+            left: 16px;
+            background: #2323FF;
+            color: white;
+        }
+        .advertise-btn:hover {
+            background: #3a3aff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(35,35,255,.6);
+        }
+        .submit-btn {
+            right: 16px;
+            background: var(--gold);
+            color: #000;
+        }
+        .submit-btn:hover {
+            background: #ffed4e;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255,215,0,.6);
+        }
+        .content {
+            max-width: 920px;
+            margin: 40px auto;
+            padding: 0 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: var(--green);
+            font-size: 2.5rem;
+            margin: 30px 0 10px;
+            text-align: center;
+            font-weight: 900;
+        }
+        h2 {
+            color: var(--green-dark);
+            font-size: 2rem;
+            margin: 45px 0 15px;
+        }
+        h3 {
+            color: var(--green);
+            font-size: 1.6rem;
+            margin: 35px 0 12px;
+        }
+        p {
+            font-size: 1.1rem;
+            margin: 18px 0;
+        }
+        a {
+            color: var(--green);
+            font-weight: 600;
+            text-decoration: underline;
+        }
+        a:hover {
+            color: var(--green-dark);
+        }
+        ul, ol {
+            padding-left: 26px;
+            margin: 18px 0;
+        }
+        li {
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+        }
+        .btn {
+            display: inline-block;
+            background: var(--green);
+            color: white;
+            font-weight: 700;
+            padding: 12px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin: 20px 0;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(21,37,20,0.4);
+        }
+        .btn:hover {
+            background: var(--green-dark);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(21,37,20,0.6);
+        }
+        .gold-btn {
+            background: var(--gold);
+            color: #000;
+        }
+        .gold-btn:hover {
+            background: #ffed4e;
+            color: #000;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        th {
+            background: var(--green);
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 700;
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        .table-scroll { overflow-x: auto; }
+        .faq {
+            margin: 40px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .example-box {
+            background: #f1f8f2;
+            border-left: 5px solid var(--green);
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin: 28px 0;
+        }
+        .example-box p { margin: 8px 0; }
+        /* sponsor */
+        .banner { margin: 28px auto 8px; text-align: center; max-width: 900px; }
+        .banner a { display: inline-block; }
+        .banner img { max-width: 100%; height: auto; display: block; border-radius: 10px; }
+        .banner small { display: block; margin-top: 6px; color: #666; font-size: .8rem; font-weight: 700; }
+        .banner .prospectus { display: block; margin-top: 4px; padding: 0 14px; font-weight: 400; line-height: 1.45; overflow-wrap: anywhere; }
+        .banner .prospectus a { color: inherit; text-decoration: underline; font-weight: 400; }
+        /* PRO promo */
+        .pro-promo {
+            background: #fffbe6;
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin: 28px 0;
+        }
+        .pro-promo p { margin: 6px 0; font-size: 1.02rem; }
+        .pro-cta {
+            background: var(--green);
+            color: #fff;
+            border-radius: 12px;
+            padding: 30px 28px;
+            margin: 44px 0;
+            text-align: center;
+        }
+        .pro-cta h2 { color: #fff; margin: 0 0 10px; font-size: 1.7rem; }
+        .pro-cta p { color: #e6efe6; margin: 10px 0; }
+        .pro-cta ul { text-align: left; display: inline-block; margin: 6px auto 4px; color: #fff; }
+        .pro-cta .btn { margin-top: 14px; }
+        .related {
+            margin: 40px 0;
+            padding: 20px 24px;
+            border: 1px solid #e3e8e3;
+            border-radius: 10px;
+        }
+        .related h2 { font-size: 1.5rem; margin: 0 0 10px; }
+        .related li { margin-bottom: 8px; }
+        .disclaimer { font-size: .92rem; color: #555; border-top: 1px solid #eee; padding: 18px 0 30px; }
+        footer {
+            margin-top: 60px;
+            padding: 50px 20px;
+            background: #fff;
+            text-align: center;
+            border-top: 6px solid var(--green);
+        }
+        footer a {
+            color: var(--green);
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .tagline {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--green);
+            margin: 30px 0;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.6rem; }
+            h3 { font-size: 1.3rem; }
+            .advertise-btn, .submit-btn { top: 28px; padding: 7px 13px; font-size: 0.78rem; }
+            header { padding-top: 65px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="/advertise.html" class="advertise-btn">Advertise</a>
+    <a href="/">
+        <img src="https://topdividendtools.com/TopDividennn.png" alt="TopDividendTools.com" class="site-logo">
+    </a>
+    <a href="submit-tool.html" class="submit-btn">Submit Tool</a>
+</header>
+
+<div class="banner">
+    <a href="https://lsfunds.com/etfs/ovl" target="_blank" rel="noopener" onclick="if(typeof gtag!=='undefined')gtag('event','sponsor_click',{source:'blog_post_top'})">
+        <img src="https://topdividendtools.com/OVL%20new%20display%20ad%202.png" alt="Sponsor Banner">
+    </a>
+    <small>Sponsored by</small>
+    <small class="prospectus">Read carefully before investing. Prospectus: <a href="https://lsfunds.com/hubfs/Regulatory/Prospectus.pdf?hsLang=en" target="_blank" rel="noopener">https://lsfunds.com/hubfs/Regulatory/Prospectus.pdf?hsLang=en</a></small>
+</div>
+
+<div class="content">
+
+    <h1>How to Track Dividends in 2026: Spreadsheet vs App (Step by Step)</h1>
+
+    <p style="text-align:center; color:#555; font-size:1.1rem; margin-bottom:40px;">By Benjamin Siegel • Published November 4, 2026 • <a href="https://topdividendtools.com">TopDividendTools.com</a></p>
+
+    <p>The easiest way to track your dividends in 2026 is to pick one place, either a spreadsheet or a dividend tracker app, and log three things for every holding: shares owned, dividend per share and pay frequency. From that you get your <strong>annual income, your monthly average and your yield on cost</strong>. A spreadsheet is free and fully yours. An app like Snowball Analytics, Sharesight, The Dividend Tracker or MerryDiv can sync your brokerages and do the math for you.</p>
+
+    <p>I've tracked my dividend income for over ten years. It's how I watched the snowball build until my dividends covered my bills at 31. And here's the part most people miss: the tool matters a lot less than tracking the right numbers every month. Below is exactly how to set it up, both ways, with real 2026 pricing for the apps.</p>
+
+    <div class="pro-promo">
+        <p><strong>Tracking income ETFs?</strong> A tracker shows what you own. <a href="https://topdividendetfspro.com" target="_blank" rel="noopener">TopDividendETFsPRO</a> helps you decide what to own next: advanced filtering, ratings, live yields and price decay flags for 130+ income ETFs. From $12.95/mo, or lifetime access.</p>
+    </div>
+
+    <h2>The Only Numbers You Actually Need to Track</h2>
+    <p>Before you open any tool, know what you're trying to see. Most people track way too much and quit after three weeks. Here's what I actually look at:</p>
+    <ul>
+        <li><strong>Forward annual income.</strong> Shares times the annual dividend per share, added up across everything you own. This is the big one. It tells you what your portfolio pays you if nothing changes.</li>
+        <li><strong>Monthly average income.</strong> Forward annual income divided by 12. Compare it to your monthly bills and you know how close you are to dividend freedom.</li>
+        <li><strong>Dividends actually received.</strong> What hit your account, by month. Projections are nice; cash received is the truth.</li>
+        <li><strong>Yield on cost.</strong> Annual income divided by what you paid. It shows how your income grows on money you put in years ago.</li>
+        <li><strong>Price decay on high-income funds.</strong> If you own covered call ETFs, note whether the share price is holding up. A 12% yield on a fund that bleeds 15% a year is not income.</li>
+    </ul>
+    <p>That's it. Five numbers. Anything else is a bonus.</p>
+
+    <h2>Option 1: Track Dividends in a Spreadsheet (Free)</h2>
+    <p>This is how I started, and I still think every dividend investor should do it once. You learn exactly where your income comes from, and nobody can raise the price on you.</p>
+
+    <h3>Step 1: Set up your columns</h3>
+    <p>Open Google Sheets or Excel and make one row per holding with these columns:</p>
+    <div class="table-scroll">
+    <table>
+        <thead><tr><th>Column</th><th>What goes in it</th><th>Example</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Ticker</strong></td><td>The fund or stock</td><td>$SCHD</td></tr>
+            <tr><td><strong>Shares</strong></td><td>How many you own (update after every buy and DRIP)</td><td>250</td></tr>
+            <tr><td><strong>Cost basis</strong></td><td>Total dollars you paid</td><td>$6,500</td></tr>
+            <tr><td><strong>Price</strong></td><td>Current share price (can update automatically, see below)</td><td>Live</td></tr>
+            <tr><td><strong>Annual dividend per share</strong></td><td>Last 12 months of payments, from the issuer or a dividend history site</td><td>Look it up</td></tr>
+            <tr><td><strong>Frequency</strong></td><td>Weekly, monthly or quarterly</td><td>Quarterly</td></tr>
+            <tr><td><strong>Annual income</strong></td><td>= Shares × Annual dividend per share</td><td>Formula</td></tr>
+            <tr><td><strong>Yield on cost</strong></td><td>= Annual income ÷ Cost basis</td><td>Formula</td></tr>
+        </tbody>
+    </table>
+    </div>
+    <p style="font-size:.95rem; color:#555;">The share count and cost basis here are just an example to show the layout, not real numbers.</p>
+
+    <h3>Step 2: Let the price update itself</h3>
+    <p>In Google Sheets, <code>=GOOGLEFINANCE("SCHD","price")</code> pulls a delayed price for most U.S. tickers. That keeps your portfolio value current without typing anything.</p>
+    <p>Dividends are trickier. Google Sheets doesn't give you a reliable dividend history for ETFs, so I'd enter the trailing 12-month dividend per share yourself and refresh it every quarter. Free sites like StockAnalysis show every payment, and I cover more of them in the <a href="/best-dividend-websites-2026.html">best dividend websites</a> roundup.</p>
+
+    <h3>Step 3: Add a monthly income log</h3>
+    <p>Make a second tab with one row per month and one column for each account. Every time a dividend lands, add it. At the end of the year you have a chart of real income, not projections, and it's the most motivating chart you'll ever look at.</p>
+
+    <h3>Step 4: Update once a month</h3>
+    <p>Pick one day a month. Update share counts (DRIP adds fractional shares quietly), log what you received, and look at your monthly average. Ten minutes. Done.</p>
+
+    <div class="example-box">
+        <p><strong>Don't want to build it from scratch?</strong> Full disclosure, this one is mine: the <a href="https://dividendempire2000.gumroad.com/l/DividendTracker" target="_blank" rel="noopener">Google Sheets Dividend Tracker</a> is a ready-made template I sell on Gumroad for a one-time price of about $29, no subscription. Your data stays in your own Google account. You still enter holdings by hand, because it doesn't connect to brokerages.</p>
+    </div>
+
+    <p><strong>Spreadsheet pros:</strong> free (or one-time cost), private, fully customizable, works with any broker.<br>
+    <strong>Spreadsheet cons:</strong> manual updates, easy to forget a DRIP, no automatic ex-dividend alerts.</p>
+
+    <h2>Option 2: Track Dividends With an App</h2>
+    <p>Once you have accounts at three or four brokers, a Roth IRA, a 401(k) and a taxable account, spreadsheets get old fast. That's where a dividend tracker app earns its keep. Most of them connect to your brokerages, record every dividend automatically, and show a calendar of upcoming payments.</p>
+
+    <div class="table-scroll">
+    <table>
+        <thead><tr><th>App</th><th>Free plan</th><th>Paid price</th><th>Broker sync</th><th>Best for</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Snowball Analytics</strong></td><td>1 portfolio, 10 holdings</td><td>From $79.99/yr, 14-day trial</td><td>Yes, 1,000+ brokers (paid)</td><td>Multiple accounts, income forecasts</td></tr>
+            <tr><td><strong>Sharesight</strong></td><td>10 holdings</td><td>From $7/mo billed annually</td><td>Yes, hundreds of brokers</td><td>International holdings, tax reports</td></tr>
+            <tr><td><strong>The Dividend Tracker</strong></td><td>1 portfolio, 10 holdings</td><td>Premium $8.99/mo, Pro $16.95/mo</td><td>Yes (paid)</td><td>Dividend-only focus, ex-date alerts</td></tr>
+            <tr><td><strong>MerryDiv</strong></td><td>Yes, 1 brokerage synced</td><td>From $5.99/mo ($59.99/yr)</td><td>Yes, via Plaid (read-only)</td><td>Monthly income view across accounts</td></tr>
+            <tr><td><strong>Yieldos</strong></td><td>Yes</td><td>Optional Pro tier</td><td>Imports from Fidelity, Schwab, Vanguard, E*TRADE</td><td>Paycheck-style calendar, FIRE date</td></tr>
+            <tr><td><strong>Google Sheets Dividend Tracker</strong></td><td>No</td><td>About $29 one time</td><td>No, manual</td><td>Spreadsheet fans who hate subscriptions</td></tr>
+        </tbody>
+    </table>
+    </div>
+    <p style="font-size:.95rem; color:#555;">Plans and prices from the TopDividendTools.com directory, checked October 2026. Prices change, so confirm on each company's site before you subscribe.</p>
+
+    <p>The pattern you'll notice: almost every free plan caps you at around 10 holdings, and brokerage sync is usually the thing you pay for. If you own 8 ETFs at one broker, a free plan is plenty. If you own 40 positions across five accounts, you'll probably end up paying for one.</p>
+    <p>I go deeper on features in the <a href="/best-dividend-portfolio-tracker-2026.html">best dividend portfolio tracker</a> guide, the free options in <a href="/best-free-dividend-tracker-2026.html">best free dividend tracker</a>, and if you're already on Snowball and wondering what else is out there, see <a href="/snowball-analytics-alternatives-2026.html">Snowball Analytics alternatives</a> and the head to head <a href="/snowball-analytics-vs-sharesight-2026.html">Snowball vs Sharesight</a>.</p>
+
+    <h2>Spreadsheet vs App: Which Should You Use?</h2>
+    <div class="table-scroll">
+    <table>
+        <thead><tr><th></th><th>Spreadsheet</th><th>Dividend tracker app</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Cost</strong></td><td>Free or one-time</td><td>Free for small portfolios, then roughly $60 to $200 a year</td></tr>
+            <tr><td><strong>Setup time</strong></td><td>An hour</td><td>Minutes with broker sync</td></tr>
+            <tr><td><strong>Ongoing work</strong></td><td>About 10 minutes a month</td><td>Close to zero</td></tr>
+            <tr><td><strong>Accuracy</strong></td><td>As good as your typing</td><td>Usually better, but check DRIP and fractional shares</td></tr>
+            <tr><td><strong>Privacy</strong></td><td>Everything stays with you</td><td>You share account data with a third party</td></tr>
+            <tr><td><strong>Ex-dividend alerts</strong></td><td>No</td><td>Usually yes</td></tr>
+        </tbody>
+    </table>
+    </div>
+    <p>My honest take: if you're just getting started, use a spreadsheet for your first year. You'll understand your income better than people who've used apps for five years. Once you have multiple accounts or more than 10 to 15 positions, switch to an app with brokerage sync and keep the spreadsheet as a backup for the monthly income log.</p>
+    <p>I'd rather have a simple tracker I update every month than a fancy one I open twice a year.</p>
+
+    <h2>Common Dividend Tracking Mistakes</h2>
+    <ul>
+        <li><strong>Forgetting DRIP shares.</strong> Reinvested dividends buy fractional shares. Skip them and your income projection drifts lower every quarter.</li>
+        <li><strong>Using a single payment as the annual number.</strong> Monthly and weekly payers change their payout constantly. Use the trailing 12 months, not the last check times 12.</li>
+        <li><strong>Counting yield, ignoring total return.</strong> Tracking only income can hide a fund whose share price keeps falling. Check total return once a quarter on <a href="https://etftotalreturns.com" target="_blank" rel="noopener">ETFTotalReturns.com</a>.</li>
+        <li><strong>Tracking accounts in different places.</strong> Your income is one number. Keep the IRA, 401(k) and taxable account in the same tracker.</li>
+        <li><strong>Not knowing when the cash lands.</strong> A calendar view helps you plan around it. See the <a href="/best-dividend-calendar-2026.html">best dividend calendars</a>.</li>
+    </ul>
+
+    <h2>Tracking Is Step One. Projecting Is Step Two.</h2>
+    <p>Once you know what you earn today, the fun question is what it'll pay in 10 years. <a href="https://dividendprojection.com" target="_blank" rel="noopener">DividendProjection.com</a> lets you model what a given amount in a dividend ETF could pay over time with reinvesting, and the <a href="/best-dividend-reinvestment-drip-calculators-2026.html">best DRIP calculators</a> show what compounding does. If you want your income to show up more often, <a href="https://monthlyetfs.com" target="_blank" rel="noopener">MonthlyETFs.com</a> and <a href="https://weeklyetfs.com" target="_blank" rel="noopener">WeeklyETFs.com</a> list the monthly and weekly payers, and <a href="https://topdividendetfs.com" target="_blank" rel="noopener">TopDividendETFs.com</a> ranks dividend ETFs with price decay flags.</p>
+    <p>And when you're deciding what to add next, that's where <a href="https://topdividendetfspro.com" target="_blank" rel="noopener">TopDividendETFsPRO</a> comes in. Your tracker tells you what you own. PRO helps you compare yields, total returns and price decay across 130+ income ETFs before you buy.</p>
+
+    <div class="pro-cta">
+        <h2>Know What to Add Before You Track It</h2>
+        <p>TopDividendETFsPRO is the research side of your dividend system:</p>
+        <ul>
+            <li>Advanced filtering and ratings for 130+ income ETFs</li>
+            <li>Live yields and total returns</li>
+            <li>Price decay flags so you skip the funds that bleed</li>
+        </ul>
+        <p>From $12.95/month, or lifetime access.</p>
+        <a href="https://topdividendetfspro.com" class="btn gold-btn" target="_blank" rel="noopener">Get TopDividendETFsPRO →</a>
+    </div>
+
+    <h2>FAQ: How to Track Your Dividends</h2>
+
+    <div class="faq">
+        <h3>What is the best way to track your dividends?</h3>
+        <p>Pick one place and log shares, annual dividend per share and pay frequency for every holding. A spreadsheet works well for small portfolios at one broker. If you have several accounts, a dividend tracker app with brokerage sync, like Snowball Analytics, Sharesight, The Dividend Tracker or MerryDiv, saves time.</p>
+
+        <h3>Which portfolio trackers offer the best dividend tracking features?</h3>
+        <p>Look for forward income projections, a dividend calendar, automatic DRIP tracking and brokerage sync. Snowball Analytics and Sharesight are the most complete, The Dividend Tracker is built only for dividends, and MerryDiv focuses on a monthly income view across accounts.</p>
+
+        <h3>Can I track dividends in Google Sheets?</h3>
+        <p>Yes. Make one row per holding with shares, annual dividend per share and a formula for annual income. GOOGLEFINANCE can update prices automatically, but you should enter dividend amounts yourself from a dividend history site, since Google Sheets does not reliably supply ETF dividends.</p>
+
+        <h3>Is there a free dividend tracker?</h3>
+        <p>Yes. Snowball Analytics, Sharesight and The Dividend Tracker all have free plans capped at about 10 holdings, MerryDiv and Yieldos have free plans, and a spreadsheet is always free.</p>
+
+        <h3>How often should I update my dividend tracker?</h3>
+        <p>Once a month is enough for most investors. Update share counts after DRIP purchases, log the dividends you received and check your monthly average income.</p>
+    </div>
+
+    <div class="related">
+        <h2>Related Posts</h2>
+        <ul>
+            <li><a href="/best-dividend-portfolio-tracker-2026.html">Best Dividend Portfolio Tracker 2026: The Features That Actually Matter</a></li>
+            <li><a href="/best-free-dividend-tracker-2026.html">Best Free Dividend Tracker 2026: Top Free Tools Compared</a></li>
+            <li><a href="/snowball-analytics-alternatives-2026.html">Snowball Analytics Alternatives 2026: 6 Dividend Trackers Worth a Look</a></li>
+            <li><a href="/snowball-analytics-vs-sharesight-2026.html">Snowball Analytics vs Sharesight 2026: Which Dividend Tracker Is Better?</a></li>
+            <li><a href="/best-dividend-calendar-2026.html">Best Dividend Calendar 2026</a></li>
+        </ul>
+    </div>
+
+    <p style="text-align:center; margin:40px 0;">
+        <a href="https://topdividendtools.com" class="btn">Explore All Dividend Tools &amp; Calculators →</a>
+    </p>
+
+    <p class="disclaimer">This article is for educational purposes only and is not financial or tax advice. Do your own research before buying any investment or subscribing to any tool. TopDividendTools.com is not affiliated with Snowball Analytics, Sharesight, The Dividend Tracker, MerryDiv or Yieldos. The Google Sheets Dividend Tracker, TopDividendETFs.com, TopDividendETFsPRO, ETFTotalReturns.com, DividendProjection.com, MonthlyETFs.com and WeeklyETFs.com are owned by the author. Tool features and prices are as of November 4, 2026 (directory data checked October 2026) and can change at any time.</p>
+
+</div>
+
+<div class="banner">
+    <a href="https://lsfunds.com/etfs/ovl" target="_blank" rel="noopener" onclick="if(typeof gtag!=='undefined')gtag('event','sponsor_click',{source:'blog_post_bottom'})">
+        <img src="https://topdividendtools.com/OVL%20new%20display%20ad%202.png" alt="Sponsor Banner">
+    </a>
+    <small>Sponsored by</small>
+    <small class="prospectus">Read carefully before investing. Prospectus: <a href="https://lsfunds.com/hubfs/Regulatory/Prospectus.pdf?hsLang=en" target="_blank" rel="noopener">https://lsfunds.com/hubfs/Regulatory/Prospectus.pdf?hsLang=en</a></small>
+</div>
+
+<footer class="footer">
+    <p>
+        <a href="https://topdividendetfs.com" target="_blank">👉 Top Dividend ETFs 👈</a> |
+        Contact: <a href="mailto:Business@topdividendETFs.com">Business@topdividendETFs.com</a> |
+        <a href="/about.html">About</a> |
+        <a href="/contact.html">Contact</a> |
+        <a href="/terms.html">Terms of Use</a> |
+        <a href="/privacy.html">Privacy Policy</a>
+    </p>
+    <div class="tagline">The #1 Resource for Dividend Investors</div>
+
+    <p style="font-size: 0.85rem; color: #666; margin: 16px auto 0; max-width: 800px; line-height: 1.4; text-align: center;">
+        TopDividendTools.com may contain affiliate links. These are provided at no extra cost to you and help support the site if you make a purchase through them. Thank you for your support! This content is for educational and entertainment purposes only and is not financial advice.
+    </p>
+
+    <!-- Cool Blog button -->
+    <a href="/blog.html" style="display: inline-block; background: #152514; color: white; font-weight: bold; font-size: 1.05rem; padding: 12px 28px; border-radius: 12px; text-decoration: none; box-shadow: 0 4px 12px rgba(21,37,20,0.5); transition: all 0.3s ease; margin: 20px 0;" onmouseover="this.style.background='#0d1a0f'; this.style.transform='translateY(-3px)';" onmouseout="this.style.background='#152514'; this.style.transform='translateY(0)';">Blog</a>
+</footer>
+
+</body>
+</html>
