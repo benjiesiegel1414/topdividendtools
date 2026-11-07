@@ -127,8 +127,7 @@
         .feat > * { flex: 0 0 100%; min-width: 0; }
         @container feat (min-width: 474px) { .feat > * { flex-basis: calc((100% - 14px) / 2); } }
         @container feat (min-width: 718px) { .feat > * { flex-basis: calc((100% - 28px) / 3); } }
-        @container feat (min-width: 962px) { .feat > * { flex-basis: calc((100% - 42px) / 4); } }
-        @container feat (min-width: 1140px) { .feat > * { flex-basis: calc((100% - 56px) / 5); } }
+        @container feat (min-width: 960px) { .feat > * { flex-basis: calc((100% - 70px) / 6); } .fcard { padding: 14px; gap: 8px; min-height: 128px; } .fcard .mono-tile { width: 34px; height: 34px; font-size: 12px; } .fcard .tag { font-size: 10px; letter-spacing: .6px; } .fcard .nm { font-size: 14.5px; } .fcard .bf { font-size: 12.5px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; } }
         .fcard { display: flex; flex-direction: column; gap: 10px; padding: 18px; border-radius: var(--r); background: var(--gold-soft); border: 2px solid var(--gold); color: var(--ink); text-decoration: none; min-height: 150px; cursor: pointer; text-align: left; transition: transform .15s, box-shadow .15s; }
         .fcard:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
         .fcard .top { display: flex; align-items: center; justify-content: space-between; }
