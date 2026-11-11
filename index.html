@@ -479,6 +479,9 @@
 <script>
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQyl3IN9OtH6Ux2mS1Ojx3hqlXF8Bqztx4hQKsKilSaRLpovens0Wv-aWRfUON54vgS8RghFV7ZSV-K/pub?output=csv";
 const PREMIUM_SLOTS = 5;
+// Non-featured tools pinned to the top of the main list (in this order), right after the Featured tools
+const BOOSTED = ['merrydiv'];
+const boostRank = t => { const n = String(t.name || '').toLowerCase(); const i = BOOSTED.findIndex(b => n.startsWith(b)); return i < 0 ? 999 : i; };
 const MAIN_CATS = [
     { key: 'Dividend Tracker', label: 'Dividend Trackers', icon: 'M3 3v18h18M7 15l4-4 3 3 5-6' },
     { key: 'Portfolio Tracker', label: 'Portfolio Trackers', icon: 'M21 12a9 9 0 1 1-9-9v9z' },
@@ -619,6 +622,7 @@ function getSorted(list) {
     if (mode === 'name-asc') { f.sort((a, b) => a.name.localeCompare(b.name)); n.sort((a, b) => a.name.localeCompare(b.name)); }
     else if (mode === 'name-desc') { f.sort((a, b) => b.name.localeCompare(a.name)); n.sort((a, b) => b.name.localeCompare(a.name)); }
     else if (mode === 'pricing') return list.slice().sort((a, b) => pr(a) - pr(b));
+    else n.sort((a, b) => boostRank(a) - boostRank(b)); // default order: boosted tools first, then sheet order (stable sort)
     return [...f, ...n];
 }
 
