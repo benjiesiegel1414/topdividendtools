@@ -358,6 +358,17 @@ mark { background: #ffe58a; color: inherit; border-radius: 3px; padding: 0 1px; 
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 
+/* clickable KPI cards */
+.kpi.click { cursor: pointer; transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease; }
+.kpi.click:hover { transform: translateY(-2px); border-color: var(--brand-3); box-shadow: 0 8px 22px rgba(23,34,31,.10); }
+.kpi.click:focus-visible { outline: 3px solid var(--brand-3); outline-offset: 2px; }
+.kpi.click::before { content: "View →"; position: absolute; right: 12px; top: 12px; font-size: .7em; font-weight: 900; color: var(--muted); opacity: 0; transition: opacity .12s; }
+.kpi.accent.click::before { color: #cfe3dc; }
+.kpi.click:hover::before { opacity: 1; }
+.h-link { cursor: pointer; }
+.h-link:hover { color: var(--brand-2); text-decoration: underline; text-underline-offset: 3px; }
+.preset-chip { display: inline-flex; align-items: center; gap: 6px; background: var(--brand-soft); color: var(--ink); border: 1px solid var(--brand-3); border-radius: 999px; padding: 2px 4px 2px 10px; font-weight: 900; margin-right: 8px; }
+.preset-chip button { border: 0; background: var(--surface); border-radius: 50%; width: 20px; height: 20px; cursor: pointer; font-size: .8em; line-height: 1; }
 /* ---------- sign-in gate (hosted) ---------- */
 body.locked main, body.locked .tabs, body.locked #refreshBtn, body.locked #sheetLink, body.locked #signOutBtn { display: none !important; }
 .gate { min-height: calc(100vh - 60px); display: flex; align-items: center; justify-content: center; padding: 24px; }
@@ -411,11 +422,11 @@ body.locked main, body.locked .tabs, body.locked #refreshBtn, body.locked #sheet
 
     <div class="grid g-2 section-gap">
       <div class="card">
-        <div class="card-h"><h2>🔥 Hot leads <span class="count" id="hotCount">0</span></h2><span class="sub">Interested, pending and closed · newest activity first</span></div>
+        <div class="card-h"><h2 class="h-link" data-kpi="hot" title="See all hot leads in the table">🔥 Hot leads <span class="count" id="hotCount">0</span></h2><span class="sub">Interested, pending and closed · newest activity first</span></div>
         <div class="scroll-list"><div class="list" id="hotList"></div></div>
       </div>
       <div class="card">
-        <div class="card-h"><h2>⏰ Follow-ups due <span class="count" id="fuCount">0</span></h2><span class="sub">Sent / Follow-up Sent · oldest first</span></div>
+        <div class="card-h"><h2 class="h-link" data-kpi="due" title="See all follow-ups due in the table">⏰ Follow-ups due <span class="count" id="fuCount">0</span></h2><span class="sub">Sent / Follow-up Sent · oldest first</span></div>
         <div class="scroll-list"><div class="list" id="fuList"></div></div>
       </div>
     </div>
@@ -733,19 +744,19 @@ function followUps() {
 /* ================= rendering: overview ================= */
 function renderKPIs() {
   const m = metrics();
-  const card = (lbl, val, hint, opts = {}) => `<div class="card kpi ${opts.cls || ''}" ${opts.color ? `style="--kc:${opts.color}"` : ''} ${opts.title ? `title="${esc(opts.title)}"` : ''}>
+  const card = (lbl, val, hint, opts = {}) => `<div class="card kpi click ${opts.cls || ''}" data-kpi="${opts.k}" role="button" tabindex="0" ${opts.color ? `style="--kc:${opts.color}"` : ''} title="${esc((opts.title ? opts.title + ' · ' : '') + 'Click to see these leads')}">
     <div class="lbl">${lbl}</div><div class="val">${val}</div><div class="hint">${hint || '&nbsp;'}</div></div>`;
   $('#kpis').innerHTML = [
-    card('Total leads', fmt(m.total), `${fmt(m.notContacted)} not contacted yet`, { cls: 'accent' }),
-    card('Contacted', fmt(m.contacted), `${pctTxt(m.contacted, m.total)} of all leads`, { color: statusColor('Sent'), title: 'Leads emailed at least once (Sent and every later status)' }),
-    card('Replied', fmt(m.replied), 'interested + not now + deals', { color: statusColor('Replied - Not Now') }),
-    card('Interested', fmt(m.interested), 'Replied - Interested', { color: statusColor('Replied - Interested') }),
-    card('Deals pending', fmt(m.pending), 'Deal Pending', { color: statusColor('Deal Pending') }),
-    card('Deals closed', fmt(m.closed), 'Deal Closed', { color: statusColor('Deal Closed') }),
-    card('Reply rate', pctTxt(m.replied, m.contacted), `${fmt(m.replied)} of ${fmt(m.contacted)} contacted`, { title: 'Replies ÷ contacted' }),
-    card('Close rate', pctTxt(m.closed, m.contacted), `${fmt(m.closed)} of ${fmt(m.contacted)} contacted`, { title: 'Deals closed ÷ contacted' }),
-    card('Sent this week', fmt(m.sentWeek), `last week: ${fmt(m.sentLastWeek)} · by Date Sent`, { title: 'Rows whose Date Sent falls Monday to today' }),
-    card('Follow-ups due', fmt(m.due), m.overdue ? `${fmt(m.overdue)} overdue` : 'nothing overdue', { cls: m.overdue ? 'alert' : '', color: m.overdue ? css('--danger') : '' }),
+    card('Total leads', fmt(m.total), `${fmt(m.notContacted)} not contacted yet`, { cls: 'accent' , k: 'all' }),
+    card('Contacted', fmt(m.contacted), `${pctTxt(m.contacted, m.total)} of all leads`, { color: statusColor('Sent'), title: 'Leads emailed at least once (Sent and every later status)' , k: 'contacted' }),
+    card('Replied', fmt(m.replied), 'interested + not now + deals', { color: statusColor('Replied - Not Now') , k: 'replied' }),
+    card('Interested', fmt(m.interested), 'Replied - Interested', { color: statusColor('Replied - Interested') , k: 'interested' }),
+    card('Deals pending', fmt(m.pending), 'Deal Pending', { color: statusColor('Deal Pending') , k: 'pending' }),
+    card('Deals closed', fmt(m.closed), 'Deal Closed', { color: statusColor('Deal Closed') , k: 'closed' }),
+    card('Reply rate', pctTxt(m.replied, m.contacted), `${fmt(m.replied)} of ${fmt(m.contacted)} contacted`, { title: 'Replies ÷ contacted' , k: 'replied' }),
+    card('Close rate', pctTxt(m.closed, m.contacted), `${fmt(m.closed)} of ${fmt(m.contacted)} contacted`, { title: 'Deals closed ÷ contacted' , k: 'closed' }),
+    card('Sent this week', fmt(m.sentWeek), `last week: ${fmt(m.sentLastWeek)} · by Date Sent`, { title: 'Rows whose Date Sent falls Monday to today' , k: 'week' }),
+    card('Follow-ups due', fmt(m.due), m.overdue ? `${fmt(m.overdue)} overdue` : 'nothing overdue', { cls: m.overdue ? 'alert' : '', color: m.overdue ? css('--danger') : '' , k: 'due' }),
   ].join('');
 }
 
@@ -928,7 +939,27 @@ const COLS = [
   { key: 'last', label: 'Last Activity', get: (l) => (l.last ? +l.last : 0) },
   { key: 'notes', label: 'Notes', nosort: true },
 ];
+const KPI_PRESETS = {
+  all: { label: 'All leads', fn: () => true },
+  contacted: { label: 'Contacted (emailed at least once)', fn: (l) => CONTACTED.includes(l.status) || (l.sent && !['Not Contacted', 'Drafted'].includes(l.status)) },
+  replied: { label: 'Replied (interested, not now, pending, closed)', fn: (l) => REPLIED.includes(l.status) },
+  interested: { label: 'Replied - Interested', fn: (l) => l.status === 'Replied - Interested' },
+  pending: { label: 'Deal Pending', fn: (l) => l.status === 'Deal Pending' },
+  closed: { label: 'Deal Closed', fn: (l) => l.status === 'Deal Closed' },
+  week: { label: 'Sent this week (Mon to today)', fn: (l) => { const t = today0(); return l.sent && l.sent >= startOfWeek(t) && l.sent <= t; } },
+  due: { label: 'Follow-ups due (today or overdue)', fn: (l) => followUps().includes(l) },
+  hot: { label: 'Hot leads (interested, pending, closed)', fn: (l) => HOT.includes(l.status) },
+};
+function openPreset(k) {
+  ['#tSearch', '#tCat', '#tStatus', '#tPrio', '#tFrom', '#tTo'].forEach((id) => { $(id).value = ''; });
+  S.preset = k === 'all' ? null : k;
+  if (k === 'due') S.sort = { key: 'due', dir: 1 };
+  else if (k === 'week') S.sort = { key: 'sent', dir: -1 };
+  else S.sort = { key: 'last', dir: -1 };
+  renderTable(); setView('leads'); window.scrollTo(0, 0);
+}
 function tableFilter(l) {
+  if (S.preset && KPI_PRESETS[S.preset] && !KPI_PRESETS[S.preset].fn(l)) return false;
   const q = $('#tSearch').value.trim().toLowerCase();
   const c = $('#tCat').value, st = $('#tStatus').value, p = $('#tPrio').value;
   const from = $('#tFrom').value ? new Date($('#tFrom').value + 'T00:00') : null;
@@ -957,7 +988,7 @@ function renderTable() {
     const r = x < y ? -1 : x > y ? 1 : 0;
     return r * S.sort.dir || a.company.localeCompare(b.company);
   });
-  $('#tCount').textContent = `${fmt(rows.length)} of ${fmt(S.leads.length)} leads`;
+  $('#tCount').innerHTML = (S.preset ? `<span class="preset-chip">Showing: ${esc(KPI_PRESETS[S.preset].label)} <button data-clear-preset title="Show all leads">✕</button></span> ` : '') + `${fmt(rows.length)} of ${fmt(S.leads.length)} leads`;
   $('#leadTable thead').innerHTML = '<tr>' + COLS.map((c) => `<th data-sort="${c.key}" class="${c.nosort ? 'nosort' : ''} ${S.sort.key === c.key ? 'sorted' : ''}">${c.label}${c.nosort ? '' : `<span class="arr">${S.sort.key === c.key ? (S.sort.dir > 0 ? '▲' : '▼') : '↕'}</span>`}</th>`).join('') + '</tr>';
   const t = today0();
   $('#leadTable tbody').innerHTML = rows.map((l) => {
@@ -1221,6 +1252,8 @@ function boot() {
 /* ================= events ================= */
 document.addEventListener('click', (e) => {
   const tab = e.target.closest('.tab'); if (tab) return setView(tab.dataset.view);
+  const kpi = e.target.closest('[data-kpi]'); if (kpi) return openPreset(kpi.dataset.kpi);
+  if (e.target.closest('[data-clear-preset]')) { S.preset = null; return renderTable(); }
   const more = e.target.closest('[data-more]'); if (more) { const s = more.dataset.more; S.boardShow[s] = (S.boardShow[s] || 60) + 60; return renderBoard(); }
   if (e.target.closest('[data-retry]')) return refresh(true);
   if (e.target.closest('#signInBtn')) return refresh(true);
@@ -1232,7 +1265,7 @@ document.addEventListener('click', (e) => {
   if (st && !e.target.closest('#v-leads')) { // jump to table filtered by status (and category)
     $('#tStatus').value = st.dataset.status;
     $('#tCat').value = st.dataset.cat || '';
-    renderTable(); setView('leads'); return;
+    S.preset = null; renderTable(); setView('leads'); return;
   }
   const seg = e.target.closest('.seg button');
   if (seg) {
@@ -1253,8 +1286,9 @@ $('#themeBtn').addEventListener('click', () => {
 });
 ['#bSearch', '#bCat', '#bPrio', '#bEmpty'].forEach((id) => $(id).addEventListener('input', () => { S.boardShow = {}; renderBoard(); }));
 ['#tSearch', '#tCat', '#tStatus', '#tPrio', '#tFrom', '#tTo'].forEach((id) => $(id).addEventListener('input', renderTable));
-$('#tClear').addEventListener('click', () => { ['#tSearch', '#tCat', '#tStatus', '#tPrio', '#tFrom', '#tTo'].forEach((id) => { $(id).value = ''; }); renderTable(); });
+$('#tClear').addEventListener('click', () => { S.preset = null; ['#tSearch', '#tCat', '#tStatus', '#tPrio', '#tFrom', '#tTo'].forEach((id) => { $(id).value = ''; }); renderTable(); });
 document.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && e.target.matches && e.target.matches('[data-kpi]')) return openPreset(e.target.dataset.kpi);
   if (e.key === 'Escape') return closePanel();
   if (e.target.matches('input, select, textarea') || e.metaKey || e.ctrlKey || e.altKey) return;
   if (e.key === '/') { e.preventDefault(); if (S.view === 'board') $('#bSearch').focus(); else { setView('leads'); $('#tSearch').focus(); } }
