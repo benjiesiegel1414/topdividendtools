@@ -315,13 +315,14 @@ const NEW_SITES = [
   {name:'TopETFs', prop:'556133383'},
   {name:'DividendProjection', prop:'555927902'},
   {name:'DevotedDividend', prop:'522928730'},
+  {name:'PhotonicsETFs', prop:'557085792'},
   {name:'WellingtonList', prop:'557170838', network:false},
   {name:'AlpharettaList', prop:'561787667', network:false},
   {name:'RobotETFs', prop:'563094995', network:false},
   {name:'AutomotiveCondos', prop:'563081179', network:false}
 ];
 // Sites taken off the dashboard (also cleared from saved config)
-const REMOVED_PROPS = ['557085792']; // PhotonicsETFs, paused Oct 2026
+const REMOVED_PROPS = []; // PhotonicsETFs is back on (Nov 2026)
 cfg.sites = cfg.sites.filter(s=>!REMOVED_PROPS.includes(String(s.prop)));
 NEW_SITES.forEach(n=>{
   const ex = cfg.sites.find(s=>String(s.prop)===n.prop);
