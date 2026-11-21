@@ -599,8 +599,11 @@ function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.
 async function loadData() {
     try {
         const detP = fetch('/tool-details.json?v=2').then(r => r.ok ? r.json() : {}).catch(() => ({}));
+        /* logos added automatically for new tools (scripts/fetch_logos.py) */
+        const logoP = fetch('/logos/manifest.json').then(r => r.ok ? r.json() : []).then(l => l.forEach(d => LOGOS.add(d))).catch(() => {});
         const res = await fetch(CSV_URL + '&t=' + Date.now());
         buildStore(await res.text());
+        await Promise.race([logoP, new Promise(r => setTimeout(r, 1500))]);
         toolDetails = (await detP) || {};
         document.getElementById('loading').style.display = 'none';
         renderStats(); renderWall(); renderTiles(); renderFeatured(); render();
