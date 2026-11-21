@@ -294,6 +294,24 @@
         .mono-tile.has-icon { background: var(--gold); color: var(--green); }
         .mono-tile.has-icon svg { width: 58%; height: 58%; }
         @media (max-width: 760px) { .hero .wrap { padding-top: 34px; } .hero .stats { gap: 22px; } .hero .stats b { font-size: 22px; } }
+        /* predictive search */
+        .hero { overflow: visible; }
+        .wall { overflow: hidden; }
+        .hero .search { position: relative; z-index: 30; }
+        .suggest { position: absolute; left: 0; right: 0; top: calc(100% + 8px); background: #fff; color: var(--ink); border-radius: 14px; box-shadow: 0 18px 50px rgba(0,0,0,.35); padding: 6px; text-align: left; max-height: min(420px, 60vh); overflow-y: auto; display: none; }
+        .suggest.open { display: block; }
+        .suggest .sg-h { font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-3); padding: 8px 10px 4px; }
+        .suggest [role=option] { display: flex; align-items: center; gap: 11px; padding: 8px 10px; border-radius: 10px; cursor: pointer; }
+        .suggest [role=option].act, .suggest [role=option]:hover { background: var(--green-soft); }
+        .suggest .mono-tile { width: 34px; height: 34px; border-radius: 8px; font-size: 11px; }
+        .suggest .sg-t { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.25; }
+        .suggest .sg-t b { font-size: 14.5px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .suggest .sg-t b mark { background: #fff3a8; color: inherit; padding: 0; border-radius: 2px; }
+        .suggest .sg-t > span { font-size: 12px; color: var(--ink-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .suggest .sg-p { font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 999px; background: var(--green-soft); color: var(--green); flex: none; }
+        .suggest .sg-star { color: #c9a400; }
+        .suggest .sg-all { justify-content: center; font-weight: 800; font-size: 13.5px; color: var(--green); border-top: 1px solid var(--line); border-radius: 0 0 10px 10px; margin-top: 4px; padding: 11px; }
+        .suggest .sg-none { padding: 14px 12px; font-size: 14px; color: var(--ink-3); }
         @media (prefers-reduced-motion: reduce) { .wall .row, .hero .dot { animation: none; } .wall { overflow-x: auto; } }
         @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
     </style>
@@ -325,8 +343,9 @@
             <p class="lede">Dividend trackers, screeners, calculators and research platforms. Every listing reviewed, updated daily, free to browse.</p>
             <form class="search" role="search" onsubmit="event.preventDefault(); document.getElementById('all').scrollIntoView({behavior:'smooth'});">
                 <label for="searchFilter" class="sr">Search tools</label>
-                <input id="searchFilter" type="search" placeholder="Search by name, category or what you want to do" autocomplete="off">
+                <input id="searchFilter" type="search" placeholder="Search by name, category or what you want to do" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="suggest">
                 <button type="submit" class="btn btn-dark">Search</button>
+                <div class="suggest" id="suggest" role="listbox" aria-label="Suggestions"></div>
             </form>
             <div class="popular">
                 <span>Popular:</span>
@@ -871,6 +890,82 @@ function handleHashChange() {
 
 /* wiring */
 document.getElementById('searchFilter').addEventListener('input', render);
+/* ---------- predictive search ---------- */
+(function () {
+    const inp = document.getElementById('searchFilter'), box = document.getElementById('suggest');
+    if (!inp || !box) return;
+    let opts = [], act = -1;
+    const close = () => { box.classList.remove('open'); inp.setAttribute('aria-expanded', 'false'); inp.removeAttribute('aria-activedescendant'); act = -1; };
+    const goAll = () => { close(); inp.blur(); document.getElementById('all').scrollIntoView({ behavior: 'smooth' }); };
+    function score(t, q, words) {
+        const n = t.name.toLowerCase();
+        let s = 0;
+        if (n.startsWith(q)) s = 100;
+        else if (n.split(/[^a-z0-9]+/).some(w => w.startsWith(q))) s = 80;
+        else if (n.includes(q)) s = 60;
+        else {
+            const hay = (n + ' ' + t.category + ' ' + t.bestFor + ' ' + t.keyFeature + ' ' + domainOf(t.website)).toLowerCase();
+            if (hay.includes(q)) s = 40; else if (words.length > 1 && words.every(w => hay.includes(w))) s = 30;
+        }
+        return s ? s + (t.isPremium ? 5 : 0) : 0;
+    }
+    function hl(node, text, q) {
+        const i = text.toLowerCase().indexOf(q);
+        if (i < 0) { node.textContent = text; return; }
+        node.append(text.slice(0, i)); node.appendChild(el('mark', null, text.slice(i, i + q.length))); node.append(text.slice(i + q.length));
+    }
+    function setAct(i) {
+        if (opts[act]) opts[act].classList.remove('act');
+        act = i;
+        if (opts[act]) { opts[act].classList.add('act'); inp.setAttribute('aria-activedescendant', opts[act].id); opts[act].scrollIntoView({ block: 'nearest' }); }
+        else inp.removeAttribute('aria-activedescendant');
+    }
+    function row(id, fn) { const r = el('div'); r.setAttribute('role', 'option'); r.id = 'sg-' + id; r.addEventListener('mousedown', e => e.preventDefault()); r.addEventListener('click', fn); return r; }
+    function update() {
+        const q = inp.value.toLowerCase().trim();
+        box.innerHTML = ''; opts = []; act = -1;
+        if (!q || !toolDataStore.length) return close();
+        const words = q.split(/\s+/).filter(Boolean);
+        const all = toolDataStore.map(t => [t, score(t, q, words)]).filter(x => x[1]).sort((a, b) => b[1] - a[1]);
+        const cats = MAIN_CATS.filter(c => (c.label + ' ' + c.key).toLowerCase().includes(q) && toolDataStore.some(t => hasCat(t, c.key))).slice(0, 2);
+        if (cats.length) {
+            box.appendChild(el('div', 'sg-h', 'Categories'));
+            cats.forEach((c, i) => {
+                const r = row('c' + i, () => { close(); inp.value = ''; setCategory(c.key); document.getElementById('all').scrollIntoView({ behavior: 'smooth' }); });
+                const ic = el('span', 'mono-tile has-icon'); ic.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + c.icon + '"></path></svg>';
+                const t = el('span', 'sg-t'); const b = el('b'); hl(b, c.label, q); t.appendChild(b);
+                const n = toolDataStore.filter(x => hasCat(x, c.key)).length; t.appendChild(el('span', null, n + ' tools'));
+                r.appendChild(ic); r.appendChild(t); box.appendChild(r); opts.push(r);
+            });
+        }
+        if (all.length) {
+            box.appendChild(el('div', 'sg-h', 'Tools'));
+            all.slice(0, 6).forEach(([t], i) => {
+                const r = row('t' + i, () => { close(); openToolDetail(t); });
+                r.appendChild(fillTile(el('span', 'mono-tile'), t));
+                const tx = el('span', 'sg-t'); const b = el('b'); if (t.isPremium) { b.appendChild(el('span', 'sg-star', '\u2605 ')); } const nm = el('span'); hl(nm, t.name, q); b.appendChild(nm); tx.appendChild(b);
+                tx.appendChild(el('span', null, t.categories.slice(0, 2).join(' \u00b7 ') || t.bestFor || ''));
+                r.appendChild(tx); r.appendChild(el('span', 'sg-p', priceLabel(t.pricing)));
+                box.appendChild(r); opts.push(r);
+            });
+            if (all.length > 6) { const r = row('all', goAll); r.className = 'sg-all'; r.textContent = 'See all ' + all.length + ' results \u2192'; box.appendChild(r); opts.push(r); }
+        }
+        if (!opts.length) box.appendChild(el('div', 'sg-none', 'No tools match "' + inp.value.trim() + '". Try a shorter search.'));
+        box.classList.add('open'); inp.setAttribute('aria-expanded', 'true');
+    }
+    inp.addEventListener('input', update);
+    inp.addEventListener('focus', () => { if (inp.value.trim()) update(); });
+    inp.addEventListener('blur', () => setTimeout(close, 120));
+    inp.addEventListener('keydown', e => {
+        if (!box.classList.contains('open')) return;
+        if (e.key === 'ArrowDown') { e.preventDefault(); setAct(act + 1 >= opts.length ? 0 : act + 1); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); setAct(act <= 0 ? opts.length - 1 : act - 1); }
+        else if (e.key === 'Enter') { if (opts[act]) { e.preventDefault(); opts[act].click(); } else close(); }
+        else if (e.key === 'Escape') close();
+    });
+    inp.form && inp.form.addEventListener('submit', close);
+})();
+
 document.getElementById('sortSelect').addEventListener('change', render);
 document.querySelectorAll('#priceSeg button').forEach(b => b.addEventListener('click', () => {
     activePrice = b.dataset.p;
