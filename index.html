@@ -262,6 +262,39 @@
         .ftr nav { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; margin: 22px 0 14px; }
         .ftr nav a { font-weight: 700; text-decoration: none; font-size: 14px; }
         .ftr p { margin: 0 auto 10px; color: var(--ink-3); font-size: 13px; max-width: 820px; }
+        /* ===== hero v2: tool wall ===== */
+        .hero { background: radial-gradient(1200px 520px at 50% -10%, #2a5438 0%, var(--green) 45%, var(--green-dark) 100%); color: #fff; border-bottom: 0; overflow: hidden; }
+        .hero .wrap { padding-top: 48px; padding-bottom: 30px; }
+        .hero h1 { color: #fff; font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.06; letter-spacing: -1.2px; }
+        .hero h1 em { font-style: normal; color: var(--gold); }
+        .hero p.lede { color: #cfe0d3; }
+        .hero .eyebrow { display: inline-flex; gap: 8px; align-items: center; font-size: 12.5px; font-weight: 700; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); padding: 6px 14px; border-radius: 999px; margin-bottom: 18px; }
+        .hero .dot { width: 8px; height: 8px; border-radius: 50%; background: #49e08a; animation: heroPulse 1.8s infinite; }
+        @keyframes heroPulse { 0% { box-shadow: 0 0 0 0 rgba(73,224,138,.7); } 70% { box-shadow: 0 0 0 9px rgba(73,224,138,0); } 100% { box-shadow: 0 0 0 0 rgba(73,224,138,0); } }
+        .hero .search { border: 0; box-shadow: 0 10px 30px rgba(0,0,0,.3); }
+        .hero .search .btn-dark { background: var(--gold); color: var(--ink); font-weight: 800; }
+        .hero .popular span { color: #cfe0d3; }
+        .hero .popular button { background: rgba(255,255,255,.1); color: #fff; border: 1px solid rgba(255,255,255,.16); }
+        .hero .popular button:hover { background: rgba(255,255,255,.2); }
+        .hero .stats { gap: 34px; margin-top: 26px; color: #fff; letter-spacing: 0; }
+        .hero .stats div { display: flex; flex-direction: column; align-items: center; }
+        .hero .stats b { color: var(--gold); font-size: 28px; line-height: 1.1; font-weight: 700; }
+        .hero .stats span { font-size: 11.5px; letter-spacing: .09em; text-transform: uppercase; opacity: .75; }
+        .wall { display: flex; flex-direction: column; gap: 12px; padding: 6px 0 34px; min-height: 144px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+        .wall .row { display: flex; gap: 12px; width: max-content; animation: wallSlide 80s linear infinite; }
+        .wall .row.r { animation-direction: reverse; animation-duration: 95s; }
+        .wall:hover .row, .wall:focus-within .row { animation-play-state: paused; }
+        @keyframes wallSlide { to { transform: translateX(-50%); } }
+        .chip { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14); border-radius: 12px; padding: 8px 14px 8px 8px; font: inherit; font-weight: 600; font-size: 14px; color: #fff; white-space: nowrap; cursor: pointer; transition: background .15s, color .15s, transform .15s; }
+        .chip:hover, .chip:focus-visible { background: #fff; color: var(--ink); transform: translateY(-3px); outline: none; }
+        .chip small { opacity: .6; font-weight: 400; font-size: 12px; }
+        .chip .mono-tile { width: 32px; height: 32px; border-radius: 8px; font-size: 11px; }
+        .mono-tile.has-logo { background: #fff; overflow: hidden; padding: 0; box-shadow: 0 0 0 1px rgba(16,28,20,.08); }
+        .mono-tile.has-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .mono-tile.has-icon { background: var(--gold); color: var(--green); }
+        .mono-tile.has-icon svg { width: 58%; height: 58%; }
+        @media (max-width: 760px) { .hero .wrap { padding-top: 34px; } .hero .stats { gap: 22px; } .hero .stats b { font-size: 22px; } }
+        @media (prefers-reduced-motion: reduce) { .wall .row, .hero .dot { animation: none; } .wall { overflow-x: auto; } }
         @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
     </style>
 </head>
@@ -287,7 +320,8 @@
 <div id="listPage">
     <section class="hero">
         <div class="wrap">
-            <h1>Find the right tool for your dividend portfolio.</h1>
+            <div class="eyebrow"><span class="dot"></span> <span id="heroEyebrow">Updated daily</span></div>
+            <h1>Find the right tool for your <em>dividend portfolio.</em></h1>
             <p class="lede">Dividend trackers, screeners, calculators and research platforms. Every listing reviewed, updated daily, free to browse.</p>
             <form class="search" role="search" onsubmit="event.preventDefault(); document.getElementById('all').scrollIntoView({behavior:'smooth'});">
                 <label for="searchFilter" class="sr">Search tools</label>
@@ -302,6 +336,7 @@
             </div>
             <div class="stats mono" id="stats"></div>
         </div>
+        <div class="wall" id="wall" aria-label="Tools in the directory"></div>
     </section>
 
     <div class="wrap">
@@ -493,6 +528,7 @@ const MAIN_CATS = [
     { key: 'YouTube', label: 'YouTube Channels', icon: 'M3 7a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3zM10 9l5 3-5 3z' }
 ];
 
+const LOGOS = new Set(["13f.chat","alejandroarce.com","allinvestview.com","alphaos.finance","app.tradecompass.ca","assetmanagementcompany.net","aurixsystem.io","beliefstate.ai","blossomsocial.com","calcgravel.com","calculatopia.com","cashstreams.io","chandaopro.com","cnbc.com","coinboss.com","commoditieschart.net","crowdwisdomtrading.com","cryptonews.mobile","customtradingbots.com","deepval.ai","disconfirmai.com","dividendchannel.com","dividendempire2000.gumroad.com","dividendtracker.com","ea-lab.dev","earningsinsightlab.com","ebitta.com","equity-rank.com","estockes.com","etf.com","etfrc.com","etftotalreturns.com","factcheckmoney.com","fastgraphs.com","finance.yahoo.com","findata.com","fn2.ai","foliofox.com","forecaster.biz","gb.capital","growthetfs.com","heydividend.com","investing.com","laplata.one","link.seekingalpha.com","macrodial.org","maddoggo87.gumroad.com","marketbeat.com","marketcatalyst.ai","merrydiv.com","mojotick.com","morningstar.com","nortiva.co.il","onlintools.com","perfectperf.pro","portfolioglance.com","portseido.com","prismiva.com","proofite.com","propfirmconsistency.com","propfirmdealshub.com","pww.com","pyinvesting.com","quotelinks.com","redstonemarkets.com","sahg6dtr.com","sharesight.com","signal.singular-labs.ai","simplysafedividends.com","snowball-analytics.com","stock-radar.org","stockanalysis.com","stockcharts.com","stockoscope.com","stocktwits.com","stockunlock.com","surmount.ai","techanalyzer.pro","thedividendtracker.com","theprofitpath.app","tickerbloom.com","tickerlandia.com","toolzico.com","topdividendetfs.com","tracker.earlysignal.co","tradethepinnacle.com","tradeti.me","tradingview.com","valuedge.app","wallstreetzine.com","weeklyetfs.com","yieldcanary.com","yieldos.app","yourcalculatorhub.com","youtube.com","zcoreai.com","ziggma.com"]);
 let toolDataStore = [];
 let toolDetails = {};
 let currentTool = null;
@@ -521,6 +557,43 @@ const isFree = p => /free/i.test(p || '') && !/freemium/i.test(p || '');
 const priceLabel = p => { const t = (p || '').trim(); if (!t) return 'N/A'; if (/freemium/i.test(t)) return 'Freemium'; if (/free/i.test(t)) return 'Free'; if (/premium/i.test(t)) return 'Paid'; return t; };
 const monogram = n => n.replace(/[^A-Za-z0-9 ]/g, ' ').split(' ').filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase() || '?';
 const hasCat = (t, c) => t.categories.some(x => x.toLowerCase() === c.toLowerCase());
+/* Logo tile: the tool's own icon when we have it, otherwise an icon for its category. */
+function fillTile(box, tool) {
+    box.classList.remove('has-logo', 'has-icon'); box.textContent = '';
+    const d = domainOf(tool.website);
+    if (LOGOS.has(d)) {
+        const img = new Image(); img.alt = ''; img.loading = 'lazy'; img.decoding = 'async'; img.width = 64; img.height = 64;
+        img.onerror = () => iconTile(box, tool);
+        img.src = '/logos/' + d + '.png';
+        box.classList.add('has-logo'); box.appendChild(img);
+    } else iconTile(box, tool);
+    return box;
+}
+function iconTile(box, tool) {
+    const c = MAIN_CATS.find(m => hasCat(tool, m.key));
+    box.classList.remove('has-logo'); box.classList.add('has-icon');
+    box.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + (c ? c.icon : 'M12 2v20M17 6.5c0-1.9-2.2-3-5-3s-5 1.1-5 3.2c0 5 10 2.600 10 7.800 0 2-2.200 3.500-5 3.500s-5-1.500-5-3.500') + '"></path></svg>';
+}
+function renderWall() {
+    const wall = document.getElementById('wall'); if (!wall) return;
+    const rank = t => (t.isPremium ? 0 : 1) + (LOGOS.has(domainOf(t.website)) ? 0 : 2);
+    const seen = new Set();
+    const pick = toolDataStore.map((t, i) => [t, rank(t), i]).sort((a, b) => a[1] - b[1] || a[2] - b[2]).map(x => x[0])
+        .filter(t => { const k = domainOf(t.website); if (seen.has(k)) return false; seen.add(k); return true; }).slice(0, 44);
+    wall.innerHTML = '';
+    [pick.filter((_, i) => i % 2 === 0), pick.filter((_, i) => i % 2 === 1)].forEach((list, r) => {
+        const row = el('div', 'row' + (r ? ' r' : ''));
+        [0, 1].forEach(copy => list.forEach(t => {
+            const b = el('button', 'chip'); b.type = 'button';
+            b.appendChild(fillTile(el('span', 'mono-tile'), t));
+            b.append(t.name + ' '); if (t.categories[0]) b.appendChild(el('small', null, t.categories[0]));
+            if (copy) { b.tabIndex = -1; b.setAttribute('aria-hidden', 'true'); }
+            b.onclick = () => openToolDetail(t);
+            row.appendChild(b);
+        }));
+        wall.appendChild(row);
+    });
+}
 function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
 
 async function loadData() {
@@ -530,7 +603,7 @@ async function loadData() {
         buildStore(await res.text());
         toolDetails = (await detP) || {};
         document.getElementById('loading').style.display = 'none';
-        renderStats(); renderTiles(); renderFeatured(); render();
+        renderStats(); renderWall(); renderTiles(); renderFeatured(); render();
         handleHashChange();
     } catch (e) {
         document.getElementById('loading').textContent = 'Error loading tools. Please refresh.';
@@ -555,12 +628,15 @@ function buildStore(csv) {
 
 function renderStats() {
     const free = toolDataStore.filter(t => isFree(t.pricing)).length;
+    const cats = MAIN_CATS.filter(c => toolDataStore.some(t => hasCat(t, c.key))).length;
     const s = document.getElementById('stats');
     s.innerHTML = '';
-    [['TOOLS', toolDataStore.length], ['FREE', free], ['PAID', toolDataStore.length - free]].forEach(([k, v]) => {
-        const sp = el('span'); sp.append(k + ' '); sp.appendChild(el('b', null, String(v))); s.appendChild(sp);
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    [['Tools listed', toolDataStore.length], ['Categories', cats], ['Free tools', free]].forEach(([k, v]) => {
+        const d = el('div'); const b = el('b', null, still ? String(v) : '0'); d.appendChild(b); d.appendChild(el('span', null, k)); s.appendChild(d);
+        if (!still) { const t0 = performance.now(); (function f(t) { const p = Math.min(1, (t - t0) / 900); b.textContent = Math.round(v * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(f); })(t0); }
     });
-    s.appendChild(el('span', null, 'UPDATED DAILY'));
+    document.getElementById('heroEyebrow').textContent = 'Updated daily \u00b7 ' + toolDataStore.length + ' tools and counting';
 }
 
 function renderTiles() {
@@ -585,7 +661,7 @@ function renderFeatured() {
     document.getElementById('featBlock').style.display = f.length ? '' : 'none';
     f.forEach(t => {
         const b = el('button', 'fcard'); b.type = 'button';
-        const top = el('div', 'top'); top.appendChild(el('span', 'mono-tile', monogram(t.name))); top.appendChild(el('span', 'tag', '★ FEATURED'));
+        const top = el('div', 'top'); top.appendChild(fillTile(el('span', 'mono-tile'), t)); top.appendChild(el('span', 'tag', '★ FEATURED'));
         b.appendChild(top); b.appendChild(el('span', 'nm', t.name));
         if (t.bestFor) b.appendChild(el('span', 'bf', t.bestFor));
         b.onclick = () => openToolDetail(t);
@@ -635,7 +711,7 @@ function render() {
     list.forEach(tool => {
         const card = el('article', 'card' + (tool.isPremium ? ' is-feat' : ''));
         const r1 = el('div', 'row1');
-        r1.appendChild(el('span', 'mono-tile', monogram(tool.name)));
+        r1.appendChild(fillTile(el('span', 'mono-tile'), tool));
         const nm = el('div'); nm.style.minWidth = '0'; nm.style.flex = '1';
         const h = el('h3'); const hb = el('button', null, tool.name); hb.type = 'button'; hb.onclick = () => openToolDetail(tool); h.appendChild(hb);
         nm.appendChild(h); nm.appendChild(el('div', 'dom', domainOf(tool.website)));
@@ -701,7 +777,7 @@ function openToolDetail(tool) {
     document.getElementById('d-name1').textContent = tool.name;
     const mainCat = tool.categories.find(c => MAIN_CATS.some(m => m.key.toLowerCase() === c.toLowerCase())) || tool.categories[0] || 'Tools';
     document.getElementById('d-cat1').textContent = mainCat;
-    document.getElementById('d-mono').textContent = monogram(tool.name);
+    fillTile(document.getElementById('d-mono'), tool);
     document.getElementById('d-best').textContent = tool.bestFor || '';
     document.getElementById('d-prof').classList.toggle('is-feat', tool.isPremium);
     const tags = document.getElementById('d-tags'); tags.innerHTML = '';
@@ -798,6 +874,13 @@ document.querySelectorAll('#priceSeg button').forEach(b => b.addEventListener('c
     document.querySelectorAll('#priceSeg button').forEach(x => x.classList.toggle('on', x === b));
     render();
 }));
+(function () {
+    const inp = document.getElementById('searchFilter'); if (!inp || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const base = inp.placeholder, Q = ['dividend tracker', 'free DRIP calculator', 'ETF overlap tool', 'dividend safety scores', 'stock screener'];
+    let q = 0, c = 0, del = false, on = true;
+    inp.addEventListener('focus', () => { on = false; inp.placeholder = base; });
+    (function tick() { if (!on) return; const w0 = Q[q]; c += del ? -1 : 1; inp.placeholder = 'Search "' + w0.slice(0, c) + '"'; let w = del ? 35 : 75; if (!del && c === w0.length) { del = true; w = 1400; } else if (del && c === 0) { del = false; q = (q + 1) % Q.length; w = 300; } setTimeout(tick, w); })();
+})();
 document.querySelectorAll('[data-quick]').forEach(b => b.addEventListener('click', () => {
     const [p, c] = b.dataset.quick.split('|');
     activePrice = p; document.querySelectorAll('#priceSeg button').forEach(x => x.classList.toggle('on', x.dataset.p === p));
