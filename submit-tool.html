@@ -17,7 +17,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit a Tool | TopDividendTools.com</title>
-    <meta name="description" content="Submit your dividend or stock market tool to TopDividendTools.com. Free listings are reviewed daily. Fast-Track and Featured placements available.">
+    <meta name="description" content="Submit your dividend or stock market tool to TopDividendTools.com. Standard listings are free and reviewed daily. Fast-Track is $5 and Featured is $9 a month.">
     <link rel="canonical" href="https://topdividendtools.com/submit-tool.html">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -131,6 +131,55 @@
             form, .done { padding: 22px 16px; }
             .site-logo { max-width: 200px; }
         }
+
+        /* ===== v2 layout ===== */
+        .hero { background-image: url('https://www.transparenttextures.com/patterns/noise.png'), linear-gradient(160deg, #1a3224 0%, #0d1a0f 100%); background-blend-mode: overlay, normal; color: #fff; padding: 46px 18px 86px; text-align: center; }
+        .hero-in { max-width: 760px; margin: 0 auto; }
+        .eyebrow { display: inline-block; font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #101c14; background: var(--gold); padding: 5px 12px; border-radius: 999px; margin-bottom: 14px; }
+        .hero h1 { color: #fff; font-size: clamp(1.8rem, 4.4vw, 2.7rem); line-height: 1.12; margin: 0 0 12px; }
+        .hero .lede { color: #cfe0d3; margin: 0 auto 20px; max-width: 640px; }
+        .trust { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 22px; font-size: .86rem; font-weight: 600; color: #e6f0e8; }
+        .trust span { display: inline-flex; align-items: center; gap: 7px; }
+        .trust svg { color: var(--gold); flex-shrink: 0; }
+        .wrap { max-width: 1080px; margin: -54px auto 0; padding: 0 18px 60px; }
+        form { background: none; border: 0; box-shadow: none; padding: 0; border-radius: 0; }
+        .panel { background: #fff; border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow-md); padding: 28px; }
+        .panel + .cols, .cols { margin-top: 18px; }
+        .cols { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 18px; align-items: start; }
+        .side { position: sticky; top: 18px; display: flex; flex-direction: column; gap: 18px; }
+        .side .panel { padding: 18px; box-shadow: var(--shadow-sm); }
+        legend { display: flex; align-items: center; gap: 10px; font-size: 1.15rem; margin-bottom: 18px; }
+        .num { width: 28px; height: 28px; border-radius: 50%; background: var(--green); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: .85rem; flex-shrink: 0; }
+        .plans { gap: 16px; align-items: stretch; }
+        .plan .card { display: flex; flex-direction: column; padding: 22px 18px 18px; border-radius: 16px; }
+        .plan:hover .card { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+        .plan.featured .card { border-color: #e6cf5a; background: linear-gradient(180deg, #fffdf0, #fff); }
+        .plan .name { font-size: .82rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
+        .plan .price { font-size: 2.1rem; margin: 8px 0 0; }
+        .plan .sub { font-size: .86rem; color: var(--ink-soft); margin: 2px 0 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+        .plan ul { list-style: none; margin: 0 0 16px; padding: 0; font-size: .86rem; color: var(--ink); flex: 1; }
+        .plan ul li { display: flex; gap: 8px; align-items: flex-start; margin-bottom: 8px; }
+        .plan ul svg { color: #2f7d4a; flex-shrink: 0; margin-top: 2px; }
+        .pick { display: block; text-align: center; font-weight: 800; font-size: .88rem; padding: 10px; border-radius: 10px; border: 2px solid var(--line); color: var(--ink); }
+        .plan input:checked + .card .pick { background: var(--green); border-color: var(--green); color: #fff; font-size: 0; }
+        .plan input:checked + .card .pick::after { content: "Selected"; font-size: .88rem; }
+        .plan.featured input:checked + .card .pick { background: var(--gold); border-color: var(--gold-deep); color: #101c14; }
+        .slots { margin: -6px 0 10px; }
+        .preview { margin-top: 0; border: 1px solid var(--line); border-style: solid; background: #fff; }
+        .summary .srow { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-weight: 800; font-size: 1.05rem; padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid var(--line); }
+        .summary b { font-size: 1.25rem; }
+        .summary p { margin: 0; font-size: .84rem; color: var(--ink-soft); }
+        .faq { max-width: 760px; margin: 40px auto 0; }
+        .faq h2 { font-size: 1.4rem; margin-bottom: 12px; }
+        .faq details { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 0 16px; margin-bottom: 10px; }
+        .faq summary { cursor: pointer; font-weight: 700; padding: 14px 0; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+        .faq summary::-webkit-details-marker { display: none; }
+        .faq summary::after { content: "+"; font-weight: 800; color: var(--ink-soft); }
+        .faq details[open] summary::after { content: "\2212"; }
+        .faq details p { padding: 0 0 16px; }
+        .done { max-width: 640px; margin: 0 auto; }
+        @media (max-width: 900px) { .cols { grid-template-columns: 1fr; } .side { position: static; order: -1; flex-direction: column; } .side .summary { display: none; } }
+        @media (max-width: 720px) { .panel { padding: 20px 16px; } .hero { padding: 32px 16px 76px; } .plans { gap: 20px; } }
         @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
     </style>
 </head>
@@ -143,19 +192,65 @@
     </div>
 </header>
 
-<main class="wrap">
-    <h1>Submit Your Tool</h1>
-    <p class="lede">Get your dividend or stock market tool in front of thousands of investors every month. Free listings are reviewed daily, or skip the line with Fast-Track or Featured.</p>
-
-    <div class="steps">
-        <span><b>1</b> Tell us about your tool</span>
-        <span><b>2</b> Choose a listing</span>
-        <span><b>3</b> We review it and it goes live</span>
+<section class="hero">
+    <div class="hero-in">
+        <span class="eyebrow">List your tool</span>
+        <h1>Get your tool in front of dividend investors</h1>
+        <p class="lede">TopDividendTools.com is where investors come to find trackers, calculators and research tools. List yours free, or pay a little to go live faster and get pinned at the top.</p>
+        <div class="trust">
+            <span><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Free to list</span>
+            <span><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Free listings reviewed daily</span>
+            <span><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Paid listings usually live in minutes</span>
+        </div>
     </div>
+</section>
 
+<main class="wrap">
     <form id="submitForm" novalidate>
-        <fieldset>
-            <legend>About your tool</legend>
+        <div class="panel">
+            <fieldset>
+                <legend><b class="num">1</b> Choose your listing</legend>
+                <div class="plans">
+                    <label class="plan">
+                        <input type="radio" name="plan" value="free" checked>
+                        <div class="card">
+                            <div class="name">Standard</div>
+                            <div class="price">Free</div>
+                            <div class="sub">A regular listing in the directory</div>
+                            <ul><li><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Standard listing</span></li><li><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Reviewed in our daily batch</span></li><li><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Live within about 24 hours</span></li></ul>
+                            <span class="pick">Select</span>
+                        </div>
+                    </label>
+                    <label class="plan">
+                        <input type="radio" name="plan" value="fasttrack">
+                        <div class="card">
+                            <div class="name">Fast-Track</div>
+                            <div class="price">$5 <small>one-time</small></div>
+                            <div class="sub">Skip the line</div>
+                            <ul><li><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Standard listing</span></li><li><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Reviewed right after checkout</span></li><li><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Usually live in minutes</span></li></ul>
+                            <span class="pick">Select</span>
+                        </div>
+                    </label>
+                    <label class="plan featured" id="featuredPlan">
+                        <span class="tag">Most popular</span>
+                        <input type="radio" name="plan" value="featured">
+                        <div class="card">
+                            <div class="name"><span class="star">&#9733;</span> Featured</div>
+                            <div class="price">$9 <small>/ month</small></div>
+                            <div class="sub">Pinned at the top of the directory</div>
+                            <ul><li><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Pinned in the Featured row</span></li><li><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Gold star and highlighted card</span></li><li><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Fast-Track review included</span></li><li><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Cancel anytime</span></li></ul>
+                            <div class="slots" id="slots"></div>
+                            <span class="pick">Select</span>
+                        </div>
+                    </label>
+                </div>
+            </fieldset>
+        </div>
+
+        <div class="cols">
+            <div class="panel">
+                <fieldset>
+                    <legend><b class="num">2</b> About your tool</legend>
             <div class="row">
                 <div class="field">
                     <label for="tool_name">Tool name</label>
@@ -214,67 +309,29 @@
             </div>
         </fieldset>
 
-        <hr>
+                <div class="hp" aria-hidden="true"><label>Leave empty <input type="text" name="website_hp" tabindex="-1" autocomplete="off"></label></div>
 
-        <fieldset>
-            <legend>Choose your listing</legend>
-            <div class="plans">
-                <label class="plan">
-                    <input type="radio" name="plan" value="free" checked>
-                    <div class="card">
-                        <div class="name">Free</div>
-                        <div class="price">$0</div>
-                        <ul>
-                            <li>Standard listing</li>
-                            <li>Reviewed in our daily batch</li>
-                            <li>Live within about 24 hours</li>
-                        </ul>
-                    </div>
-                </label>
-                <label class="plan">
-                    <input type="radio" name="plan" value="fasttrack">
-                    <div class="card">
-                        <div class="name">Fast-Track</div>
-                        <div class="price">$5 <small>one-time</small></div>
-                        <ul>
-                            <li>Skip the queue</li>
-                            <li>Reviewed right after checkout</li>
-                            <li>Usually live in minutes</li>
-                        </ul>
-                    </div>
-                </label>
-                <label class="plan featured" id="featuredPlan">
-                    <span class="tag">Best value</span>
-                    <input type="radio" name="plan" value="featured">
-                    <div class="card">
-                        <div class="name"><span class="star">&#9733;</span> Featured</div>
-                        <div class="price">$5 <small>/ month</small></div>
-                        <ul>
-                            <li>Pinned in the Featured row</li>
-                            <li>Gold star and highlighted card</li>
-                            <li>Fast-Track review included</li>
-                            <li>Cancel anytime</li>
-                        </ul>
-                        <div class="slots" id="slots"></div>
-                    </div>
-                </label>
+                <p class="agree">By submitting you confirm the details are accurate. Every listing is reviewed, and spam, scams and tools unrelated to investing are not published. Paid plans are processed securely by Stripe.</p>
+                <button type="submit" id="submitBtn">Submit Free Listing</button>
+                <div class="error" id="err" role="alert"></div>
             </div>
 
-            <div class="preview" aria-hidden="true">
-                <div class="plbl">Preview</div>
-                <div class="pcard" id="pcard">
-                    <div class="t"><span class="star" id="pStar" hidden>&#9733;</span><span id="pName">Your tool name</span></div>
-                    <div class="c" id="pCats">Category</div>
-                    <div class="b" id="pFeat">Your key feature will show here.</div>
+            <aside class="side">
+                <div class="panel preview" aria-hidden="true">
+                    <div class="plbl">Live preview</div>
+                    <div class="pcard" id="pcard">
+                        <div class="t"><span class="star" id="pStar" hidden>&#9733;</span><span id="pName">Your tool name</span></div>
+                        <div class="c" id="pCats">Category</div>
+                        <div class="b" id="pFeat">Your key feature will show here.</div>
+                    </div>
                 </div>
-            </div>
-        </fieldset>
-
-        <div class="hp" aria-hidden="true"><label>Leave empty <input type="text" name="website_hp" tabindex="-1" autocomplete="off"></label></div>
-
-        <p class="agree">By submitting you confirm the details are accurate. Every listing is reviewed, and spam, scams and tools unrelated to investing are not published. Paid plans are processed securely by Stripe.</p>
-        <button type="submit" id="submitBtn">Submit Free Listing</button>
-        <div class="error" id="err" role="alert"></div>
+                <div class="panel summary">
+                    <div class="plbl">Your listing</div>
+                    <div class="srow"><span id="sumPlan">Standard</span><b id="sumPrice">Free</b></div>
+                    <p id="sumNext">We review free listings once a day. Approved tools usually go live within 24 hours.</p>
+                </div>
+            </aside>
+        </div>
     </form>
 
     <div class="done" id="done" role="status">
@@ -287,14 +344,11 @@
 
     <section class="faq">
         <h2>Questions</h2>
-        <h3>How does review work?</h3>
-        <p>Every submission is checked to make sure the site loads, is not already listed, and is a real tool or resource for investors. Approved tools are added to the directory automatically.</p>
-        <h3>What does Featured include?</h3>
-        <p>Featured tools sit in a pinned row at the top of the directory with a gold star and a highlighted card for as long as the subscription is active. There are only a few Featured spots, so placement stays valuable.</p>
-        <h3>Can I cancel Featured?</h3>
-        <p>Yes, anytime. Your tool stays listed for free after the Featured period ends.</p>
-        <h3>Already listed and want to be Featured?</h3>
-        <p>Submit your tool again with the Featured plan and the same website, and we will upgrade your existing listing.</p>
+        <details open><summary>How does review work?</summary><p>Every submission is checked to make sure the site loads, is not already listed, and is a real tool or resource for investors. Approved tools are added to the directory automatically.</p></details>
+        <details><summary>What is the difference between the three listings?</summary><p>Standard is free and reviewed in our daily batch. Fast-Track is a one-time $5 and gets your tool reviewed right after checkout. Featured is $9 a month, includes Fast-Track review, and pins your tool in the Featured row at the top of the directory.</p></details>
+        <details><summary>What does Featured include?</summary><p>Featured tools sit in a pinned row at the top of the directory with a gold star and a highlighted card for as long as the subscription is active. There are only a few Featured spots, so placement stays valuable.</p></details>
+        <details><summary>Can I cancel Featured?</summary><p>Yes, anytime. Your tool stays listed for free after the Featured period ends.</p></details>
+        <details><summary>Already listed and want to be Featured?</summary><p>Submit your tool again with the Featured plan and the same website, and we will upgrade your existing listing.</p></details>
     </section>
 </main>
 
@@ -306,14 +360,15 @@
 <script>
 /* ===== settings ===== */
 var ENDPOINT = 'https://script.google.com/macros/s/AKfycbxAGowJRCLCzHGUpuIj_U-Ru97TH6pBe4z2a2vjcrvQDzeL7qPJrj7O5ccUzJMVO3ObcA/exec';
-var LINKS = { featured: 'https://buy.stripe.com/7sY5kEaQJ9OC3zNcx21Fe06', fasttrack: 'https://buy.stripe.com/6oU8wQ6At6Cqeer68E1Fe07' };   // Stripe Payment Links
+var LINKS = { featured: 'https://buy.stripe.com/7sYaEY4sl4uieeraoU1Fe0m', fasttrack: 'https://buy.stripe.com/6oU8wQ6At6Cqeer68E1Fe07' };   // Stripe Payment Links
 /* ==================== */
 
 var form = document.getElementById('submitForm');
 var btn = document.getElementById('submitBtn');
 var err = document.getElementById('err');
 var cats = [].slice.call(document.querySelectorAll('#cats input'));
-var labels = { free: 'Submit Free Listing', fasttrack: 'Continue to Checkout ($5)', featured: 'Continue to Checkout ($5/month)' };
+var labels = { free: 'Submit Free Listing', fasttrack: 'Continue to Checkout ($5)', featured: 'Continue to Checkout ($9/month)' };
+var SUM = { free: ['Standard', 'Free', 'We review free listings once a day. Approved tools usually go live within 24 hours.'], fasttrack: ['Fast-Track', '$5 once', 'After checkout your tool is reviewed right away. Most go live within minutes.'], featured: ['Featured', '$9 / month', 'After checkout your tool is reviewed right away and pinned in the Featured row with a gold star. Cancel anytime.'] };
 
 function plan() { return (form.querySelector('input[name=plan]:checked') || {}).value || 'free'; }
 function newId() {
@@ -349,7 +404,13 @@ function updatePreview() {
     document.getElementById('pcard').classList.toggle('is-featured', f);
     document.getElementById('pStar').hidden = !f;
     if (!btn.disabled) btn.textContent = labels[plan()];
+    var sm = SUM[plan()];
+    document.getElementById('sumPlan').textContent = sm[0];
+    document.getElementById('sumPrice').textContent = sm[1];
+    document.getElementById('sumNext').textContent = sm[2];
 }
+/* preselect a plan from the link, e.g. ?plan=featured */
+(function () { var w = new URLSearchParams(location.search).get('plan'); var r = w && form.querySelector('input[name=plan][value="' + w.replace(/[^a-z]/g, '') + '"]'); if (r && !r.disabled) r.checked = true; })();
 form.addEventListener('input', updatePreview);
 form.addEventListener('change', updatePreview);
 cats.forEach(function (c) {
