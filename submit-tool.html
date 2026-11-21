@@ -18,7 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit a Tool | TopDividendTools.com</title>
     <meta name="description" content="Submit your dividend or stock market tool to TopDividendTools.com. Standard listings are free and reviewed daily. Fast-Track is $5 and Featured is $9 a month.">
-    <link rel="canonical" href="https://topdividendtools.com/submit-tool.html">
+    <link rel="canonical" href="https://topdividendtools.com/submit-tool">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -181,14 +181,39 @@
         @media (max-width: 900px) { .cols { grid-template-columns: 1fr; } .side { position: static; order: -1; flex-direction: column; } .side .summary { display: none; } }
         @media (max-width: 720px) { .panel { padding: 20px 16px; } .hero { padding: 32px 16px 76px; } .plans { gap: 20px; } }
         @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+    
+        /* ===== shared site header ===== */
+        header.tdt-hdr { background: #152514; background-image: none; border-bottom: 3px solid #FFD700; padding: 0; margin: 0; text-align: left; position: relative; z-index: 60; box-shadow: none; cursor: default; width: 100%; font-family: 'Sora', system-ui, -apple-system, 'Segoe UI', sans-serif; }
+        .tdt-hdr .tdt-in { max-width: 1240px; margin: 0 auto; padding: 14px 22px; display: flex; align-items: center; gap: 26px; flex-wrap: wrap; }
+        .tdt-hdr .tdt-logo { display: block; line-height: 0; }
+        .tdt-hdr .tdt-logo img { display: block; height: 46px; width: auto; max-width: none; margin: 0; }
+        .tdt-hdr nav { display: flex; gap: 22px; flex-wrap: wrap; margin: 0; padding: 0; }
+        .tdt-hdr nav a { color: #c9d8ce !important; text-decoration: none !important; font-weight: 600; font-size: 14px; }
+        .tdt-hdr nav a:hover, .tdt-hdr nav a.on { color: #fff !important; }
+        .tdt-hdr .tdt-act { margin-left: auto; display: flex; gap: 10px; flex-wrap: wrap; }
+        .tdt-hdr .tdt-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 18px; border-radius: 10px; font-weight: 700; font-size: 14px; text-decoration: none !important; transition: transform .15s; position: static; box-shadow: none; }
+        .tdt-hdr .tdt-btn:hover { transform: translateY(-1px); }
+        .tdt-hdr .tdt-gold { background: #FFD700; color: #101c14 !important; font-weight: 800; }
+        .tdt-hdr .tdt-ghost { color: #fff !important; border: 1px solid #3b5a46; background: transparent; }
+        @media (max-width: 760px) { .tdt-hdr nav { order: 3; width: 100%; gap: 16px; } .tdt-hdr .tdt-logo img { height: 38px; } .tdt-hdr .tdt-in { gap: 14px; } }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="header-inner">
-        <a href="/"><img src="https://topdividendtools.com/TopDividennn.png" alt="TopDividendTools.com" class="site-logo"></a>
-        <a href="/" class="hdr-btn">&larr; All Tools</a>
+<header class="tdt-hdr">
+    <div class="tdt-in">
+        <a href="/" class="tdt-logo"><img src="https://topdividendtools.com/TopDividennn.png" alt="TopDividendTools.com"></a>
+        <nav aria-label="Main">
+            <a href="/">Browse</a>
+            <a href="/#categories">Categories</a>
+            <a href="/blog#guides">Guides</a>
+            <a href="/blog">Blog</a>
+            <a href="/about">About</a>
+        </nav>
+        <div class="tdt-act">
+            <a href="/advertise" class="tdt-btn tdt-ghost">Advertise</a>
+            <a href="/submit-tool" class="tdt-btn tdt-gold">Submit a Tool</a>
+        </div>
     </div>
 </header>
 
@@ -353,7 +378,7 @@
 </main>
 
 <footer>
-    <a href="/">Home</a> | <a href="/advertise.html">Advertise</a> | <a href="/terms.html">Terms</a> | <a href="/privacy.html">Privacy</a><br>
+    <a href="/">Home</a> | <a href="/advertise">Advertise</a> | <a href="/terms">Terms</a> | <a href="/privacy">Privacy</a><br>
     Questions? <a href="mailto:Business@topdividendETFs.com">Business@topdividendETFs.com</a>
 </footer>
 

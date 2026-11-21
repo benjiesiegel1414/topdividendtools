@@ -321,15 +321,41 @@
             .ad-preview img { max-width: 100%; }
             .subscribe-btn { padding: 1.3rem; font-size: 1.4rem; }
         }
+    
+        /* ===== shared site header ===== */
+        header.tdt-hdr { background: #152514; background-image: none; border-bottom: 3px solid #FFD700; padding: 0; margin: 0; text-align: left; position: relative; z-index: 60; box-shadow: none; cursor: default; width: 100%; font-family: 'Sora', system-ui, -apple-system, 'Segoe UI', sans-serif; }
+        .tdt-hdr .tdt-in { max-width: 1240px; margin: 0 auto; padding: 14px 22px; display: flex; align-items: center; gap: 26px; flex-wrap: wrap; }
+        .tdt-hdr .tdt-logo { display: block; line-height: 0; }
+        .tdt-hdr .tdt-logo img { display: block; height: 46px; width: auto; max-width: none; margin: 0; }
+        .tdt-hdr nav { display: flex; gap: 22px; flex-wrap: wrap; margin: 0; padding: 0; }
+        .tdt-hdr nav a { color: #c9d8ce !important; text-decoration: none !important; font-weight: 600; font-size: 14px; }
+        .tdt-hdr nav a:hover, .tdt-hdr nav a.on { color: #fff !important; }
+        .tdt-hdr .tdt-act { margin-left: auto; display: flex; gap: 10px; flex-wrap: wrap; }
+        .tdt-hdr .tdt-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 18px; border-radius: 10px; font-weight: 700; font-size: 14px; text-decoration: none !important; transition: transform .15s; position: static; box-shadow: none; }
+        .tdt-hdr .tdt-btn:hover { transform: translateY(-1px); }
+        .tdt-hdr .tdt-gold { background: #FFD700; color: #101c14 !important; font-weight: 800; }
+        .tdt-hdr .tdt-ghost { color: #fff !important; border: 1px solid #3b5a46; background: transparent; }
+        @media (max-width: 760px) { .tdt-hdr nav { order: 3; width: 100%; gap: 16px; } .tdt-hdr .tdt-logo img { height: 38px; } .tdt-hdr .tdt-in { gap: 14px; } }
     </style>
 </head>
 <body>
 
-    <header>
-        <a href="/">
-            <img src="https://topdividendtools.com/TopDividennn.png" alt="TopDividendTools.com" class="site-logo">
-        </a>
-    </header>
+    <header class="tdt-hdr">
+    <div class="tdt-in">
+        <a href="/" class="tdt-logo"><img src="https://topdividendtools.com/TopDividennn.png" alt="TopDividendTools.com"></a>
+        <nav aria-label="Main">
+            <a href="/">Browse</a>
+            <a href="/#categories">Categories</a>
+            <a href="/blog#guides">Guides</a>
+            <a href="/blog">Blog</a>
+            <a href="/about">About</a>
+        </nav>
+        <div class="tdt-act">
+            <a href="/advertise" class="tdt-btn tdt-ghost">Advertise</a>
+            <a href="/submit-tool" class="tdt-btn tdt-gold">Submit a Tool</a>
+        </div>
+    </div>
+</header>
 
     <div class="content">
 
@@ -367,7 +393,7 @@
                     <h3>Sponsored Tool Row<br>(1 of 5 top rows)</h3>
                     <div class="plan-price">$9 <small>/ month</small></div>
                     <p style="color:#555; margin: 1rem 0 1.5rem;">Pinned tool (Top 5 position at all times) — backlink included!</p>
-                    <a href="/submit-tool.html?plan=featured" 
+                    <a href="/submit-tool?plan=featured" 
                        class="subscribe-btn green">
                         Pin My Tool Now – $9
                     </a>
@@ -435,7 +461,7 @@
                 <h3 style="color: var(--green); font-size: 1.8rem; margin-bottom: 1rem;">Ready to Get Featured & Start Driving Traffic?</h3>
                 <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">Choose your spot now — limited availability, instant setup, cancel anytime.</p>
                 <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center;">
-                    <a href="/submit-tool.html?plan=featured" 
+                    <a href="/submit-tool?plan=featured" 
                        class="subscribe-btn green" style="max-width: 340px;">
                         Pin My Tool Now – $9 /mo
                     </a>
@@ -457,8 +483,8 @@
         <p>
             <a href="https://topdividendetfs.com" target="_blank">Top Dividend ETFs</a> | 
             Contact: <a href="mailto:Business@TopDividendETFs.com">Business@TopDividendETFs.com</a> | 
-            <a href="/terms.html">Terms of Use</a> | 
-            <a href="/privacy.html">Privacy Policy</a>
+            <a href="/terms">Terms of Use</a> | 
+            <a href="/privacy">Privacy Policy</a>
         </p>
         <div class="tagline">The #1 Resource for Dividend Investors</div>
     </footer>

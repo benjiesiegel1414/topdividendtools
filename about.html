@@ -6,7 +6,7 @@
     <title>About Us — Who Runs TopDividendTools.com | TopDividendTools.com</title>
     <meta name="description" content="TopDividendTools.com is run by Devoted Dividend Investing. Learn who we are, how we rank dividend tools, and how the site is funded.">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://topdividendtools.com/about.html">
+    <link rel="canonical" href="https://topdividendtools.com/about">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VLEK3HKD84"></script>
@@ -24,7 +24,7 @@
     <!-- Open Graph -->
     <meta property="og:title" content="About Us — Who Runs TopDividendTools.com">
     <meta property="og:description" content="Built by Devoted Dividend Investing for dividend investors tired of hunting across a dozen sites for tools that should have been in one place.">
-    <meta property="og:url" content="https://topdividendtools.com/about.html">
+    <meta property="og:url" content="https://topdividendtools.com/about">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://topdividendtools.com/og-image.png">
     <meta name="twitter:card" content="summary_large_image">
@@ -41,7 +41,7 @@
     {
       "@context": "https://schema.org",
       "@type": "AboutPage",
-      "url": "https://topdividendtools.com/about.html",
+      "url": "https://topdividendtools.com/about",
       "mainEntity": {
         "@type": "Organization",
         "name": "TopDividendTools.com",
@@ -173,12 +173,40 @@
             .container { margin: 20px; padding: 30px 20px; }
             .sites { columns: 1; }
         }
+    
+        /* ===== shared site header ===== */
+        header.tdt-hdr { background: #152514; background-image: none; border-bottom: 3px solid #FFD700; padding: 0; margin: 0; text-align: left; position: relative; z-index: 60; box-shadow: none; cursor: default; width: 100%; font-family: 'Sora', system-ui, -apple-system, 'Segoe UI', sans-serif; }
+        .tdt-hdr .tdt-in { max-width: 1240px; margin: 0 auto; padding: 14px 22px; display: flex; align-items: center; gap: 26px; flex-wrap: wrap; }
+        .tdt-hdr .tdt-logo { display: block; line-height: 0; }
+        .tdt-hdr .tdt-logo img { display: block; height: 46px; width: auto; max-width: none; margin: 0; }
+        .tdt-hdr nav { display: flex; gap: 22px; flex-wrap: wrap; margin: 0; padding: 0; }
+        .tdt-hdr nav a { color: #c9d8ce !important; text-decoration: none !important; font-weight: 600; font-size: 14px; }
+        .tdt-hdr nav a:hover, .tdt-hdr nav a.on { color: #fff !important; }
+        .tdt-hdr .tdt-act { margin-left: auto; display: flex; gap: 10px; flex-wrap: wrap; }
+        .tdt-hdr .tdt-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 18px; border-radius: 10px; font-weight: 700; font-size: 14px; text-decoration: none !important; transition: transform .15s; position: static; box-shadow: none; }
+        .tdt-hdr .tdt-btn:hover { transform: translateY(-1px); }
+        .tdt-hdr .tdt-gold { background: #FFD700; color: #101c14 !important; font-weight: 800; }
+        .tdt-hdr .tdt-ghost { color: #fff !important; border: 1px solid #3b5a46; background: transparent; }
+        @media (max-width: 760px) { .tdt-hdr nav { order: 3; width: 100%; gap: 16px; } .tdt-hdr .tdt-logo img { height: 38px; } .tdt-hdr .tdt-in { gap: 14px; } }
     </style>
 </head>
 <body>
 
-<header onclick="location.href='/'">
-    <div class="logo">TopDividendTools.com</div>
+<header class="tdt-hdr">
+    <div class="tdt-in">
+        <a href="/" class="tdt-logo"><img src="https://topdividendtools.com/TopDividennn.png" alt="TopDividendTools.com"></a>
+        <nav aria-label="Main">
+            <a href="/">Browse</a>
+            <a href="/#categories">Categories</a>
+            <a href="/blog#guides">Guides</a>
+            <a href="/blog">Blog</a>
+            <a href="/about" class="on">About</a>
+        </nav>
+        <div class="tdt-act">
+            <a href="/advertise" class="tdt-btn tdt-ghost">Advertise</a>
+            <a href="/submit-tool" class="tdt-btn tdt-gold">Submit a Tool</a>
+        </div>
+    </div>
 </header>
 
 <div class="container">
@@ -200,7 +228,7 @@
         </div>
         <div class="fact">
             <div class="label">Contact</div>
-            <div class="value"><a href="/contact.html">Get in touch</a></div>
+            <div class="value"><a href="/contact">Get in touch</a></div>
         </div>
     </div>
 
@@ -217,16 +245,16 @@
     <h2>How tools get listed and ranked</h2>
     <p>We want to be direct about this, because most directories are vague on purpose.</p>
     <ul>
-        <li><strong>Anyone can be listed for free.</strong> Tools are added because we found them useful, because a reader recommended one, or because a developer submitted it through the <a href="/submit-tool.html">Submit Tool</a> form. Listing costs nothing.</li>
+        <li><strong>Anyone can be listed for free.</strong> Tools are added because we found them useful, because a reader recommended one, or because a developer submitted it through the <a href="/submit-tool">Submit Tool</a> form. Listing costs nothing.</li>
         <li><strong>Sponsored placements are labeled.</strong> A small number of slots at the top of the directory are paid. Every one of them carries a visible <strong>SPONSORED</strong> badge. If it isn't labeled, nobody paid for it.</li>
         <li><strong>Rankings are editorial, and therefore subjective.</strong> We weigh how useful a tool is to an ordinary dividend investor, how current its data is, how much it costs relative to what it delivers, and whether it's actively maintained. Reasonable people will disagree with some of our calls. That's fine — the descriptions are there so you can decide for yourself.</li>
-        <li><strong>Corrections get made.</strong> Pricing changes, tools get shut down, features get added. If something on this site is wrong, <a href="/contact.html">tell us</a> and we'll fix it.</li>
+        <li><strong>Corrections get made.</strong> Pricing changes, tools get shut down, features get added. If something on this site is wrong, <a href="/contact">tell us</a> and we'll fix it.</li>
     </ul>
 
     <h2>How the site makes money</h2>
     <p>Running this costs money and time, so here's exactly how it's funded — no mystery:</p>
     <ul>
-        <li><strong>Sponsored listings and banner placements</strong> from ETF issuers and tool developers, always labeled as such. If you're interested, see the <a href="/advertise.html">advertise page</a>.</li>
+        <li><strong>Sponsored listings and banner placements</strong> from ETF issuers and tool developers, always labeled as such. If you're interested, see the <a href="/advertise">advertise page</a>.</li>
         <li><strong>Display advertising</strong> served through third-party ad networks.</li>
         <li><strong>Affiliate links.</strong> Some outbound links to tools pay a commission if you sign up. It never costs you extra, and it never buys a higher ranking.</li>
     </ul>
@@ -256,12 +284,12 @@
 
     <div class="page-nav">
         <a href="/">Home</a> |
-        <a href="/blog.html">Blog</a> |
-        <a href="/contact.html">Contact</a> |
-        <a href="/advertise.html">Advertise</a> |
-        <a href="/submit-tool.html">Submit a Tool</a> |
-        <a href="/privacy.html">Privacy Policy</a> |
-        <a href="/terms.html">Terms of Use</a>
+        <a href="/blog">Blog</a> |
+        <a href="/contact">Contact</a> |
+        <a href="/advertise">Advertise</a> |
+        <a href="/submit-tool">Submit a Tool</a> |
+        <a href="/privacy">Privacy Policy</a> |
+        <a href="/terms">Terms of Use</a>
     </div>
 
     <p class="disclaimer">

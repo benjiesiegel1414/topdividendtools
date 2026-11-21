@@ -6,7 +6,7 @@
     <title>Contact Us | TopDividendTools.com</title>
     <meta name="description" content="Get in touch with TopDividendTools.com — submit a tool, report a correction, ask about sponsorship, or send general feedback. Run by Dividend Empire LLC.">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://topdividendtools.com/contact.html">
+    <link rel="canonical" href="https://topdividendtools.com/contact">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VLEK3HKD84"></script>
@@ -24,7 +24,7 @@
     <!-- Open Graph -->
     <meta property="og:title" content="Contact TopDividendTools.com">
     <meta property="og:description" content="Submit a tool, report a correction, or ask about sponsorship. We read everything.">
-    <meta property="og:url" content="https://topdividendtools.com/contact.html">
+    <meta property="og:url" content="https://topdividendtools.com/contact">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://topdividendtools.com/og-image.png">
     <meta name="twitter:card" content="summary_large_image">
@@ -41,7 +41,7 @@
     {
       "@context": "https://schema.org",
       "@type": "ContactPage",
-      "url": "https://topdividendtools.com/contact.html",
+      "url": "https://topdividendtools.com/contact",
       "mainEntity": {
         "@type": "Organization",
         "name": "TopDividendTools.com",
@@ -195,12 +195,40 @@
         @media (max-width: 768px) {
             .container { margin: 20px; padding: 30px 20px; }
         }
+    
+        /* ===== shared site header ===== */
+        header.tdt-hdr { background: #152514; background-image: none; border-bottom: 3px solid #FFD700; padding: 0; margin: 0; text-align: left; position: relative; z-index: 60; box-shadow: none; cursor: default; width: 100%; font-family: 'Sora', system-ui, -apple-system, 'Segoe UI', sans-serif; }
+        .tdt-hdr .tdt-in { max-width: 1240px; margin: 0 auto; padding: 14px 22px; display: flex; align-items: center; gap: 26px; flex-wrap: wrap; }
+        .tdt-hdr .tdt-logo { display: block; line-height: 0; }
+        .tdt-hdr .tdt-logo img { display: block; height: 46px; width: auto; max-width: none; margin: 0; }
+        .tdt-hdr nav { display: flex; gap: 22px; flex-wrap: wrap; margin: 0; padding: 0; }
+        .tdt-hdr nav a { color: #c9d8ce !important; text-decoration: none !important; font-weight: 600; font-size: 14px; }
+        .tdt-hdr nav a:hover, .tdt-hdr nav a.on { color: #fff !important; }
+        .tdt-hdr .tdt-act { margin-left: auto; display: flex; gap: 10px; flex-wrap: wrap; }
+        .tdt-hdr .tdt-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 18px; border-radius: 10px; font-weight: 700; font-size: 14px; text-decoration: none !important; transition: transform .15s; position: static; box-shadow: none; }
+        .tdt-hdr .tdt-btn:hover { transform: translateY(-1px); }
+        .tdt-hdr .tdt-gold { background: #FFD700; color: #101c14 !important; font-weight: 800; }
+        .tdt-hdr .tdt-ghost { color: #fff !important; border: 1px solid #3b5a46; background: transparent; }
+        @media (max-width: 760px) { .tdt-hdr nav { order: 3; width: 100%; gap: 16px; } .tdt-hdr .tdt-logo img { height: 38px; } .tdt-hdr .tdt-in { gap: 14px; } }
     </style>
 </head>
 <body>
 
-<header onclick="location.href='/'">
-    <div class="logo">TopDividendTools.com</div>
+<header class="tdt-hdr">
+    <div class="tdt-in">
+        <a href="/" class="tdt-logo"><img src="https://topdividendtools.com/TopDividennn.png" alt="TopDividendTools.com"></a>
+        <nav aria-label="Main">
+            <a href="/">Browse</a>
+            <a href="/#categories">Categories</a>
+            <a href="/blog#guides">Guides</a>
+            <a href="/blog">Blog</a>
+            <a href="/about">About</a>
+        </nav>
+        <div class="tdt-act">
+            <a href="/advertise" class="tdt-btn tdt-ghost">Advertise</a>
+            <a href="/submit-tool" class="tdt-btn tdt-gold">Submit a Tool</a>
+        </div>
+    </div>
 </header>
 
 <div class="container">
@@ -218,7 +246,7 @@
     <div class="reasons">
         <div class="reason">
             <h3>Submit a tool</h3>
-            <p>Built or found a dividend tool that belongs in the directory? Use the <a href="/submit-tool.html">Submit Tool form</a> — it's free and it's the fastest route.</p>
+            <p>Built or found a dividend tool that belongs in the directory? Use the <a href="/submit-tool">Submit Tool form</a> — it's free and it's the fastest route.</p>
         </div>
         <div class="reason">
             <h3>Report a correction</h3>
@@ -226,7 +254,7 @@
         </div>
         <div class="reason">
             <h3>Sponsorship &amp; advertising</h3>
-            <p>Rates, placements, and availability are on the <a href="/advertise.html">advertise page</a>. Email for a media kit or a custom package.</p>
+            <p>Rates, placements, and availability are on the <a href="/advertise">advertise page</a>. Email for a media kit or a custom package.</p>
         </div>
         <div class="reason">
             <h3>Press &amp; partnerships</h3>
@@ -238,7 +266,7 @@
         </div>
         <div class="reason">
             <h3>Privacy requests</h3>
-            <p>Questions about data handling, or a request related to our <a href="/privacy.html">Privacy Policy</a>? Email with "Privacy" in the subject.</p>
+            <p>Questions about data handling, or a request related to our <a href="/privacy">Privacy Policy</a>? Email with "Privacy" in the subject.</p>
         </div>
     </div>
 
@@ -257,12 +285,12 @@
 
     <div class="page-nav">
         <a href="/">Home</a> |
-        <a href="/about.html">About</a> |
-        <a href="/blog.html">Blog</a> |
-        <a href="/advertise.html">Advertise</a> |
-        <a href="/submit-tool.html">Submit a Tool</a> |
-        <a href="/privacy.html">Privacy Policy</a> |
-        <a href="/terms.html">Terms of Use</a>
+        <a href="/about">About</a> |
+        <a href="/blog">Blog</a> |
+        <a href="/advertise">Advertise</a> |
+        <a href="/submit-tool">Submit a Tool</a> |
+        <a href="/privacy">Privacy Policy</a> |
+        <a href="/terms">Terms of Use</a>
     </div>
 
     <p class="disclaimer">

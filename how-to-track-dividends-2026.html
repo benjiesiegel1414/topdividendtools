@@ -19,13 +19,13 @@
     <meta name="robots" content="index, follow">
     <title>How to Track Dividends in 2026: Spreadsheet vs App</title>
     <meta name="description" content="How to track your dividends in 2026, step by step: the 5 numbers that matter, a free spreadsheet setup, and the best dividend tracker apps with real pricing.">
-    <link rel="canonical" href="https://topdividendtools.com/how-to-track-dividends-2026.html">
+    <link rel="canonical" href="https://topdividendtools.com/how-to-track-dividends-2026">
 
     <!-- Open Graph / Social Sharing -->
     <meta property="og:title" content="How to Track Dividends in 2026: Spreadsheet vs App">
     <meta property="og:description" content="How to track your dividends in 2026, step by step: the 5 numbers that matter, a free spreadsheet setup, and the best dividend tracker apps with real pricing.">
     <meta property="og:image" content="https://topdividendtools.com/og-image.png">
-    <meta property="og:url" content="https://topdividendtools.com/how-to-track-dividends-2026.html">
+    <meta property="og:url" content="https://topdividendtools.com/how-to-track-dividends-2026">
     <meta property="og:type" content="article">
 
     <!-- Twitter/X Card -->
@@ -57,7 +57,7 @@
   },
   "datePublished": "2026-11-04",
   "dateModified": "2026-11-04",
-  "mainEntityOfPage": "https://topdividendtools.com/how-to-track-dividends-2026.html"
+  "mainEntityOfPage": "https://topdividendtools.com/how-to-track-dividends-2026"
 }
     </script>
 
@@ -337,16 +337,40 @@
             .advertise-btn, .submit-btn { top: 28px; padding: 7px 13px; font-size: 0.78rem; }
             header { padding-top: 65px; }
         }
+    
+        /* ===== shared site header ===== */
+        header.tdt-hdr { background: #152514; background-image: none; border-bottom: 3px solid #FFD700; padding: 0; margin: 0; text-align: left; position: relative; z-index: 60; box-shadow: none; cursor: default; width: 100%; font-family: 'Sora', system-ui, -apple-system, 'Segoe UI', sans-serif; }
+        .tdt-hdr .tdt-in { max-width: 1240px; margin: 0 auto; padding: 14px 22px; display: flex; align-items: center; gap: 26px; flex-wrap: wrap; }
+        .tdt-hdr .tdt-logo { display: block; line-height: 0; }
+        .tdt-hdr .tdt-logo img { display: block; height: 46px; width: auto; max-width: none; margin: 0; }
+        .tdt-hdr nav { display: flex; gap: 22px; flex-wrap: wrap; margin: 0; padding: 0; }
+        .tdt-hdr nav a { color: #c9d8ce !important; text-decoration: none !important; font-weight: 600; font-size: 14px; }
+        .tdt-hdr nav a:hover, .tdt-hdr nav a.on { color: #fff !important; }
+        .tdt-hdr .tdt-act { margin-left: auto; display: flex; gap: 10px; flex-wrap: wrap; }
+        .tdt-hdr .tdt-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 18px; border-radius: 10px; font-weight: 700; font-size: 14px; text-decoration: none !important; transition: transform .15s; position: static; box-shadow: none; }
+        .tdt-hdr .tdt-btn:hover { transform: translateY(-1px); }
+        .tdt-hdr .tdt-gold { background: #FFD700; color: #101c14 !important; font-weight: 800; }
+        .tdt-hdr .tdt-ghost { color: #fff !important; border: 1px solid #3b5a46; background: transparent; }
+        @media (max-width: 760px) { .tdt-hdr nav { order: 3; width: 100%; gap: 16px; } .tdt-hdr .tdt-logo img { height: 38px; } .tdt-hdr .tdt-in { gap: 14px; } }
     </style>
 </head>
 <body>
 
-<header>
-    <a href="/advertise.html" class="advertise-btn">Advertise</a>
-    <a href="/">
-        <img src="https://topdividendtools.com/TopDividennn.png" alt="TopDividendTools.com" class="site-logo">
-    </a>
-    <a href="submit-tool.html" class="submit-btn">Submit Tool</a>
+<header class="tdt-hdr">
+    <div class="tdt-in">
+        <a href="/" class="tdt-logo"><img src="https://topdividendtools.com/TopDividennn.png" alt="TopDividendTools.com"></a>
+        <nav aria-label="Main">
+            <a href="/">Browse</a>
+            <a href="/#categories">Categories</a>
+            <a href="/blog#guides">Guides</a>
+            <a href="/blog">Blog</a>
+            <a href="/about">About</a>
+        </nav>
+        <div class="tdt-act">
+            <a href="/advertise" class="tdt-btn tdt-ghost">Advertise</a>
+            <a href="/submit-tool" class="tdt-btn tdt-gold">Submit a Tool</a>
+        </div>
+    </div>
 </header>
 
 <div class="banner">
@@ -406,7 +430,7 @@
 
     <h3>Step 2: Let the price update itself</h3>
     <p>In Google Sheets, <code>=GOOGLEFINANCE("SCHD","price")</code> pulls a delayed price for most U.S. tickers. That keeps your portfolio value current without typing anything.</p>
-    <p>Dividends are trickier. Google Sheets doesn't give you a reliable dividend history for ETFs, so I'd enter the trailing 12-month dividend per share yourself and refresh it every quarter. Free sites like StockAnalysis show every payment, and I cover more of them in the <a href="/best-dividend-websites-2026.html">best dividend websites</a> roundup.</p>
+    <p>Dividends are trickier. Google Sheets doesn't give you a reliable dividend history for ETFs, so I'd enter the trailing 12-month dividend per share yourself and refresh it every quarter. Free sites like StockAnalysis show every payment, and I cover more of them in the <a href="/best-dividend-websites-2026">best dividend websites</a> roundup.</p>
 
     <h3>Step 3: Add a monthly income log</h3>
     <p>Make a second tab with one row per month and one column for each account. Every time a dividend lands, add it. At the end of the year you have a chart of real income, not projections, and it's the most motivating chart you'll ever look at.</p>
@@ -440,7 +464,7 @@
     <p style="font-size:.95rem; color:#555;">Plans and prices from the TopDividendTools.com directory, checked October 2026. Prices change, so confirm on each company's site before you subscribe.</p>
 
     <p>The pattern you'll notice: almost every free plan caps you at around 10 holdings, and brokerage sync is usually the thing you pay for. If you own 8 ETFs at one broker, a free plan is plenty. If you own 40 positions across five accounts, you'll probably end up paying for one.</p>
-    <p>I go deeper on features in the <a href="/best-dividend-portfolio-tracker-2026.html">best dividend portfolio tracker</a> guide, the free options in <a href="/best-free-dividend-tracker-2026.html">best free dividend tracker</a>, and if you're already on Snowball and wondering what else is out there, see <a href="/snowball-analytics-alternatives-2026.html">Snowball Analytics alternatives</a> and the head to head <a href="/snowball-analytics-vs-sharesight-2026.html">Snowball vs Sharesight</a>.</p>
+    <p>I go deeper on features in the <a href="/best-dividend-portfolio-tracker-2026">best dividend portfolio tracker</a> guide, the free options in <a href="/best-free-dividend-tracker-2026">best free dividend tracker</a>, and if you're already on Snowball and wondering what else is out there, see <a href="/snowball-analytics-alternatives-2026">Snowball Analytics alternatives</a> and the head to head <a href="/snowball-analytics-vs-sharesight-2026">Snowball vs Sharesight</a>.</p>
 
     <h2>Spreadsheet vs App: Which Should You Use?</h2>
     <div class="table-scroll">
@@ -465,11 +489,11 @@
         <li><strong>Using a single payment as the annual number.</strong> Monthly and weekly payers change their payout constantly. Use the trailing 12 months, not the last check times 12.</li>
         <li><strong>Counting yield, ignoring total return.</strong> Tracking only income can hide a fund whose share price keeps falling. Check total return once a quarter on <a href="https://etftotalreturns.com" target="_blank" rel="noopener">ETFTotalReturns.com</a>.</li>
         <li><strong>Tracking accounts in different places.</strong> Your income is one number. Keep the IRA, 401(k) and taxable account in the same tracker.</li>
-        <li><strong>Not knowing when the cash lands.</strong> A calendar view helps you plan around it. See the <a href="/best-dividend-calendar-2026.html">best dividend calendars</a>.</li>
+        <li><strong>Not knowing when the cash lands.</strong> A calendar view helps you plan around it. See the <a href="/best-dividend-calendar-2026">best dividend calendars</a>.</li>
     </ul>
 
     <h2>Tracking Is Step One. Projecting Is Step Two.</h2>
-    <p>Once you know what you earn today, the fun question is what it'll pay in 10 years. <a href="https://dividendprojection.com" target="_blank" rel="noopener">DividendProjection.com</a> lets you model what a given amount in a dividend ETF could pay over time with reinvesting, and the <a href="/best-dividend-reinvestment-drip-calculators-2026.html">best DRIP calculators</a> show what compounding does. I compare every income projection tool in the <a href="/best-dividend-income-calculators-2026.html">best dividend income calculators</a> guide. If you want your income to show up more often, <a href="https://monthlyetfs.com" target="_blank" rel="noopener">MonthlyETFs.com</a> and <a href="https://weeklyetfs.com" target="_blank" rel="noopener">WeeklyETFs.com</a> list the monthly and weekly payers, and <a href="https://topdividendetfs.com" target="_blank" rel="noopener">TopDividendETFs.com</a> ranks dividend ETFs with price decay flags.</p>
+    <p>Once you know what you earn today, the fun question is what it'll pay in 10 years. <a href="https://dividendprojection.com" target="_blank" rel="noopener">DividendProjection.com</a> lets you model what a given amount in a dividend ETF could pay over time with reinvesting, and the <a href="/best-dividend-reinvestment-drip-calculators-2026">best DRIP calculators</a> show what compounding does. I compare every income projection tool in the <a href="/best-dividend-income-calculators-2026">best dividend income calculators</a> guide. If you want your income to show up more often, <a href="https://monthlyetfs.com" target="_blank" rel="noopener">MonthlyETFs.com</a> and <a href="https://weeklyetfs.com" target="_blank" rel="noopener">WeeklyETFs.com</a> list the monthly and weekly payers, and <a href="https://topdividendetfs.com" target="_blank" rel="noopener">TopDividendETFs.com</a> ranks dividend ETFs with price decay flags.</p>
     <p>And when you're deciding what to add next, that's where <a href="https://topdividendetfspro.com" target="_blank" rel="noopener">TopDividendETFsPRO</a> comes in. Your tracker tells you what you own. PRO helps you compare yields, total returns and price decay across 130+ income ETFs before you buy.</p>
 
     <div class="pro-cta">
@@ -506,11 +530,11 @@
     <div class="related">
         <h2>Related Posts</h2>
         <ul>
-            <li><a href="/best-dividend-portfolio-tracker-2026.html">Best Dividend Portfolio Tracker 2026: The Features That Actually Matter</a></li>
-            <li><a href="/best-free-dividend-tracker-2026.html">Best Free Dividend Tracker 2026: Top Free Tools Compared</a></li>
-            <li><a href="/snowball-analytics-alternatives-2026.html">Snowball Analytics Alternatives 2026: 6 Dividend Trackers Worth a Look</a></li>
-            <li><a href="/snowball-analytics-vs-sharesight-2026.html">Snowball Analytics vs Sharesight 2026: Which Dividend Tracker Is Better?</a></li>
-            <li><a href="/best-dividend-calendar-2026.html">Best Dividend Calendar 2026</a></li>
+            <li><a href="/best-dividend-portfolio-tracker-2026">Best Dividend Portfolio Tracker 2026: The Features That Actually Matter</a></li>
+            <li><a href="/best-free-dividend-tracker-2026">Best Free Dividend Tracker 2026: Top Free Tools Compared</a></li>
+            <li><a href="/snowball-analytics-alternatives-2026">Snowball Analytics Alternatives 2026: 6 Dividend Trackers Worth a Look</a></li>
+            <li><a href="/snowball-analytics-vs-sharesight-2026">Snowball Analytics vs Sharesight 2026: Which Dividend Tracker Is Better?</a></li>
+            <li><a href="/best-dividend-calendar-2026">Best Dividend Calendar 2026</a></li>
         </ul>
     </div>
 
@@ -534,10 +558,10 @@
     <p>
         <a href="https://topdividendetfs.com" target="_blank">👉 Top Dividend ETFs 👈</a> |
         Contact: <a href="mailto:Business@topdividendETFs.com">Business@topdividendETFs.com</a> |
-        <a href="/about.html">About</a> |
-        <a href="/contact.html">Contact</a> |
-        <a href="/terms.html">Terms of Use</a> |
-        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/about">About</a> |
+        <a href="/contact">Contact</a> |
+        <a href="/terms">Terms of Use</a> |
+        <a href="/privacy">Privacy Policy</a>
     </p>
     <div class="tagline">The #1 Resource for Dividend Investors</div>
 
@@ -546,7 +570,7 @@
     </p>
 
     <!-- Cool Blog button -->
-    <a href="/blog.html" style="display: inline-block; background: #152514; color: white; font-weight: bold; font-size: 1.05rem; padding: 12px 28px; border-radius: 12px; text-decoration: none; box-shadow: 0 4px 12px rgba(21,37,20,0.5); transition: all 0.3s ease; margin: 20px 0;" onmouseover="this.style.background='#0d1a0f'; this.style.transform='translateY(-3px)';" onmouseout="this.style.background='#152514'; this.style.transform='translateY(0)';">Blog</a>
+    <a href="/blog" style="display: inline-block; background: #152514; color: white; font-weight: bold; font-size: 1.05rem; padding: 12px 28px; border-radius: 12px; text-decoration: none; box-shadow: 0 4px 12px rgba(21,37,20,0.5); transition: all 0.3s ease; margin: 20px 0;" onmouseover="this.style.background='#0d1a0f'; this.style.transform='translateY(-3px)';" onmouseout="this.style.background='#152514'; this.style.transform='translateY(0)';">Blog</a>
 </footer>
 
 </body>
